@@ -74,7 +74,7 @@ function renderReports(){
 
   $('reportRows').innerHTML = rows.map(r => `
     <tr>
-      <td class="date-cell">${esc(prettyDate(r.report_date))}</td>
+      <td class="date-cell">${esc(prettyDateTime(r.created_at).split(',')[0])}</td>
       <td>${esc(r.signoff?.admin_name || '—')}</td>
       <td>${esc(r.signoff?.tech_name || '—')}</td>
       <td>${esc(prettyDateTime(r.created_at))}</td>
