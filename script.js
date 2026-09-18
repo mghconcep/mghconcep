@@ -341,6 +341,11 @@ const totalDefectMouseStandard = document.getElementById("totalDefectMouseStanda
 const totalDefectMouseVip = document.getElementById("totalDefectMouseVip");
 const heroDefectiveHeadsets = document.getElementById("heroDefectiveHeadsets");
 
+const totalDefectMonitorStandard = document.getElementById("totalDefectMonitorStandard");
+const totalDefectMonitorVip = document.getElementById("totalDefectMonitorVip");
+const totalDefectPowerCordStandard = document.getElementById("totalDefectPowerCordStandard");
+const totalDefectPowerCordVip = document.getElementById("totalDefectPowerCordVip");
+
 const pcs = Array.from({length: 40}, (_, index) => ({
   pc: `PC${String(index + 1).padStart(2, "0")}`,
   tier: index < 10 ? "VIP" : "Standard"
@@ -349,15 +354,68 @@ const pcs = Array.from({length: 40}, (_, index) => ({
 // Single source of truth: one entry per PC + defect type.
 const defectRecords = new Map();
 
-const typeLabels = { keyboard: "Keyboard", headset: "Headset", mouse: "Mouse" };
+const typeLabels = {
+  keyboard: "Keyboard",
+  headset: "Headset",
+  mouse: "Mouse",
+  monitor: "Monitor",
+  "power-cord": "Power Cord"
+};
 
-function updateDefectSelectionLabel(message = "") {
-  if (!defectSelection) return;
-  if (message) { defectSelection.textContent = message; return; }
-  const selected = defectTypeChecks.filter(c => c.checked).map(c => c.value);
-  defectSelection.textContent = selected.length
-    ? `${defectPcSelect.value} • ${selected.map(t => typeLabels[t]).join(" + ")}`
-    : "Select at least one defect type";
+function updateDefectSummary() {
+  const keyboard = recordsFor("keyboard");
+  const headset = recordsFor("headset");
+  const mouse = recordsFor("mouse");
+  const monitor = recordsFor("monitor");
+  const powerCord = recordsFor("power-cord");
+
+  const updateTierLines = (list, standardEl, vipEl) => {
+    if (standardEl) {
+      standardEl.textContent =
+        `Standard - ${list.filter(r => r.tier === "Standard").length}`;
+    }
+
+    if (vipEl) {
+      vipEl.textContent =
+        `VIP - ${list.filter(r => r.tier === "VIP").length}`;
+    }
+  };
+
+  updateTierLines(
+    keyboard,
+    totalDefectKeyboardStandard,
+    totalDefectKeyboardVip
+  );
+
+  updateTierLines(
+    headset,
+    totalDefectHeadsetStandard,
+    totalDefectHeadsetVip
+  );
+
+  updateTierLines(
+    mouse,
+    totalDefectMouseStandard,
+    totalDefectMouseVip
+  );
+
+  updateTierLines(
+    monitor,
+    totalDefectMonitorStandard,
+    totalDefectMonitorVip
+  );
+
+  updateTierLines(
+    powerCord,
+    totalDefectPowerCordStandard,
+    totalDefectPowerCordVip
+  );
+
+  // Keep the headline report number synchronized with the defect data.
+  if (heroDefectiveHeadsets) {
+    heroDefectiveHeadsets.textContent =
+      String(headset.length).padStart(2, "0");
+  }
 }
 
 function recordsFor(type) {
