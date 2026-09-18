@@ -244,7 +244,7 @@ const defectCards = [
   return `<div class="report-sheet" id="printReport">
     <div class="report-header">
       <div class="report-brand"><div class="report-logo">M</div><div><div class="report-kicker">MARV’S GAMING HUB</div><h2>GAMING HUB OVERALL REPORT</h2></div></div>
-      <div class="report-date"><small>REPORT DATE</small><strong>${esc(prettyDate(r.report_date))}</strong><span>Saved ${esc(prettyDateTime(r.created_at))}</span></div>
+      <div class="report-date"><small>REPORT DATE</small><strong>${esc(prettyDateTime(r.created_at).split(',')[0])}</strong><span>Saved ${esc(prettyDateTime(r.created_at))}</span></div>
     </div>
 
     <div class="report-banner"><span>DAILY OPERATIONS REPORT</span><em>READ ONLY</em></div>
