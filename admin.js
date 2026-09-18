@@ -72,8 +72,8 @@ function renderReports(){
     : 'All dates';
 
   $('latestDate').textContent = reports[0]
-    ? prettyDate(reports[0].report_date)
-    : '—';
+  ? prettyDateTime(reports[0].created_at).split(',')[0]
+  : '—';
 
   $('reportRows').innerHTML = rows.map(r => `
     <tr>
