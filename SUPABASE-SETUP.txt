@@ -1,0 +1,22 @@
+MARV'S GAMING HUB REPORTS - SUPABASE CONNECTION
+
+The website is connected to:
+https://fvxpfpqkdsznvvreicfc.supabase.co
+
+It uses the browser-safe Supabase publishable key and @supabase/supabase-js v2 from jsDelivr.
+
+SAVE REPORT writes to these tables:
+- gaming_reports
+- report_games
+- report_defects (when defects exist)
+- report_pc_status
+- report_inventory
+- report_spares
+- report_signoffs
+
+IMPORTANT:
+The browser uses the Supabase publishable key. Supabase Row Level Security and Data API permissions still control whether the browser can insert/read data.
+
+If Save Report shows a 401/403/RLS/permission error, check that the required tables are exposed through the Data API and that the appropriate policy exists for the role being used. The current website does not automatically sign a user in.
+
+Do NOT put a Supabase secret key/service_role key into this website.

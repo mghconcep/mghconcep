@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MARV’S Gaming Hub — Admin Reports</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div id="toast" class="toast" role="status"></div>
+
+<section id="loginView" class="auth-shell">
+  <div class="auth-card">
+    <div class="brand-mark">M</div>
+    <p class="eyebrow">MARV’S GAMING HUB</p>
+    <h1>Admin Reports</h1>
+    <p class="muted">Sign in to view saved daily reports from Supabase.</p>
+    <form id="loginForm">
+      <label>Email<input id="email" type="email" autocomplete="username" required placeholder="admin@example.com"></label>
+      <label>Password<input id="password" type="password" autocomplete="current-password" required placeholder="••••••••"></label>
+      <button class="primary" type="submit">Sign in <span>→</span></button>
+      <p id="loginError" class="error"></p>
+    </form>
+  </div>
+</section>
+
+<section id="appView" class="app-shell hidden">
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">MARV’S GAMING HUB</p>
+      <h1>Admin Reports</h1>
+    </div>
+    <div class="top-actions">
+      <span id="userEmail" class="user-pill"></span>
+      <button id="signOut" class="ghost">Sign out</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-card">
+      <div>
+        <p class="eyebrow">REPORT ARCHIVE</p>
+        <h2>Daily report history</h2>
+        <p class="muted">Choose a date or search the saved reports. Click View to open the complete report.</p>
+      </div>
+      <div class="live-badge"><i></i> DATABASE CONNECTED</div>
+    </section>
+
+    <section class="filters card">
+      <div class="filter-field"><label for="dateFilter">Specific date</label><input id="dateFilter" type="date"></div>
+      <div class="filter-field search-field"><label for="searchFilter">Search</label><input id="searchFilter" type="search" placeholder="Search date, admin, tech, follow-up…"></div>
+      <button id="clearFilters" class="ghost filter-clear">Clear</button>
+      <button id="refreshReports" class="primary refresh">Refresh</button>
+    </section>
+
+    <section class="stats-grid">
+      <div class="stat card"><span>Total reports</span><strong id="totalReports">0</strong></div>
+      <div class="stat card"><span>Selected date</span><strong id="selectedDateLabel">All dates</strong></div>
+      <div class="stat card"><span>Latest report</span><strong id="latestDate">—</strong></div>
+    </section>
+
+    <section class="card reports-card">
+      <div class="section-head"><div><p class="eyebrow">SAVED REPORTS</p><h3>Report history</h3></div><span id="loading" class="muted small"></span></div>
+      <div id="emptyState" class="empty hidden">No saved reports match your filters.</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Date</th><th>Admin</th><th>Tech</th><th>Saved</th><th></th></tr></thead>
+          <tbody id="reportRows"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</section>
+
+<div id="reportModal" class="modal hidden" aria-hidden="true">
+  <div class="modal-backdrop" data-close="1"></div>
+  <article class="modal-card">
+    <div class="modal-head"><div><p class="eyebrow">SAVED REPORT</p><h2 id="modalTitle">Report</h2></div><div class="modal-actions"><button class="ghost" id="printReportBtn">Print / PDF</button><button class="close" id="closeModal">×</button></div></div>
+    <div id="modalBody" class="modal-body"></div>
+  </article>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
