@@ -335,12 +335,7 @@ renderGames();
 // Defective peripherals: add-only workflow.
 const defectPcSelect = document.getElementById("defectPcSelect");
 const defectDescription = document.getElementById("defectDescription");
-const defectTypeChecks = Array.from(
-  document.querySelectorAll(".defect-type-check")
-);
 const defectSelection = document.getElementById("defectSelection");
-const addDefect = document.getElementById("addDefect");
-const clearDefects = document.getElementById("clearDefects");
 
 const totalDefectKeyboardStandard =
   document.getElementById("totalDefectKeyboardStandard");
@@ -370,11 +365,16 @@ const totalDefectPowerCordVip =
 const heroDefectiveHeadsets =
   document.getElementById("heroDefectiveHeadsets");
 
+const defectTypeChecks = Array.from(
+  document.querySelectorAll(".defect-type-check")
+);
+
 const pcs = Array.from({ length: 40 }, (_, index) => ({
   pc: `PC${String(index + 1).padStart(2, "0")}`,
   tier: index < 10 ? "VIP" : "Standard"
 }));
 
+// One record per PC + defect type.
 const defectRecords = new Map();
 
 const typeLabels = {
@@ -392,51 +392,51 @@ function recordsFor(type) {
 }
 
 function updateDefectSummary() {
-  const updateCount = (type, standardElement, vipElement) => {
+  const updateTierCount = (type, standardElement, vipElement) => {
     const records = recordsFor(type);
 
-    const standardCount = records.filter(
+    const standard = records.filter(
       record => record.tier === "Standard"
     ).length;
 
-    const vipCount = records.filter(
+    const vip = records.filter(
       record => record.tier === "VIP"
     ).length;
 
     if (standardElement) {
-      standardElement.textContent = `Standard - ${standardCount}`;
+      standardElement.textContent = `Standard - ${standard}`;
     }
 
     if (vipElement) {
-      vipElement.textContent = `VIP - ${vipCount}`;
+      vipElement.textContent = `VIP - ${vip}`;
     }
   };
 
-  updateCount(
+  updateTierCount(
     "keyboard",
     totalDefectKeyboardStandard,
     totalDefectKeyboardVip
   );
 
-  updateCount(
+  updateTierCount(
     "headset",
     totalDefectHeadsetStandard,
     totalDefectHeadsetVip
   );
 
-  updateCount(
+  updateTierCount(
     "mouse",
     totalDefectMouseStandard,
     totalDefectMouseVip
   );
 
-  updateCount(
+  updateTierCount(
     "monitor",
     totalDefectMonitorStandard,
     totalDefectMonitorVip
   );
 
-  updateCount(
+  updateTierCount(
     "power-cord",
     totalDefectPowerCordStandard,
     totalDefectPowerCordVip
@@ -448,10 +448,10 @@ function updateDefectSummary() {
   }
 }
 
-function updateDefectSelectionLabel(message = "") {
+function updateDefectSelectionLabel(message = null) {
   if (!defectSelection) return;
 
-  if (message) {
+  if (message !== null) {
     defectSelection.textContent = message;
     return;
   }
@@ -460,12 +460,9 @@ function updateDefectSelectionLabel(message = "") {
     .filter(check => check.checked)
     .map(check => typeLabels[check.value] || check.value);
 
-  if (!selected.length) {
-    defectSelection.textContent = "No defect selected.";
-    return;
-  }
-
-  defectSelection.textContent = selected.join(", ");
+  defectSelection.textContent = selected.length
+    ? selected.join(", ")
+    : "No defect selected.";
 }
 
 function resetDefectInputs() {
@@ -477,107 +474,135 @@ function resetDefectInputs() {
     defectDescription.value = "";
   }
 
+  if (defectPcSelect) {
+    defectPcSelect.value = "";
+  }
+
   updateDefectSelectionLabel();
 }
 
-if (defectPcSelect) {
-  defectPcSelect.addEventListener(
-    "change",
-    () => updateDefectSelectionLabel()
-  );
-}
-
 defectTypeChecks.forEach(check => {
-  check.addEventListener(
-    "change",
-    () => updateDefectSelectionLabel()
-  );
+  check.addEventListener("change", () => {
+    updateDefectSelectionLabel();
+  });
 });
 
-if (addDefect) {
-  addDefect.addEventListener("click", event => {
-    event.preventDefault();
+if (defectPcSelect) {
+  defectPcSelect.addEventListener("change", () => {
+    updateDefectSelectionLabel();
+  });
+}
 
-    const selectedPc = defectPcSelect
-      ? defectPcSelect.value
-      : "";
+// Add defect
+document.addEventListener("click", event => {
+  const button = event.target.closest("#addDefect");
 
-    const pc = pcs.find(item => item.pc === selectedPc);
+  if (!button) return;
 
-    const selectedTypes = defectTypeChecks
-      .filter(check => check.checked)
-      .map(check => check.value);
+  event.preventDefault();
+  event.stopPropagation();
 
-    if (!pc) {
-      updateDefectSelectionLabel("Please select a PC.");
-      return;
-    }
+  const selectedPc = defectPcSelect?.value || "";
 
-    if (selectedTypes.length === 0) {
-      updateDefectSelectionLabel(
-        "Please select at least one defect type."
-      );
-      return;
-    }
+  const pc = pcs.find(item => item.pc === selectedPc);
 
-    const note = defectDescription
-      ? defectDescription.value.trim()
-      : "";
+  if (!pc) {
+    updateDefectSelectionLabel("Please select a PC.");
+    return;
+  }
 
-    let added = 0;
+  const selectedTypes = defectTypeChecks
+    .filter(check => check.checked)
+    .map(check => check.value)
+    .filter(type => typeLabels[type]);
 
-    selectedTypes.forEach(type => {
-      const key = `${pc.pc}|${type}`;
+  if (!selectedTypes.length) {
+    updateDefectSelectionLabel(
+      "Please select at least one defect type."
+    );
+    return;
+  }
 
-      if (defectRecords.has(key)) {
-        const existing = defectRecords.get(key);
+  const note = defectDescription?.value.trim() || "";
 
-        if (note) {
-          existing.note = note;
-        }
+  let added = 0;
 
-        return;
+  selectedTypes.forEach(type => {
+    const key = `${pc.pc}|${type}`;
+
+    if (defectRecords.has(key)) {
+      const existing = defectRecords.get(key);
+
+      if (note) {
+        existing.note = note;
       }
 
-      defectRecords.set(key, {
-        pc: pc.pc,
-        tier: pc.tier,
-        type: type,
-        note: note
-      });
-
-      added++;
-    });
-
-    updateDefectSummary();
-
-    if (added > 0) {
-      updateDefectSelectionLabel(
-        `✓ ${added} defect${added === 1 ? "" : "s"} added to ${pc.pc}. Count updated.`
-      );
-    } else {
-      updateDefectSelectionLabel(
-        `✓ ${pc.pc} already has the selected defect${selectedTypes.length === 1 ? "" : "s"}.`
-      );
+      return;
     }
 
-    resetDefectInputs();
+    defectRecords.set(key, {
+      pc: pc.pc,
+      tier: pc.tier,
+      type: type,
+      note: note
+    });
+
+    added++;
   });
-}
 
-if (clearDefects) {
-  clearDefects.addEventListener("click", event => {
-    event.preventDefault();
+  // UPDATE THE COUNTERS IMMEDIATELY.
+  updateDefectSummary();
 
-    defectRecords.clear();
+  // Show result WITHOUT immediately erasing it.
+  updateDefectSelectionLabel(
+    added > 0
+      ? `✓ ${added} defect${added === 1 ? "" : "s"} added to ${pc.pc}. Count updated.`
+      : `✓ ${pc.pc} already has the selected defect${selectedTypes.length === 1 ? "" : "s"}.`
+  );
 
-    resetDefectInputs();
-    updateDefectSummary();
-    updateDefectSelectionLabel(
-      "All defects cleared. Counts reset to 0."
-    );
+  // Clear only the inputs, but keep the success message visible.
+  defectTypeChecks.forEach(check => {
+    check.checked = false;
   });
-}
+
+  if (defectDescription) {
+    defectDescription.value = "";
+  }
+
+  if (defectPcSelect) {
+    defectPcSelect.value = "";
+  }
+});
+
+// Clear all defects
+document.addEventListener("click", event => {
+  const button = event.target.closest("#clearDefects");
+
+  if (!button) return;
+
+  event.preventDefault();
+  event.stopPropagation();
+
+  defectRecords.clear();
+
+  updateDefectSummary();
+
+  defectTypeChecks.forEach(check => {
+    check.checked = false;
+  });
+
+  if (defectDescription) {
+    defectDescription.value = "";
+  }
+
+  if (defectPcSelect) {
+    defectPcSelect.value = "";
+  }
+
+  updateDefectSelectionLabel(
+    "All defects cleared. Counts reset to 0."
+  );
+});
 
 updateDefectSummary();
 
