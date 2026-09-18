@@ -23,15 +23,21 @@
 }
 
 .mini-delete {
-  border: 1px solid rgba(255, 90, 110, 0.35);
-  background: rgba(255, 70, 90, 0.08);
-  color: #ff7f91;
+  border: none;
+  background: #ef5350;
+  color: #fff;
   padding: 7px 12px;
-  border-radius: 9px;
+  border-radius: 8px;
   cursor: pointer;
   font: inherit;
   font-size: 12px;
+  font-weight: 600;
   transition: 0.2s ease;
+}
+
+.mini-delete:hover {
+  background: #ff6b68;
+  transform: translateY(-1px);
 }
 
 .mini-delete:hover {
