@@ -446,6 +446,7 @@ document.addEventListener("click", (event) => {
 
   const pc = pcs.find(item => item.pc === defectPcSelect.value);
   const selectedTypes = defectTypeChecks.filter(c => c.checked).map(c => c.value);
+  console.log("SELECTED DEFECT TYPES:", selectedTypes);
 
   if (!pc) {
     updateDefectSelectionLabel("Please select a PC.");
