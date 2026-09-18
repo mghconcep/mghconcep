@@ -55,7 +55,10 @@ async function loadReports(){
 function filteredReports(){
   const date=$('dateFilter').value, q=$('searchFilter').value.trim().toLowerCase();
   return reports.filter(r=>{
-    if(date && r.report_date!==date)return false;
+    if (date) {
+  const savedDate = new Date(r.created_at).toLocaleDateString('en-CA');
+  if (savedDate !== date) return false;
+}
     if(!q)return true;
     return [r.report_date,r.follow_up_report,r.signoff?.admin_name,r.signoff?.tech_name].some(v=>String(v||'').toLowerCase().includes(q));
   });
