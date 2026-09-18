@@ -57,3 +57,35 @@ table td:last-child {
   border-color: #ff5f75;
   color: #ffb0ba;
 }
+
+.toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 99999;
+  min-width: 260px;
+  max-width: 420px;
+  padding: 15px 20px;
+  border-radius: 12px;
+  background: #172033;
+  color: #eef2ff;
+  border: 1px solid #22c55e;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, .35);
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(15px);
+  transition: opacity .25s ease, transform .25s ease, visibility .25s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.toast.bad {
+  border-color: #ef4444;
+  color: #fecaca;
+}
