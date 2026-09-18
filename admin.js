@@ -186,9 +186,37 @@ function renderReport(r,d){
   const games=d.games.slice().sort((a,b)=>String(a.game_name).localeCompare(String(b.game_name)));
   const gameRows=games.map(x=>`<tr><td>${esc(x.game_name)}</td><td><span class="report-status ${statusClass(x.status)}">${esc(x.status||'Not set')}</span></td></tr>`).join('');
 
-  const defectsBy={Keyboard:{Standard:0,VIP:0},Headset:{Standard:0,VIP:0},Mouse:{Standard:0,VIP:0}};
-  d.defects.forEach(x=>{const category=Number(x.pc_number)<=10?'VIP':'Standard'; if(defectsBy[x.peripheral_type]?.[category]!==undefined) defectsBy[x.peripheral_type][category]++;});
-  const defectCards=['Keyboard','Headset','Mouse'].map(type=>`<div class="report-mini-card"><strong>${type}</strong><div><span>Standard <b>${defectsBy[type].Standard}</b></span><span>VIP <b>${defectsBy[type].VIP}</b></span></div></div>`).join('');
+  const defectsBy = {
+  Keyboard: { Standard: 0, VIP: 0 },
+  Headset: { Standard: 0, VIP: 0 },
+  Mouse: { Standard: 0, VIP: 0 },
+  Monitor: { Standard: 0, VIP: 0 },
+  'Power Cord': { Standard: 0, VIP: 0 }
+};
+
+d.defects.forEach(x => {
+  const category = Number(x.pc_number) <= 10 ? 'VIP' : 'Standard';
+
+  if (defectsBy[x.peripheral_type]?.[category] !== undefined) {
+    defectsBy[x.peripheral_type][category]++;
+  }
+});
+
+const defectCards = [
+  'Keyboard',
+  'Headset',
+  'Mouse',
+  'Monitor',
+  'Power Cord'
+].map(type => `
+  <div class="report-mini-card">
+    <strong>${type}</strong>
+    <div>
+      <span>Standard <b>${defectsBy[type].Standard}</b></span>
+      <span>VIP <b>${defectsBy[type].VIP}</b></span>
+    </div>
+  </div>
+`).join('');
   const defectRows=d.defects.slice().sort((a,b)=>a.pc_number-b.pc_number || String(a.peripheral_type).localeCompare(String(b.peripheral_type))).map(x=>`<tr><td>${pcLabel(x.pc_number)}</td><td>${esc(x.pc_number<=10?'VIP':'Standard')}</td><td>${esc(x.peripheral_type)}</td><td>${esc(x.description||'—')}</td></tr>`).join('');
 
   const vip=d.pcs.filter(x=>x.pc_number>=1&&x.pc_number<=10&&x.no_defect).sort((a,b)=>a.pc_number-b.pc_number);
