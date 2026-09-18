@@ -756,5 +756,133 @@ footer{max-width:940px;margin:auto;padding:25px 0 35px;border-top:1px solid #1b2
     }
 }
 #reportModal .report-sheet {
-    zoom: 1.25;
+    width: 100%;
+    max-width: 1250px;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Report title */
+#reportModal .report-header h2 {
+    font-size: 28px;
+}
+
+/* Section titles */
+#reportModal .report-section-title h3 {
+    font-size: 20px;
+}
+
+/* Report date */
+#reportModal .report-date strong {
+    font-size: 17px;
+}
+
+#reportModal .report-date small {
+    font-size: 11px;
+}
+
+#reportModal .report-date span {
+    font-size: 12px;
+}
+
+/* Status badges */
+#reportModal .report-status {
+    font-size: 14px;
+    padding: 10px 14px;
+}
+
+/* Tables */
+#reportModal .report-table th {
+    font-size: 13px;
+    padding: 14px 16px;
+}
+
+#reportModal .report-table td {
+    font-size: 16px;
+    padding: 14px 16px;
+}
+
+/* Game cards */
+#reportModal .report-game-item {
+    font-size: 15px;
+    min-height: 46px;
+}
+
+/* Defect cards */
+#reportModal .report-mini-card {
+    font-size: 15px;
+}
+
+/* Follow-up */
+#reportModal .followup-box {
+    font-size: 16px;
+    line-height: 1.75;
+}
+
+/* PC status */
+#reportModal .pc-chip {
+    font-size: 14px;
+    padding: 9px 12px;
+}
+
+/* Inventory */
+#reportModal .inventory-row,
+#reportModal .spare-row {
+    font-size: 15px;
+}
+
+/* Sign-off */
+#reportModal .signoff-label {
+    font-size: 13px;
+}
+
+#reportModal .signoff-card > strong {
+    font-size: 15px;
+}
+
+/* Footer */
+#reportModal .report-footer {
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   SMALLER SCREENS
+   ========================================================= */
+
+@media (max-width: 900px) {
+    #reportModal .report-sheet {
+        font-size: 15px;
+    }
+
+    #reportModal .report-header h2 {
+        font-size: 24px;
+    }
+
+    #reportModal .report-section-title h3 {
+        font-size: 18px;
+    }
+
+    #reportModal .report-table td {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 600px) {
+    #reportModal .report-sheet {
+        font-size: 14px;
+    }
+
+    #reportModal .report-header h2 {
+        font-size: 21px;
+    }
+
+    #reportModal .report-section-title h3 {
+        font-size: 17px;
+    }
+
+    #reportModal .report-table td {
+        font-size: 13px;
+    }
 }
