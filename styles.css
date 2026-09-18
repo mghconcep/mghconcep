@@ -258,6 +258,31 @@ footer{max-width:940px;margin:auto;padding:25px 0 35px;border-top:1px solid #1b2
 
 
 /* Report sign-off signature pads */
+.signature-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 120px;
+  text-align: center;
+}
+
+.signature-box .signature {
+  display: block;
+  width: 180px;
+  max-width: 85%;
+  height: 60px;
+  object-fit: contain;
+  margin: 0 auto 8px;
+}
+
+.signature-box strong {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+  font-size: 14px;
+}
 .signature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
 .signature-field{min-width:0}
 .signature-label{display:block;color:#8293ad;font-size:9px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:7px}
