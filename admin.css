@@ -89,4 +89,4 @@ table td:last-child {
   border-color: #ef4444;
   color: #fecaca;
 }
-.signature-box { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; min-height: 120px; text-align: center; } .signature-box .signature { display: block; width: 180px; max-width: 85%; height: 60px; object-fit: contain; margin: 0 auto 8px; } .signature-box strong { display: block; width: 100%; text-align: center; font-weight: 700; font-size: 14px; }
+.signoff-card { text-align: center; } .signoff-label { text-align: center; width: 100%; } .signature-box { height: 100px; border: 1px dashed #bcc7d8; border-radius: 8px; background: #fbfcfe; display: flex; align-items: center; justify-content: center; overflow: hidden; color: #98a3b7; font-size: 10px; margin-bottom: 8px; text-align: center; } .signature-box .signature { display: block; width: 180px; max-width: 85%; height: 60px; object-fit: contain; margin: 0 auto; } .signoff-card > strong { display: block; width: 100%; text-align: center; font-size: 11px; font-weight: 700; color: #1d2940; margin: 0; }
