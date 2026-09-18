@@ -109,3 +109,121 @@ td.report-actions .mini-delete {
     justify-content: center;
     margin-left: 6px;
 }
+
+#reportModal .report-games-section {
+    width: 100%;
+}
+
+#reportModal .report-games-content {
+    width: 100%;
+}
+
+#reportModal .report-game-group {
+    margin-top: 14px;
+}
+
+#reportModal .report-game-group:first-child {
+    margin-top: 0;
+}
+
+#reportModal .report-game-group-head {
+    margin-bottom: 9px;
+}
+
+#reportModal .report-game-group-head .report-status {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 7px 11px;
+}
+
+/* 3-column compact layout */
+#reportModal .report-game-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+}
+
+/* Individual game */
+#reportModal .report-game-item {
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 9px 11px;
+    background: #0d1728;
+    border: 1px solid #263a56;
+    border-radius: 8px;
+    color: #dce6f8;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+/* Game name */
+#reportModal .report-game-item span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* Status icon */
+#reportModal .report-game-item b {
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+    display: grid;
+    place-items: center;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 900;
+}
+
+/* Updated */
+#reportModal .report-game-item b.green {
+    color: #8ee0ae;
+    background: rgba(76,170,125,.16);
+    border: 1px solid rgba(76,170,125,.28);
+}
+
+/* Need to Check */
+#reportModal .report-game-item b.yellow {
+    color: #efd18a;
+    background: rgba(205,157,66,.16);
+    border: 1px solid rgba(205,157,66,.28);
+}
+
+/* Needs Update */
+#reportModal .report-game-item b.red {
+    color: #ffabb2;
+    background: rgba(201,83,98,.16);
+    border: 1px solid rgba(201,83,98,.28);
+}
+
+#reportModal .report-empty-games {
+    padding: 18px;
+    text-align: center;
+    color: #8192aa;
+    background: #0d1728;
+    border: 1px solid #263a56;
+    border-radius: 8px;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    #reportModal .report-game-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Phone */
+@media (max-width: 600px) {
+    #reportModal .report-game-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #reportModal .report-game-item {
+        font-size: 13px;
+    }
+}
