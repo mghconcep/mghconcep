@@ -238,7 +238,11 @@ footer{max-width:940px;margin:auto;padding:25px 0 35px;border-top:1px solid #1b2
 .defect-selection{color:#667a97;font-size:9px;font-weight:700}
 .add-defect-btn{border:1px solid #6386ff;background:linear-gradient(135deg,#4388ff,#8651ed);color:#fff;border-radius:8px;padding:11px 15px;font:800 10px Inter,Arial,sans-serif;cursor:pointer;white-space:nowrap}
 .add-defect-btn:hover{filter:brightness(1.08)}
-.defect-totals{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:15px}
+.defect-totals {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+}
 .defect-totals div{display:flex;flex-direction:column;gap:9px;background:#0d1728;border:1px solid #263954;border-radius:10px;padding:13px 14px}
 .defect-totals span{color:#71839e;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase}
 .defect-count-lines{display:flex;flex-direction:column;gap:4px}
