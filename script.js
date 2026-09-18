@@ -335,29 +335,46 @@ renderGames();
 // Defective peripherals: add-only workflow.
 const defectPcSelect = document.getElementById("defectPcSelect");
 const defectDescription = document.getElementById("defectDescription");
-const defectTypeChecks = Array.from(document.querySelectorAll(".defect-type-check"));
+const defectTypeChecks = Array.from(
+  document.querySelectorAll(".defect-type-check")
+);
 const defectSelection = document.getElementById("defectSelection");
 const addDefect = document.getElementById("addDefect");
 const clearDefects = document.getElementById("clearDefects");
-const totalDefectKeyboardStandard = document.getElementById("totalDefectKeyboardStandard");
-const totalDefectKeyboardVip = document.getElementById("totalDefectKeyboardVip");
-const totalDefectHeadsetStandard = document.getElementById("totalDefectHeadsetStandard");
-const totalDefectHeadsetVip = document.getElementById("totalDefectHeadsetVip");
-const totalDefectMouseStandard = document.getElementById("totalDefectMouseStandard");
-const totalDefectMouseVip = document.getElementById("totalDefectMouseVip");
-const heroDefectiveHeadsets = document.getElementById("heroDefectiveHeadsets");
 
-const totalDefectMonitorStandard = document.getElementById("totalDefectMonitorStandard");
-const totalDefectMonitorVip = document.getElementById("totalDefectMonitorVip");
-const totalDefectPowerCordStandard = document.getElementById("totalDefectPowerCordStandard");
-const totalDefectPowerCordVip = document.getElementById("totalDefectPowerCordVip");
+const totalDefectKeyboardStandard =
+  document.getElementById("totalDefectKeyboardStandard");
+const totalDefectKeyboardVip =
+  document.getElementById("totalDefectKeyboardVip");
 
-const pcs = Array.from({length: 40}, (_, index) => ({
+const totalDefectHeadsetStandard =
+  document.getElementById("totalDefectHeadsetStandard");
+const totalDefectHeadsetVip =
+  document.getElementById("totalDefectHeadsetVip");
+
+const totalDefectMouseStandard =
+  document.getElementById("totalDefectMouseStandard");
+const totalDefectMouseVip =
+  document.getElementById("totalDefectMouseVip");
+
+const totalDefectMonitorStandard =
+  document.getElementById("totalDefectMonitorStandard");
+const totalDefectMonitorVip =
+  document.getElementById("totalDefectMonitorVip");
+
+const totalDefectPowerCordStandard =
+  document.getElementById("totalDefectPowerCordStandard");
+const totalDefectPowerCordVip =
+  document.getElementById("totalDefectPowerCordVip");
+
+const heroDefectiveHeadsets =
+  document.getElementById("heroDefectiveHeadsets");
+
+const pcs = Array.from({ length: 40 }, (_, index) => ({
   pc: `PC${String(index + 1).padStart(2, "0")}`,
   tier: index < 10 ? "VIP" : "Standard"
 }));
 
-// Single source of truth: one entry per PC + defect type.
 const defectRecords = new Map();
 
 const typeLabels = {
@@ -368,127 +385,199 @@ const typeLabels = {
   "power-cord": "Power Cord"
 };
 
-function updateDefectSummary() {
-  const keyboard = recordsFor("keyboard");
-  const headset = recordsFor("headset");
-  const mouse = recordsFor("mouse");
-  const monitor = recordsFor("monitor");
-  const powerCord = recordsFor("power-cord");
+function recordsFor(type) {
+  return Array.from(defectRecords.values()).filter(
+    record => record.type === type
+  );
+}
 
-  const updateTierLines = (list, standardEl, vipEl) => {
-    if (standardEl) {
-      standardEl.textContent =
-        `Standard - ${list.filter(r => r.tier === "Standard").length}`;
+function updateDefectSummary() {
+  const updateCount = (type, standardElement, vipElement) => {
+    const records = recordsFor(type);
+
+    const standardCount = records.filter(
+      record => record.tier === "Standard"
+    ).length;
+
+    const vipCount = records.filter(
+      record => record.tier === "VIP"
+    ).length;
+
+    if (standardElement) {
+      standardElement.textContent = `Standard - ${standardCount}`;
     }
 
-    if (vipEl) {
-      vipEl.textContent =
-        `VIP - ${list.filter(r => r.tier === "VIP").length}`;
+    if (vipElement) {
+      vipElement.textContent = `VIP - ${vipCount}`;
     }
   };
 
-  updateTierLines(
-    keyboard,
+  updateCount(
+    "keyboard",
     totalDefectKeyboardStandard,
     totalDefectKeyboardVip
   );
 
-  updateTierLines(
-    headset,
+  updateCount(
+    "headset",
     totalDefectHeadsetStandard,
     totalDefectHeadsetVip
   );
 
-  updateTierLines(
-    mouse,
+  updateCount(
+    "mouse",
     totalDefectMouseStandard,
     totalDefectMouseVip
   );
 
-  updateTierLines(
-    monitor,
+  updateCount(
+    "monitor",
     totalDefectMonitorStandard,
     totalDefectMonitorVip
   );
 
-  updateTierLines(
-    powerCord,
+  updateCount(
+    "power-cord",
     totalDefectPowerCordStandard,
     totalDefectPowerCordVip
   );
 
-  // Keep the headline report number synchronized with the defect data.
   if (heroDefectiveHeadsets) {
     heroDefectiveHeadsets.textContent =
-      String(headset.length).padStart(2, "0");
+      String(recordsFor("headset").length).padStart(2, "0");
   }
 }
 
-function recordsFor(type) {
-  return Array.from(defectRecords.values()).filter(r => r.type === type);
+function updateDefectSelectionLabel(message = "") {
+  if (!defectSelection) return;
+
+  if (message) {
+    defectSelection.textContent = message;
+    return;
+  }
+
+  const selected = defectTypeChecks
+    .filter(check => check.checked)
+    .map(check => typeLabels[check.value] || check.value);
+
+  if (!selected.length) {
+    defectSelection.textContent = "No defect selected.";
+    return;
+  }
+
+  defectSelection.textContent = selected.join(", ");
 }
 
 function resetDefectInputs() {
-  defectTypeChecks.forEach(c => { c.checked = false; });
-  defectDescription.value = "";
+  defectTypeChecks.forEach(check => {
+    check.checked = false;
+  });
+
+  if (defectDescription) {
+    defectDescription.value = "";
+  }
+
   updateDefectSelectionLabel();
 }
 
-defectPcSelect.addEventListener("change", updateDefectSelectionLabel);
-defectTypeChecks.forEach(c => c.addEventListener("change", updateDefectSelectionLabel));
+if (defectPcSelect) {
+  defectPcSelect.addEventListener(
+    "change",
+    () => updateDefectSelectionLabel()
+  );
+}
 
-// Use event delegation so the Add Defect button still works even if the form is re-rendered.
-document.addEventListener("click", (event) => {
-  const button = event.target.closest("#addDefect");
-  if (!button) return;
-
-  event.preventDefault();
-
-  const pc = pcs.find(item => item.pc === defectPcSelect.value);
-  const selectedTypes = defectTypeChecks.filter(c => c.checked).map(c => c.value);
-  console.log("SELECTED DEFECT TYPES:", selectedTypes);
-
-  if (!pc) {
-    updateDefectSelectionLabel("Please select a PC.");
-    return;
-  }
-  if (!selectedTypes.length) {
-    updateDefectSelectionLabel("Please select at least one defect type.");
-    return;
-  }
-
-  const note = defectDescription.value.trim();
-  let added = 0;
-
-  selectedTypes.forEach(type => {
-    const key = `${pc.pc}|${type}`;
-    const existing = defectRecords.get(key);
-    if (existing) {
-      if (note) existing.note = note;
-      return;
-    }
-    defectRecords.set(key, { pc: pc.pc, tier: pc.tier, type, note });
-    added += 1;
-  });
-
-  updateDefectSummary();
-  resetDefectInputs();
-  updateDefectSelectionLabel(
-    added > 0
-      ? `✓ ${added} defect${added === 1 ? "" : "s"} added to ${pc.pc}. Count updated.`
-      : `✓ ${pc.pc} already has the selected defect${selectedTypes.length === 1 ? "" : "s"}.`
+defectTypeChecks.forEach(check => {
+  check.addEventListener(
+    "change",
+    () => updateDefectSelectionLabel()
   );
 });
 
-document.addEventListener("click", (event) => {
-  const button = event.target.closest("#clearDefects");
-  if (!button) return;
-  event.preventDefault();
-  defectRecords.clear();
-  resetDefectInputs();
-  updateDefectSummary();
-  updateDefectSelectionLabel("All defects cleared. Counts reset to 0.");
-});
+if (addDefect) {
+  addDefect.addEventListener("click", event => {
+    event.preventDefault();
+
+    const selectedPc = defectPcSelect
+      ? defectPcSelect.value
+      : "";
+
+    const pc = pcs.find(item => item.pc === selectedPc);
+
+    const selectedTypes = defectTypeChecks
+      .filter(check => check.checked)
+      .map(check => check.value);
+
+    if (!pc) {
+      updateDefectSelectionLabel("Please select a PC.");
+      return;
+    }
+
+    if (selectedTypes.length === 0) {
+      updateDefectSelectionLabel(
+        "Please select at least one defect type."
+      );
+      return;
+    }
+
+    const note = defectDescription
+      ? defectDescription.value.trim()
+      : "";
+
+    let added = 0;
+
+    selectedTypes.forEach(type => {
+      const key = `${pc.pc}|${type}`;
+
+      if (defectRecords.has(key)) {
+        const existing = defectRecords.get(key);
+
+        if (note) {
+          existing.note = note;
+        }
+
+        return;
+      }
+
+      defectRecords.set(key, {
+        pc: pc.pc,
+        tier: pc.tier,
+        type: type,
+        note: note
+      });
+
+      added++;
+    });
+
+    updateDefectSummary();
+
+    if (added > 0) {
+      updateDefectSelectionLabel(
+        `✓ ${added} defect${added === 1 ? "" : "s"} added to ${pc.pc}. Count updated.`
+      );
+    } else {
+      updateDefectSelectionLabel(
+        `✓ ${pc.pc} already has the selected defect${selectedTypes.length === 1 ? "" : "s"}.`
+      );
+    }
+
+    resetDefectInputs();
+  });
+}
+
+if (clearDefects) {
+  clearDefects.addEventListener("click", event => {
+    event.preventDefault();
+
+    defectRecords.clear();
+
+    resetDefectInputs();
+    updateDefectSummary();
+    updateDefectSelectionLabel(
+      "All defects cleared. Counts reset to 0."
+    );
+  });
+}
 
 updateDefectSummary();
 
