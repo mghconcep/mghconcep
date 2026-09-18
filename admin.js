@@ -187,7 +187,51 @@ function statusClass(s){return s==='Updated'?'green':s==='Need to Check'?'yellow
 function pcLabel(n){return `PC${String(n).padStart(2,'0')}`}
 function renderReport(r,d){
   const games=d.games.slice().sort((a,b)=>String(a.game_name).localeCompare(String(b.game_name)));
-  const gameRows=games.map(x=>`<tr><td>${esc(x.game_name)}</td><td><span class="report-status ${statusClass(x.status)}">${esc(x.status||'Not set')}</span></td></tr>`).join('');
+  const groupedGames = {
+  Updated: games.filter(x => x.status === 'Updated'),
+  'Need to Check': games.filter(x => x.status === 'Need to Check'),
+  'Needs Update': games.filter(x => x.status === 'Needs Update'),
+  'Not set': games.filter(x => !x.status)
+};
+
+function gameGrid(items, status) {
+  if (!items.length) return '';
+
+  const statusClassName =
+    status === 'Updated' ? 'green' :
+    status === 'Need to Check' ? 'yellow' :
+    status === 'Needs Update' ? 'red' : '';
+
+  return `
+    <div class="report-game-group">
+      <div class="report-game-group-head">
+        <span class="report-status ${statusClassName}">
+          ${esc(status)} ${items.length}
+        </span>
+      </div>
+
+      <div class="report-game-grid">
+        ${items.map(x => `
+          <div class="report-game-item">
+            <span>${esc(x.game_name)}</span>
+            <b class="${statusClassName}">
+              ${status === 'Updated' ? '✓' :
+                status === 'Need to Check' ? '!' :
+                status === 'Needs Update' ? '!' : '—'}
+            </b>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+const gameRows = `
+  ${gameGrid(groupedGames.Updated, 'Updated')}
+  ${gameGrid(groupedGames['Need to Check'], 'Need to Check')}
+  ${gameGrid(groupedGames['Needs Update'], 'Needs Update')}
+  ${gameGrid(groupedGames['Not set'], 'Not set')}
+`;
 
   const defectsBy = {
   Keyboard: { Standard: 0, VIP: 0 },
@@ -252,10 +296,23 @@ const defectCards = [
 
     <div class="report-banner"><span>DAILY OPERATIONS REPORT</span><em>READ ONLY</em></div>
 
-    <section class="report-section"><div class="report-section-title"><span>01</span><h3>GAMES UPDATE</h3></div>
-      <div class="report-game-summary"><span class="report-status green">Updated ${updated}</span><span class="report-status yellow">Need to Check ${needsCheck}</span><span class="report-status red">Needs Update ${needsUpdate}</span>${noStatus?`<span class="report-status">Not set ${noStatus}</span>`:''}</div>
-      <div class="report-table-wrap"><table class="report-table"><thead><tr><th>Game / Launcher</th><th>Status</th></tr></thead><tbody>${gameRows||'<tr><td colspan="2">No game records saved.</td></tr>'}</tbody></table></div>
-    </section>
+    <section class="report-section report-games-section">
+  <div class="report-section-title">
+    <span>01</span>
+    <h3>GAMES UPDATE</h3>
+  </div>
+
+  <div class="report-game-summary">
+    <span class="report-status green">Updated ${updated}</span>
+    <span class="report-status yellow">Need to Check ${needsCheck}</span>
+    <span class="report-status red">Needs Update ${needsUpdate}</span>
+    ${noStatus ? `<span class="report-status">Not set ${noStatus}</span>` : ''}
+  </div>
+
+  <div class="report-games-content">
+    ${gameRows || '<div class="report-empty-games">No game records saved.</div>'}
+  </div>
+</section>
 
     <section class="report-section"><div class="report-section-title"><span>02</span><h3>DEFECTIVE PERIPHERALS</h3></div>
       <div class="report-mini-grid">${defectCards}</div>
