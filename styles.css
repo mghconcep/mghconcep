@@ -442,3 +442,316 @@ footer{max-width:940px;margin:auto;padding:25px 0 35px;border-top:1px solid #1b2
 .save-message[data-type="success"] { color: #65f6b1; }
 .save-message[data-type="error"] { color: #ff7b91; }
 @keyframes saveSpin { to { transform: rotate(360deg); } }
+
+#reportModal .report-sheet {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Main report header */
+#reportModal .report-header {
+    padding: 24px 26px;
+}
+
+#reportModal .report-kicker {
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+#reportModal .report-header h2 {
+    font-size: 24px;
+    line-height: 1.2;
+    margin: 5px 0 0;
+    letter-spacing: -.5px;
+}
+
+#reportModal .report-date small {
+    font-size: 10px;
+    letter-spacing: 1.2px;
+}
+
+#reportModal .report-date strong {
+    font-size: 16px;
+}
+
+#reportModal .report-date span {
+    font-size: 11px;
+}
+
+/* Daily operations banner */
+#reportModal .report-banner {
+    font-size: 12px;
+    padding: 12px 16px;
+    letter-spacing: .8px;
+}
+
+#reportModal .report-banner em {
+    font-size: 10px;
+}
+
+/* Every report section */
+#reportModal .report-section {
+    max-width: none;
+    margin: 28px 0 0;
+}
+
+/* Section headings */
+#reportModal .report-section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+#reportModal .report-section-title > span {
+    font-size: 12px;
+    font-weight: 800;
+}
+
+#reportModal .report-section-title h3 {
+    font-size: 18px;
+    line-height: 1.25;
+    letter-spacing: .2px;
+    margin: 0;
+}
+
+/* Status summary */
+#reportModal .report-game-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+#reportModal .report-status {
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.2;
+    padding: 8px 11px;
+    border-radius: 7px;
+}
+
+/* Tables */
+#reportModal .report-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#reportModal .report-table th {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .7px;
+    padding: 12px 14px;
+}
+
+#reportModal .report-table td {
+    font-size: 14px;
+    line-height: 1.45;
+    padding: 12px 14px;
+    vertical-align: middle;
+}
+
+/* Game names should be especially easy to scan */
+#reportModal .report-table td:first-child {
+    font-weight: 600;
+}
+
+/* Defect type / category */
+#reportModal .report-table td:nth-child(2),
+#reportModal .report-table td:nth-child(3) {
+    font-weight: 600;
+}
+
+/* Defect description */
+#reportModal .report-table td:last-child {
+    line-height: 1.5;
+}
+
+/* Defect summary cards */
+#reportModal .report-mini-grid {
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+#reportModal .report-mini-card {
+    padding: 15px 16px;
+}
+
+#reportModal .report-mini-card strong {
+    font-size: 13px;
+}
+
+#reportModal .report-mini-card span {
+    font-size: 11px;
+}
+
+#reportModal .report-mini-card b {
+    font-size: 14px;
+}
+
+/* PC status blocks */
+#reportModal .pc-status-block {
+    padding: 15px 16px;
+    margin-bottom: 12px;
+}
+
+#reportModal .pc-status-head strong {
+    font-size: 14px;
+}
+
+#reportModal .pc-status-head span {
+    font-size: 11px;
+}
+
+#reportModal .pc-grid {
+    gap: 8px;
+}
+
+#reportModal .pc-chip {
+    font-size: 12px;
+    padding: 8px 10px;
+}
+
+/* Inventory */
+#reportModal .inventory-grid {
+    gap: 14px;
+}
+
+#reportModal .inventory-card {
+    padding: 16px;
+}
+
+#reportModal .inventory-card h4 {
+    font-size: 15px;
+    margin: 0 0 12px;
+}
+
+#reportModal .inventory-title {
+    font-size: 11px;
+    font-weight: 800;
+}
+
+#reportModal .inventory-row {
+    font-size: 13px;
+    padding: 8px 0;
+}
+
+#reportModal .inventory-row strong {
+    font-size: 14px;
+}
+
+/* Spare items */
+#reportModal .spare-grid {
+    gap: 10px;
+}
+
+#reportModal .spare-row {
+    padding: 11px 14px;
+    font-size: 13px;
+}
+
+#reportModal .spare-row strong {
+    font-size: 14px;
+}
+
+/* Follow-up report */
+#reportModal .followup-box {
+    font-size: 14px;
+    line-height: 1.65;
+    padding: 16px 18px;
+    min-height: 90px;
+}
+
+/* Sign-off */
+#reportModal .signoff-grid {
+    gap: 18px;
+}
+
+#reportModal .signoff-card {
+    padding: 16px;
+}
+
+#reportModal .signoff-label {
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    margin-bottom: 10px;
+}
+
+#reportModal .signature-box {
+    min-height: 120px;
+    height: 120px;
+    font-size: 12px;
+}
+
+#reportModal .signature-box .signature {
+    width: 210px;
+    max-width: 90%;
+    height: 70px;
+}
+
+#reportModal .signoff-card > strong {
+    font-size: 15px;
+}
+
+/* Footer */
+#reportModal .report-footer {
+    margin-top: 28px;
+    padding-top: 14px;
+    font-size: 10px;
+}
+
+/* Give the report a little more breathing room on smaller screens */
+@media (max-width: 800px) {
+    #reportModal .report-sheet {
+        font-size: 14px;
+    }
+
+    #reportModal .report-header {
+        padding: 20px;
+    }
+
+    #reportModal .report-header h2 {
+        font-size: 20px;
+    }
+
+    #reportModal .report-section-title h3 {
+        font-size: 16px;
+    }
+
+    #reportModal .report-table th {
+        font-size: 10px;
+        padding: 10px;
+    }
+
+    #reportModal .report-table td {
+        font-size: 13px;
+        padding: 10px;
+    }
+}
+
+/* =========================================================
+   PRINT — keep the printed report clean
+   ========================================================= */
+@media print {
+    #reportModal .report-sheet {
+        max-width: none;
+        font-size: 11px;
+    }
+
+    #reportModal .report-table td {
+        font-size: 11px;
+        padding: 7px 8px;
+    }
+
+    #reportModal .report-table th {
+        font-size: 9px;
+        padding: 7px 8px;
+    }
+
+    #reportModal .report-section-title h3 {
+        font-size: 14px;
+    }
+}
