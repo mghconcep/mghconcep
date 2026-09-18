@@ -107,11 +107,17 @@ async function saveReportToSupabase() {
   try {
     const games = getSelectedGameRows().map(row => ({ ...row, report_id: reportId }));
     const defects = Array.from(defectRecords.values()).map(row => ({
-      report_id: reportId,
-      pc_number: Number(row.pc.replace('PC', '')),
-      peripheral_type: ({ keyboard: 'Keyboard', headset: 'Headset', mouse: 'Mouse' })[row.type],
-      description: row.note || null
-    }));
+  report_id: reportId,
+  pc_number: Number(row.pc.replace('PC', '')),
+  peripheral_type: ({
+    keyboard: 'Keyboard',
+    headset: 'Headset',
+    mouse: 'Mouse',
+    monitor: 'Monitor',
+    'power-cord': 'Power Cord'
+  })[row.type],
+  description: row.note || null
+}));
     const pcStatus = getPcStatusRows().map(row => ({ ...row, report_id: reportId }));
     const inventory = getInventoryRows().map(row => ({ ...row, report_id: reportId }));
     const spares = getSpareRows().map(row => ({ ...row, report_id: reportId }));
