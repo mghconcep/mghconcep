@@ -428,22 +428,6 @@ function recordsFor(type) {
   return Array.from(defectRecords.values()).filter(r => r.type === type);
 }
 
-function updateDefectSummary() {
-  const keyboard = recordsFor("keyboard");
-  const headset = recordsFor("headset");
-  const mouse = recordsFor("mouse");
-  const updateTierLines = (list, standardEl, vipEl) => {
-    standardEl.textContent = `Standard - ${list.filter(r => r.tier === "Standard").length}`;
-    vipEl.textContent = `VIP - ${list.filter(r => r.tier === "VIP").length}`;
-  };
-  updateTierLines(keyboard, totalDefectKeyboardStandard, totalDefectKeyboardVip);
-  updateTierLines(headset, totalDefectHeadsetStandard, totalDefectHeadsetVip);
-  updateTierLines(mouse, totalDefectMouseStandard, totalDefectMouseVip);
-
-  // Keep the headline report number synchronized with the defect data.
-  if (heroDefectiveHeadsets) heroDefectiveHeadsets.textContent = String(headset.length).padStart(2, "0");
-}
-
 function resetDefectInputs() {
   defectTypeChecks.forEach(c => { c.checked = false; });
   defectDescription.value = "";
