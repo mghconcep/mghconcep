@@ -16,10 +16,17 @@
 .modal-actions{display:flex;align-items:center;gap:8px}.modal-actions .ghost{padding:9px 12px;font-size:11px}
 @media(max-width:760px){.report-header{padding:20px;align-items:flex-start;flex-direction:column}.report-date{text-align:left}.report-banner,.report-section{padding-left:20px;padding-right:20px}.report-mini-grid,.inventory-grid,.signoff-grid{grid-template-columns:1fr}.spare-grid{grid-template-columns:1fr}.report-footer{padding:12px 20px;flex-direction:column}.report-header h2{font-size:18px}.modal-actions .ghost{display:none}}
 @media print{body{background:#fff!important}.modal{position:static;padding:0}.modal-backdrop,.modal-head{display:none!important}.modal-card{max-height:none;overflow:visible;border:0;box-shadow:none;width:100%;background:#fff}.modal-body{padding:0}.report-sheet{box-shadow:none;border:0;border-radius:0}.report-section{break-inside:avoid}.report-table-wrap{overflow:visible}.report-table{min-width:0}.bg-glow,.toast{display:none!important}}
+
+table th:last-child,
+table td:last-child {
+  text-align: right;
+}
+
 .report-actions {
   display: flex;
-  gap: 8px;
+  justify-content: flex-end;
   align-items: center;
+  gap: 8px;
 }
 
 .mini-delete {
