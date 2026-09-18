@@ -61,11 +61,100 @@ function filteredReports(){
   });
 }
 function renderReports(){
-  const rows=filteredReports();$('totalReports').textContent=rows.length;$('selectedDateLabel').textContent=$('dateFilter').value?prettyDate($('dateFilter').value):'All dates';$('latestDate').textContent=reports[0]?prettyDate(reports[0].report_date):'—';
-  $('reportRows').innerHTML=rows.map(r=>`<tr><td class="date-cell">${esc(prettyDate(r.report_date))}</td><td>${esc(r.signoff?.admin_name||'—')}</td><td>${esc(r.signoff?.tech_name||'—')}</td><td>${esc(prettyDateTime(r.created_at))}</td><td><button class="mini-view" data-view="${esc(r.id)}">View report</button></td></tr>`).join('');
-  $('emptyState').classList.toggle('hidden',rows.length!==0);
-  document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>openReport(b.dataset.view)));
+  const rows = filteredReports();
+
+  $('totalReports').textContent = rows.length;
+  $('selectedDateLabel').textContent = $('dateFilter').value
+    ? prettyDate($('dateFilter').value)
+    : 'All dates';
+
+  $('latestDate').textContent = reports[0]
+    ? prettyDate(reports[0].report_date)
+    : '—';
+
+  $('reportRows').innerHTML = rows.map(r => `
+    <tr>
+      <td class="date-cell">${esc(prettyDate(r.report_date))}</td>
+      <td>${esc(r.signoff?.admin_name || '—')}</td>
+      <td>${esc(r.signoff?.tech_name || '—')}</td>
+      <td>${esc(prettyDateTime(r.created_at))}</td>
+      <td class="report-actions">
+        <button class="mini-view" data-view="${esc(r.id)}">
+          View report
+        </button>
+
+        <button class="mini-delete" data-delete="${esc(r.id)}">
+          Delete
+        </button>
+      </td>
+    </tr>
+  `).join('');
+
+  $('emptyState').classList.toggle('hidden', rows.length !== 0);
+
+  document.querySelectorAll('[data-view]').forEach(b => {
+    b.addEventListener('click', () => openReport(b.dataset.view));
+  });
+
+  document.querySelectorAll('[data-delete]').forEach(b => {
+    b.addEventListener('click', () => deleteReport(b.dataset.delete));
+  });
 }
+
+async function deleteReport(id) {
+  const report = reports.find(r => r.id === id);
+
+  if (!report) {
+    toast('Report not found.', true);
+    return;
+  }
+
+  const confirmed = confirm(
+    `Are you sure you want to delete this report?\n\n` +
+    `Date: ${prettyDate(report.report_date)}\n` +
+    `This action cannot be undone.`
+  );
+
+  if (!confirmed) return;
+
+  try {
+    // Delete related records first
+    const relatedTables = [
+      'report_games',
+      'report_defects',
+      'report_pc_status',
+      'report_inventory',
+      'report_spares',
+      'report_signoffs'
+    ];
+
+    for (const table of relatedTables) {
+      const { error } = await supabaseClient
+        .from(table)
+        .delete()
+        .eq('report_id', id);
+
+      if (error) throw error;
+    }
+
+    // Delete the main report
+    const { error } = await supabaseClient
+      .from('gaming_reports')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+
+    toast('Report deleted successfully.');
+
+    await loadReports();
+
+  } catch (err) {
+    console.error('Delete report error:', err);
+    toast(err.message || 'Failed to delete report.', true);
+  }
+}
+
 $('dateFilter').addEventListener('change',renderReports);$('searchFilter').addEventListener('input',renderReports);$('clearFilters').addEventListener('click',()=>{$('dateFilter').value='';$('searchFilter').value='';renderReports()});$('refreshReports').addEventListener('click',loadReports);
 
 async function openReport(id){
