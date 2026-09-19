@@ -186,8 +186,12 @@
     }
 
     #reportModal .report-date {
-        text-align: right !important;
-    }
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
 
     #reportModal .report-date small {
         font-size: 6px !important;
