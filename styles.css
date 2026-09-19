@@ -1826,65 +1826,58 @@ body.shift-modal-open {
 
   @page {
     size: A4;
-    margin: 12mm;
+    margin: 10mm;
   }
 
-  html,
-  body {
-    margin: 0 !important;
-    padding: 0 !important;
-    background: #fff !important;
-  }
-
-  body * {
-    visibility: hidden !important;
-  }
-
-  #shiftPreviewModal,
-  #shiftPreviewModal *,
-  #shiftReportSheet,
-  #shiftReportSheet * {
-    visibility: visible !important;
-  }
-
-  #shiftPreviewModal {
-    position: static !important;
-    display: block !important;
-    inset: auto !important;
-    width: auto !important;
-    height: auto !important;
-    min-height: 0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    overflow: visible !important;
-    background: #fff !important;
-  }
-
-  .shift-preview-backdrop {
+  /* Hide the entire normal website */
+  body > * {
     display: none !important;
   }
 
-  .shift-preview-card {
+  /* Show ONLY the shift preview */
+  body > #shiftPreviewModal {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    background: #fff !important;
+  }
+
+  /* Remove modal background */
+  #shiftPreviewModal .shift-preview-backdrop {
+    display: none !important;
+  }
+
+  /* Remove modal/card styling */
+  #shiftPreviewModal .shift-preview-card {
+    display: block !important;
     position: static !important;
     width: 100% !important;
     max-width: none !important;
-    max-height: none !important;
     height: auto !important;
-    overflow: visible !important;
+    max-height: none !important;
     margin: 0 !important;
     padding: 0 !important;
+    overflow: visible !important;
     border: 0 !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     background: #fff !important;
   }
 
-  .shift-preview-actions,
-  .shift-preview-bottom-actions {
+  /* Hide close button and print button */
+  #shiftPreviewModal .shift-preview-actions,
+  #shiftPreviewModal .shift-preview-bottom-actions {
     display: none !important;
   }
 
+  /* Printable report */
   #shiftReportSheet {
+    display: block !important;
     position: static !important;
     width: 100% !important;
     max-width: none !important;
@@ -1892,35 +1885,32 @@ body.shift-modal-open {
     min-height: 0 !important;
     margin: 0 !important;
     padding: 0 !important;
-    border-radius: 0 !important;
     overflow: visible !important;
     background: #fff !important;
     color: #111827 !important;
+    border-radius: 0 !important;
   }
 
+  /* Prevent awkward section splitting */
   .shift-preview-section {
-    break-inside: avoid;
-    page-break-inside: avoid;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .shift-preview-section-title {
-    break-after: avoid;
-    page-break-after: avoid;
+    break-after: avoid !important;
+    page-break-after: avoid !important;
   }
 
-  .shift-preview-signoff {
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-
+  .shift-preview-signoff,
   .shift-preview-signoff-box {
-    break-inside: avoid;
-    page-break-inside: avoid;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .shift-preview-footer {
-    break-inside: avoid;
-    page-break-inside: avoid;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
 }
