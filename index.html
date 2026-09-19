@@ -652,19 +652,23 @@
   </main>
 
  <!-- =====================================================
-       SHIFT REPORT MODAL
-       ===================================================== -->
-  <div class="shift-modal" id="shiftModal" aria-hidden="true">
+     SHIFT REPORT MODAL
+     ===================================================== -->
+<div class="shift-modal" id="shiftModal" aria-hidden="true">
 
-    <div class="shift-modal-backdrop" id="shiftModalBackdrop"></div>
+  <div class="shift-modal-backdrop" id="shiftModalBackdrop"></div>
 
-    <div class="shift-modal-card" role="dialog" aria-modal="true" aria-labelledby="shiftModalTitle">
+  <div class="shift-modal-card" role="dialog" aria-modal="true">
 
-      <!-- Modal Header -->
+    <!-- =================================================
+         SHIFT SELECTION
+         ================================================= -->
+    <div id="shiftPickerView">
+
       <div class="shift-modal-header">
         <div>
           <p class="eyebrow">MARV’S GAMING HUB</p>
-          <h2 id="shiftModalTitle">Shift Report</h2>
+          <h2>Shift Report</h2>
           <p>Select the shift you want to create.</p>
         </div>
 
@@ -678,45 +682,449 @@
         </button>
       </div>
 
-      <!-- Shift Selection -->
-      <div class="shift-choice-grid" id="shiftChoiceGrid">
+      <div class="shift-choice-grid">
 
         <button
-  type="button"
-  class="shift-choice morning"
-  data-shift-type="morning"
-  data-shift-label="MORNING SHIFT 9AM–9PM"
->
-  <span class="shift-choice-icon">🌅</span>
+          type="button"
+          class="shift-choice morning"
+          data-shift-type="morning"
+          data-shift-label="MORNING SHIFT 9AM–9PM"
+        >
+          <span class="shift-choice-icon">🌅</span>
 
-  <span class="shift-choice-content">
-    <strong>Morning Shift</strong>
-    <small>9AM–9PM</small>
-  </span>
+          <span class="shift-choice-content">
+            <strong>Morning Shift</strong>
+            <small>9AM–9PM</small>
+          </span>
 
-  <span class="shift-choice-arrow">→</span>
-</button>
+          <span class="shift-choice-arrow">→</span>
+        </button>
 
-<button
-  type="button"
-  class="shift-choice night"
-  data-shift-type="night"
-  data-shift-label="NIGHT SHIFT 9PM–9AM"
->
-  <span class="shift-choice-icon">🌙</span>
+        <button
+          type="button"
+          class="shift-choice night"
+          data-shift-type="night"
+          data-shift-label="NIGHT SHIFT 9PM–9AM"
+        >
+          <span class="shift-choice-icon">🌙</span>
 
-  <span class="shift-choice-content">
-    <strong>Night Shift</strong>
-    <small>9PM–9AM</small>
-  </span>
+          <span class="shift-choice-content">
+            <strong>Night Shift</strong>
+            <small>9PM–9AM</small>
+          </span>
 
-  <span class="shift-choice-arrow">→</span>
-</button>
+          <span class="shift-choice-arrow">→</span>
+        </button>
 
       </div>
 
     </div>
+
+
+    <!-- =================================================
+         SHIFT REPORT FORM
+         ================================================= -->
+    <div id="shiftReportView" hidden>
+
+      <div class="shift-report-header">
+
+        <button
+          type="button"
+          class="shift-back-btn"
+          id="backToShiftPicker"
+        >
+          ← Change Shift
+        </button>
+
+        <div class="shift-report-title">
+          <p class="eyebrow">MARV’S GAMING HUB (CONCEP)</p>
+
+          <h2>GAMING HUB REPORT</h2>
+
+          <div class="shift-report-meta">
+            <strong id="selectedShiftLabel">
+              MORNING SHIFT 9AM–9PM
+            </strong>
+
+            <span id="shiftReportDate"></span>
+          </div>
+        </div>
+
+      </div>
+
+
+      <form id="shiftReportForm">
+
+
+        <!-- =============================================
+             CHANGES
+             ============================================= -->
+        <section class="shift-form-section">
+
+          <div class="shift-section-heading">
+            <span>01</span>
+            <div>
+              <h3>CHANGES</h3>
+              <p>Changes or important updates during this shift.</p>
+            </div>
+          </div>
+
+          <textarea
+            id="shiftChanges"
+            class="shift-textarea"
+            rows="4"
+            placeholder="Enter changes, updates, or important information..."
+          ></textarea>
+
+        </section>
+
+
+        <!-- =============================================
+             UPDATED GAMES
+             ============================================= -->
+        <section class="shift-form-section">
+
+          <div class="shift-section-heading">
+            <span>02</span>
+            <div>
+              <h3>UPDATED GAMES FOR THIS SHIFT</h3>
+              <p>Select the games that were updated during this shift.</p>
+            </div>
+          </div>
+
+          <div
+            class="shift-game-list"
+            id="shiftGameList"
+          ></div>
+
+          <p
+            class="shift-empty-message"
+            id="shiftNoGames"
+            hidden
+          >
+            No games available.
+          </p>
+
+        </section>
+
+
+        <!-- =============================================
+             DEFECTIVE KEYBOARD
+             ============================================= -->
+        <section class="shift-form-section">
+
+          <div class="shift-section-heading">
+            <span>03</span>
+            <div>
+              <h3>DEFECTIVE KEYBOARD</h3>
+              <p>List the PC number and problem.</p>
+            </div>
+          </div>
+
+          <textarea
+            id="shiftDefectiveKeyboard"
+            class="shift-textarea"
+            rows="3"
+            placeholder="Example: PC12 - Keyboard keys not responding..."
+          ></textarea>
+
+        </section>
+
+
+        <!-- =============================================
+             DEFECTIVE MOUSE
+             ============================================= -->
+        <section class="shift-form-section">
+
+          <div class="shift-section-heading">
+            <span>04</span>
+            <div>
+              <h3>DEFECTIVE MOUSE</h3>
+              <p>List the PC number and problem.</p>
+            </div>
+          </div>
+
+          <textarea
+            id="shiftDefectiveMouse"
+            class="shift-textarea"
+            rows="3"
+            placeholder="Example: PC18 - Mouse double clicking..."
+          ></textarea>
+
+        </section>
+
+
+        <!-- =============================================
+             DEFECTIVE HEADSET
+             ============================================= -->
+        <section class="shift-form-section">
+
+          <div class="shift-section-heading">
+            <span>05</span>
+            <div>
+              <h3>DEFECTIVE HEADSET</h3>
+              <p>List the PC number and problem.</p>
+            </div>
+          </div>
+
+          <textarea
+            id="shiftDefectiveHeadset"
+            class="shift-textarea"
+            rows="3"
+            placeholder="Example: PC05 - No audio / microphone problem..."
+          ></textarea>
+
+        </section>
+
+
+        <!-- =============================================
+             PC WITH NO DEFECTS
+             ============================================= -->
+        <section class="shift-form-section">
+
+          <div class="shift-section-heading">
+            <span>06</span>
+            <div>
+              <h3>PC NUMBER WITH NO DEFECTS</h3>
+              <p>Select the PCs checked during this shift.</p>
+            </div>
+          </div>
+
+          <div
+            class="shift-pc-grid"
+            id="shiftNoDefectPcList"
+          ></div>
+
+        </section>
+
+
+        <!-- =============================================
+             SPARES
+             ============================================= -->
+        <section class="shift-form-section">
+
+          <div class="shift-section-heading">
+            <span>07</span>
+            <div>
+              <h3>SPARE ITEMS</h3>
+              <p>Record the available spare items.</p>
+            </div>
+          </div>
+
+          <div class="shift-spare-grid">
+
+            <label class="shift-field">
+              <span>Spare VIP Keyboard</span>
+              <input
+                type="number"
+                id="shiftSpareVipKeyboard"
+                min="0"
+                value="0"
+              >
+            </label>
+
+            <label class="shift-field">
+              <span>Spare Standard Keyboard</span>
+              <input
+                type="number"
+                id="shiftSpareStandardKeyboard"
+                min="0"
+                value="0"
+              >
+            </label>
+
+            <label class="shift-field">
+              <span>Spare VIP Mouse</span>
+              <input
+                type="number"
+                id="shiftSpareVipMouse"
+                min="0"
+                value="0"
+              >
+            </label>
+
+            <label class="shift-field">
+              <span>Spare Standard Mouse</span>
+              <input
+                type="number"
+                id="shiftSpareStandardMouse"
+                min="0"
+                value="0"
+              >
+            </label>
+
+            <label class="shift-field">
+              <span>Spare Cord</span>
+              <input
+                type="number"
+                id="shiftSpareCord"
+                min="0"
+                value="0"
+              >
+            </label>
+
+          </div>
+
+        </section>
+
+
+        <!-- =============================================
+             FOLLOW UP
+             ============================================= -->
+        <section class="shift-form-section">
+
+          <div class="shift-section-heading">
+            <span>08</span>
+            <div>
+              <h3>FOLLOW UP REPORT</h3>
+              <p>Items that need attention on the next shift.</p>
+            </div>
+          </div>
+
+          <textarea
+            id="shiftFollowUp"
+            class="shift-textarea"
+            rows="4"
+            placeholder="Enter follow-up items..."
+          ></textarea>
+
+        </section>
+
+
+        <!-- =============================================
+             CLEANED PC
+             ============================================= -->
+        <section class="shift-form-section">
+
+          <div class="shift-section-heading">
+            <span>09</span>
+            <div>
+              <h3>CLEANED PC</h3>
+              <p>Select the PCs cleaned during this shift.</p>
+            </div>
+          </div>
+
+          <div
+            class="shift-pc-grid"
+            id="shiftCleanedPcList"
+          ></div>
+
+        </section>
+
+
+        <!-- =============================================
+             SIGN OFF
+             ============================================= -->
+        <section class="shift-form-section">
+
+          <div class="shift-section-heading">
+            <span>10</span>
+            <div>
+              <h3>REPORT SIGN-OFF</h3>
+              <p>Admin and technician confirmation.</p>
+            </div>
+          </div>
+
+
+          <div class="shift-signoff-grid">
+
+            <!-- ADMIN -->
+            <div class="shift-signoff-card">
+
+              <h4>ADMIN</h4>
+
+              <label class="shift-field">
+                <span>Admin Name</span>
+                <input
+                  type="text"
+                  id="shiftAdminName"
+                  placeholder="Enter admin name"
+                >
+              </label>
+
+              <div class="shift-signature-label">
+                Signature
+              </div>
+
+              <div class="shift-signature-box">
+                <canvas id="shiftAdminSignature"></canvas>
+              </div>
+
+              <button
+                type="button"
+                class="shift-clear-signature"
+                data-clear-signature="shiftAdminSignature"
+              >
+                Clear Signature
+              </button>
+
+            </div>
+
+
+            <!-- TECH -->
+            <div class="shift-signoff-card">
+
+              <h4>TECHNICIAN</h4>
+
+              <label class="shift-field">
+                <span>Technician Name</span>
+                <input
+                  type="text"
+                  id="shiftTechName"
+                  placeholder="Enter technician name"
+                >
+              </label>
+
+              <div class="shift-signature-label">
+                Signature
+              </div>
+
+              <div class="shift-signature-box">
+                <canvas id="shiftTechSignature"></canvas>
+              </div>
+
+              <button
+                type="button"
+                class="shift-clear-signature"
+                data-clear-signature="shiftTechSignature"
+              >
+                Clear Signature
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =============================================
+             SAVE
+             ============================================= -->
+        <div class="shift-save-area">
+
+          <div
+            class="shift-save-message"
+            id="shiftSaveMessage"
+          ></div>
+
+          <button
+            type="submit"
+            class="shift-save-btn"
+            id="saveShiftReport"
+          >
+            Save Shift Report
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
   </div>
+
+</div>
   
   <footer>
     <span>© 2026 VAL</span>
