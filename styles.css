@@ -1950,3 +1950,8 @@ body.shift-modal-open {
     font-size: 7px;
   }
 }
+
+#shiftAdminSignature,
+#shiftTechSignature {
+  background: #ffffff;
+}
