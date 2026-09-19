@@ -1824,41 +1824,103 @@ body.shift-modal-open {
 
 @media print {
 
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
   body * {
     visibility: hidden !important;
   }
 
+  #shiftPreviewModal,
+  #shiftPreviewModal *,
   #shiftReportSheet,
   #shiftReportSheet * {
     visibility: visible !important;
   }
 
-  #shiftReportSheet {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    margin: 0;
-    padding: 20px;
-    border-radius: 0;
+  #shiftPreviewModal {
+    position: static !important;
+    display: block !important;
+    inset: auto !important;
+    width: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    background: #fff !important;
   }
 
-  .shift-preview-modal {
-    position: static;
-    display: block;
-    padding: 0;
+  .shift-preview-backdrop {
+    display: none !important;
   }
 
   .shift-preview-card {
-    max-height: none;
-    overflow: visible;
-    border: 0;
-    box-shadow: none;
+    position: static !important;
+    width: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: #fff !important;
   }
 
   .shift-preview-actions,
   .shift-preview-bottom-actions {
     display: none !important;
+  }
+
+  #shiftReportSheet {
+    position: static !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    background: #fff !important;
+    color: #111827 !important;
+  }
+
+  .shift-preview-section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .shift-preview-section-title {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .shift-preview-signoff {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .shift-preview-signoff-box {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .shift-preview-footer {
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
 
 }
