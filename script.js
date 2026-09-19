@@ -815,26 +815,362 @@ document.addEventListener("keydown", event => {
 });
 
 
-/* Shift selection */
+/* =========================================================
+   SHIFT REPORT FORM
+   ========================================================= */
+
+const shiftPickerView = document.getElementById("shiftPickerView");
+const shiftReportView = document.getElementById("shiftReportView");
+const backToShiftPicker = document.getElementById("backToShiftPicker");
+
+const selectedShiftLabel = document.getElementById("selectedShiftLabel");
+const shiftReportDate = document.getElementById("shiftReportDate");
+
+let selectedShiftType = "";
+let selectedShiftLabelText = "";
+
+
+/* =========================================================
+   OPEN SELECTED SHIFT
+   ========================================================= */
 
 shiftChoices.forEach(choice => {
+
   choice.addEventListener("click", () => {
 
-    const shiftType = choice.dataset.shiftType;
-    const shiftLabel = choice.dataset.shiftLabel;
+    selectedShiftType = choice.dataset.shiftType || "";
+    selectedShiftLabelText = choice.dataset.shiftLabel || "";
 
-    console.log("Selected Shift:", {
-      shiftType,
-      shiftLabel
+    selectedShiftLabel.textContent = selectedShiftLabelText;
+
+    const now = new Date();
+
+    shiftReportDate.textContent = now.toLocaleDateString(
+      "en-PH",
+      {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      }
+    );
+
+    shiftPickerView.hidden = true;
+    shiftReportView.hidden = false;
+
+    buildShiftGameList();
+    buildShiftPcLists();
+
+    setTimeout(() => {
+      setupShiftSignatureCanvas(
+        document.getElementById("shiftAdminSignature")
+      );
+
+      setupShiftSignatureCanvas(
+        document.getElementById("shiftTechSignature")
+      );
+    }, 50);
+
+  });
+
+});
+
+
+/* =========================================================
+   BACK TO SHIFT SELECTION
+   ========================================================= */
+
+backToShiftPicker?.addEventListener("click", () => {
+
+  shiftReportView.hidden = true;
+  shiftPickerView.hidden = false;
+
+});
+
+
+/* =========================================================
+   BUILD GAME LIST
+   Uses your existing game list
+   ========================================================= */
+
+function buildShiftGameList() {
+
+  const container = document.getElementById("shiftGameList");
+  const emptyMessage = document.getElementById("shiftNoGames");
+
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const games = [...document.querySelectorAll(".game-option")];
+
+  if (!games.length) {
+    emptyMessage.hidden = false;
+    return;
+  }
+
+  emptyMessage.hidden = true;
+
+  games.forEach((game, index) => {
+
+    const gameName =
+      game.dataset.game ||
+      game.querySelector("label")?.textContent?.trim() ||
+      `Game ${index + 1}`;
+
+    const id = `shiftGame_${index}`;
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "shift-game-option";
+
+    wrapper.innerHTML = `
+      <input
+        type="checkbox"
+        id="${id}"
+        value="${escapeShiftHtml(gameName)}"
+      >
+
+      <label for="${id}">
+        ${escapeShiftHtml(gameName)}
+      </label>
+    `;
+
+    container.appendChild(wrapper);
+
+  });
+
+}
+
+
+/* =========================================================
+   BUILD PC LISTS
+   PC01-PC40
+   ========================================================= */
+
+function buildShiftPcLists() {
+
+  const noDefectContainer =
+    document.getElementById("shiftNoDefectPcList");
+
+  const cleanedContainer =
+    document.getElementById("shiftCleanedPcList");
+
+  if (!noDefectContainer || !cleanedContainer) return;
+
+  noDefectContainer.innerHTML = "";
+  cleanedContainer.innerHTML = "";
+
+  for (let i = 1; i <= 40; i++) {
+
+    const pcNumber = `PC${String(i).padStart(2, "0")}`;
+
+    noDefectContainer.insertAdjacentHTML(
+      "beforeend",
+      createShiftPcOption(
+        pcNumber,
+        "shiftNoDefect",
+        i
+      )
+    );
+
+    cleanedContainer.insertAdjacentHTML(
+      "beforeend",
+      createShiftPcOption(
+        pcNumber,
+        "shiftCleaned",
+        i
+      )
+    );
+
+  }
+
+}
+
+
+function createShiftPcOption(pcNumber, groupName, index) {
+
+  const id = `${groupName}_${index}`;
+
+  return `
+    <div class="shift-pc-option">
+
+      <input
+        type="checkbox"
+        id="${id}"
+        name="${groupName}"
+        value="${pcNumber}"
+      >
+
+      <label for="${id}">
+        ${pcNumber}
+      </label>
+
+    </div>
+  `;
+
+}
+
+
+/* =========================================================
+   SIGNATURE PAD
+   ========================================================= */
+
+function setupShiftSignatureCanvas(canvas) {
+
+  if (!canvas) return;
+
+  const parent = canvas.parentElement;
+
+  const width = parent.clientWidth || 300;
+  const height = parent.clientHeight || 100;
+
+  const ratio = Math.max(window.devicePixelRatio || 1, 1);
+
+  canvas.width = width * ratio;
+  canvas.height = height * ratio;
+
+  canvas.style.width = `${width}px`;
+  canvas.style.height = `${height}px`;
+
+  const ctx = canvas.getContext("2d");
+
+  ctx.scale(ratio, ratio);
+
+  ctx.lineWidth = 2;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.strokeStyle = "#dce7ff";
+
+  let drawing = false;
+
+  function getPosition(event) {
+
+    const rect = canvas.getBoundingClientRect();
+
+    const source =
+      event.touches?.[0] ||
+      event.changedTouches?.[0] ||
+      event;
+
+    return {
+      x: source.clientX - rect.left,
+      y: source.clientY - rect.top
+    };
+
+  }
+
+  function start(event) {
+
+    event.preventDefault();
+
+    drawing = true;
+
+    const pos = getPosition(event);
+
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+
+  }
+
+  function draw(event) {
+
+    if (!drawing) return;
+
+    event.preventDefault();
+
+    const pos = getPosition(event);
+
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+
+  }
+
+  function stop(event) {
+
+    if (!drawing) return;
+
+    event?.preventDefault();
+
+    drawing = false;
+
+    ctx.closePath();
+
+  }
+
+  canvas.onmousedown = start;
+  canvas.onmousemove = draw;
+  canvas.onmouseup = stop;
+  canvas.onmouseleave = stop;
+
+  canvas.ontouchstart = start;
+  canvas.ontouchmove = draw;
+  canvas.ontouchend = stop;
+
+  canvas.dataset.ready = "true";
+
+}
+
+
+/* =========================================================
+   CLEAR SIGNATURE
+   ========================================================= */
+
+document
+  .querySelectorAll("[data-clear-signature]")
+  .forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      const canvas = document.getElementById(
+        button.dataset.clearSignature
+      );
+
+      if (!canvas) return;
+
+      const ctx = canvas.getContext("2d");
+
+      ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
     });
 
-    /*
-      STEP 2 will go here.
-
-      We will replace the shift-selection screen with
-      the actual Shift Report form.
-    */
-
-    alert(`${shiftLabel}\n\nShift Report form will open here.`);
   });
-});
+
+
+/* =========================================================
+   HTML ESCAPE
+   ========================================================= */
+
+function escapeShiftHtml(value) {
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   TEMPORARY SAVE HANDLER
+   Database connection comes in the next step.
+   ========================================================= */
+
+document
+  .getElementById("shiftReportForm")
+  ?.addEventListener("submit", event => {
+
+    event.preventDefault();
+
+    const message =
+      document.getElementById("shiftSaveMessage");
+
+    message.textContent =
+      "Shift Report form is ready. Database saving will be connected next.";
+
+  });
