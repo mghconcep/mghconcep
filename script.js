@@ -914,9 +914,9 @@ function buildShiftGameList() {
   games.forEach((game, index) => {
 
     const gameName =
-      game.dataset.game ||
-      game.querySelector("label")?.textContent?.trim() ||
-      `Game ${index + 1}`;
+  game.querySelector(".game-name")?.textContent?.trim() ||
+  game.dataset.game ||
+  `Game ${index + 1}`;
 
     const id = `shiftGame_${index}`;
 
