@@ -894,6 +894,22 @@ backToShiftPicker?.addEventListener("click", () => {
 
 function buildShiftGameList() {
 
+  /* =========================================================
+   CLEAR ALL SHIFT GAMES
+   ========================================================= */
+
+document
+  .getElementById("clearShiftGames")
+  ?.addEventListener("click", () => {
+
+    document
+      .querySelectorAll('#shiftGameList input[type="checkbox"]')
+      .forEach(checkbox => {
+        checkbox.checked = false;
+      });
+
+  });
+
   const container = document.getElementById("shiftGameList");
   const emptyMessage = document.getElementById("shiftNoGames");
 
