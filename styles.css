@@ -4007,3 +4007,63 @@ body.shift-modal-open {
     color: #ffffff !important;
     font-weight: 800 !important;
 }
+
+/* =====================================================
+   SHIFT PREVIEW — CLEANED PC
+   ===================================================== */
+
+/* Section number + heading */
+.shift-pc-heading .shift-section-heading-content > span {
+    color: #172033 !important;
+    font-weight: 800 !important;
+}
+
+.shift-pc-heading .shift-section-heading-content h3 {
+    color: #172033 !important;
+    font-weight: 800 !important;
+}
+
+/* PC number boxes */
+#previewCleanedPcs span {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-width: 52px !important;
+    height: 36px !important;
+    padding: 0 10px !important;
+
+    background: #0d1728 !important;
+    border: 1px solid #263a56 !important;
+    border-radius: 7px !important;
+
+    color: #ffffff !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+
+    margin: 4px !important;
+}
+
+/* =====================================================
+   SHIFT PREVIEW — NO DEFECT PC
+   ===================================================== */
+
+#previewNoDefectPcs span {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-width: 52px !important;
+    height: 36px !important;
+    padding: 0 10px !important;
+
+    background: #0d1728 !important;
+    border: 1px solid #263a56 !important;
+    border-radius: 7px !important;
+
+    color: #ffffff !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+
+    margin: 4px !important;
+}
