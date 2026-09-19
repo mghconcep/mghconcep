@@ -4067,3 +4067,31 @@ body.shift-modal-open {
 
     margin: 4px !important;
 }
+
+@media print {
+
+    /* Section numbers 01–10 */
+    .shift-report-sheet .shift-preview-section-title > span {
+        background: #000 !important;
+        color: #fff !important;
+        border: 1px solid #000 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* PC numbers — NO DEFECT + CLEANED PC */
+    .shift-report-sheet #previewNoDefectPcs,
+    .shift-report-sheet #previewCleanedPcs {
+        color: #fff !important;
+    }
+
+    .shift-report-sheet #previewNoDefectPcs > *,
+    .shift-report-sheet #previewCleanedPcs > * {
+        background: #000 !important;
+        color: #fff !important;
+        border-color: #000 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+}
