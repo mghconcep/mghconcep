@@ -778,3 +778,63 @@ updateInventoryTotals();
   document.querySelectorAll('[data-pc-status]').forEach(cb=>cb.addEventListener('change',updateCounts));
   updateCounts();
 })();
+/* =========================================================
+   SHIFT REPORT — OPEN / CLOSE SHIFT SELECTION
+   ========================================================= */
+
+const shiftModal = document.getElementById("shiftModal");
+const openShiftReport = document.getElementById("openShiftReport");
+const closeShiftReport = document.getElementById("closeShiftReport");
+const shiftModalBackdrop = document.getElementById("shiftModalBackdrop");
+const shiftChoices = document.querySelectorAll(".shift-choice");
+
+function openShiftModal() {
+  if (!shiftModal) return;
+
+  shiftModal.classList.add("is-open");
+  shiftModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("shift-modal-open");
+}
+
+function closeShiftModal() {
+  if (!shiftModal) return;
+
+  shiftModal.classList.remove("is-open");
+  shiftModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("shift-modal-open");
+}
+
+openShiftReport?.addEventListener("click", openShiftModal);
+closeShiftReport?.addEventListener("click", closeShiftModal);
+shiftModalBackdrop?.addEventListener("click", closeShiftModal);
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && shiftModal?.classList.contains("is-open")) {
+    closeShiftModal();
+  }
+});
+
+
+/* Shift selection */
+
+shiftChoices.forEach(choice => {
+  choice.addEventListener("click", () => {
+
+    const shiftType = choice.dataset.shiftType;
+    const shiftLabel = choice.dataset.shiftLabel;
+
+    console.log("Selected Shift:", {
+      shiftType,
+      shiftLabel
+    });
+
+    /*
+      STEP 2 will go here.
+
+      We will replace the shift-selection screen with
+      the actual Shift Report form.
+    */
+
+    alert(`${shiftLabel}\n\nShift Report form will open here.`);
+  });
+});
