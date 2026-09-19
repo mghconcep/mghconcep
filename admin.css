@@ -653,6 +653,18 @@
     #reportModal img {
         max-width: 100% !important;
     }
+
+    #reportModal .report-section-title h3,
+#reportModal .report-table th,
+#reportModal .report-table td,
+#reportModal .inventory-card,
+#reportModal .inventory-row,
+#reportModal .spare-row,
+#reportModal .followup-box,
+#reportModal .pc-status-head,
+#reportModal .report-footer {
+    color: #000 !important;
+}
 }
 table {
   table-layout: auto;
