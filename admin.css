@@ -654,15 +654,18 @@
         max-width: 100% !important;
     }
 
-    #reportModal .report-section-title h3,
-#reportModal .report-table th,
-#reportModal .report-table td,
-#reportModal .inventory-card,
-#reportModal .inventory-row,
-#reportModal .spare-row,
-#reportModal .followup-box,
-#reportModal .pc-status-head,
-#reportModal .report-footer {
+    /* FORCE REPORT TEXT TO PURE BLACK */
+#reportModal .report-sheet,
+#reportModal .report-sheet p,
+#reportModal .report-sheet span,
+#reportModal .report-sheet strong,
+#reportModal .report-sheet b,
+#reportModal .report-sheet td,
+#reportModal .report-sheet th,
+#reportModal .report-sheet h2,
+#reportModal .report-sheet h3,
+#reportModal .report-sheet h4,
+#reportModal .report-sheet div {
     color: #000 !important;
 }
 }
