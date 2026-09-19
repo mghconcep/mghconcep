@@ -4095,3 +4095,8 @@ body.shift-modal-open {
     }
 
 }
+@media (min-width: 1001px) {
+    body {
+        zoom: 1.25;
+    }
+}
