@@ -4,6 +4,7 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, 
 
 const $ = id => document.getElementById(id);
 let reports = [];
+let shiftReports = [];
 let currentUser = null;
 
 function esc(value){return String(value ?? '').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
@@ -33,7 +34,12 @@ $('loginForm').addEventListener('submit',async e=>{
     if(!data.user)throw new Error('Login did not return a user.');
     const ok=await requireAdmin(data.user);
     if(!ok){await supabaseClient.auth.signOut();throw new Error('This account is not registered as an admin.');}
-    showApp(data.user);await loadReports();
+    showApp(data.user);
+
+await Promise.all([
+  loadReports(),
+  loadShiftReports()
+]);
   }catch(err){console.error(err);$('loginError').textContent=err.message||'Unable to sign in.';}
 });
 $('signOut').addEventListener('click',async()=>{await supabaseClient.auth.signOut();showLogin();});
@@ -158,7 +164,12 @@ async function deleteReport(id) {
   }
 }
 
-$('dateFilter').addEventListener('change',renderReports);$('searchFilter').addEventListener('input',renderReports);$('clearFilters').addEventListener('click',()=>{$('dateFilter').value='';$('searchFilter').value='';renderReports()});$('refreshReports').addEventListener('click',loadReports);
+$('dateFilter').addEventListener('change',renderReports);$('searchFilter').addEventListener('input',renderReports);$('clearFilters').addEventListener('click',()=>{$('dateFilter').value='';$('searchFilter').value='';renderReports()});$('refreshReports').addEventListener('click', async () => {
+  await Promise.all([
+    loadReports(),
+    loadShiftReports()
+  ]);
+});
 
 async function openReport(id){
   $('reportModal').classList.remove('hidden');
@@ -349,8 +360,840 @@ const defectCards = [
 function closeModal(){$('reportModal').classList.add('hidden');$('reportModal').setAttribute('aria-hidden','true')}
 $('closeModal').addEventListener('click',closeModal);document.querySelector('[data-close="1"]').addEventListener('click',closeModal);$('printReportBtn').addEventListener('click',()=>window.print());document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
+/* =========================================================
+   SHIFT REPORTS
+   ========================================================= */
+
+async function loadShiftReports() {
+
+  const loading = $('shiftLoading');
+
+  if (loading) {
+    loading.innerHTML =
+      '<span class="spinner"></span>Loading';
+  }
+
+  try {
+
+    const { data, error } =
+      await supabaseClient
+        .from('shift_reports')
+        .select(`
+          id,
+          report_date,
+          shift_type,
+          shift_time,
+          changes,
+          defective_keyboard,
+          defective_mouse,
+          defective_headset,
+          pc_no_defects,
+          spare_vip_keyboard,
+          spare_standard_keyboard,
+          spare_vip_mouse,
+          spare_standard_mouse,
+          spare_cord,
+          follow_up_report,
+          cleaned_pc,
+          admin_name,
+          tech_name,
+          admin_signature,
+          tech_signature,
+          created_at
+        `)
+        .order('report_date', { ascending: false })
+        .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    shiftReports = data || [];
+
+    renderShiftReports();
+
+  } catch (err) {
+
+    console.error('Load shift reports error:', err);
+
+    if (loading) {
+      loading.textContent = 'Database error';
+    }
+
+    toast(
+      err.message || 'Could not load shift reports.',
+      true
+    );
+
+  } finally {
+
+    setTimeout(() => {
+
+      if (loading) {
+        loading.textContent = '';
+      }
+
+    }, 600);
+  }
+}
+
+
+function renderShiftReports() {
+
+  const rows = $('shiftReportRows');
+  const empty = $('shiftEmptyState');
+
+  if (!rows) return;
+
+  if (!shiftReports.length) {
+
+    rows.innerHTML = '';
+
+    empty?.classList.remove('hidden');
+
+    return;
+  }
+
+  empty?.classList.add('hidden');
+
+  rows.innerHTML = shiftReports.map(report => `
+
+    <tr>
+
+      <td class="date-cell">
+        ${esc(prettyDate(report.report_date))}
+      </td>
+
+      <td>
+        ${esc(report.shift_type || '—')}
+      </td>
+
+      <td>
+        ${esc(report.shift_time || '—')}
+      </td>
+
+      <td>
+        ${esc(report.admin_name || '—')}
+      </td>
+
+      <td>
+        ${esc(report.tech_name || '—')}
+      </td>
+
+      <td>
+        ${esc(prettyDateTime(report.created_at))}
+      </td>
+
+      <td class="report-actions">
+
+        <button
+          class="mini-view"
+          data-shift-view="${esc(report.id)}">
+          View
+        </button>
+
+        <button
+          class="mini-delete"
+          data-shift-delete="${esc(report.id)}">
+          Delete
+        </button>
+
+      </td>
+
+    </tr>
+
+  `).join('');
+
+
+  document
+    .querySelectorAll('[data-shift-view]')
+    .forEach(button => {
+
+      button.addEventListener('click', () => {
+
+        openShiftAdminReport(
+          button.dataset.shiftView
+        );
+
+      });
+
+    });
+
+
+  document
+    .querySelectorAll('[data-shift-delete]')
+    .forEach(button => {
+
+      button.addEventListener('click', () => {
+
+        deleteShiftReport(
+          button.dataset.shiftDelete
+        );
+
+      });
+
+    });
+}
+
+
+/* =========================================================
+   VIEW SHIFT REPORT
+   ========================================================= */
+
+async function openShiftAdminReport(id) {
+
+  $('reportModal').classList.remove('hidden');
+
+  $('reportModal').setAttribute(
+    'aria-hidden',
+    'false'
+  );
+
+  $('modalTitle').textContent =
+    'Loading shift report…';
+
+  $('modalBody').innerHTML =
+    '<div class="empty">' +
+    '<span class="spinner"></span>' +
+    'Loading shift report…' +
+    '</div>';
+
+  try {
+
+    const report =
+      shiftReports.find(
+        x => x.id === id
+      );
+
+    if (!report) {
+      throw new Error(
+        'Shift Report not found.'
+      );
+    }
+
+
+    const {
+      data: games,
+      error: gamesError
+    } =
+      await supabaseClient
+        .from('shift_report_games')
+        .select('id, shift_report_id, game_name')
+        .eq('shift_report_id', id)
+        .order('game_name');
+
+
+    if (gamesError) {
+      throw gamesError;
+    }
+
+
+    $('modalTitle').textContent =
+      `${report.shift_type || 'Shift Report'} — ${prettyDate(report.report_date)}`;
+
+
+    $('modalBody').innerHTML =
+      renderShiftAdminReport(
+        report,
+        games || []
+      );
+
+  } catch (err) {
+
+    console.error(
+      'Open shift report error:',
+      err
+    );
+
+    $('modalTitle').textContent =
+      'Unable to open shift report';
+
+    $('modalBody').innerHTML =
+      `<div class="detail-card">
+        <p class="error">
+          ${esc(err.message || 'Database error')}
+        </p>
+      </div>`;
+  }
+}
+
+
+/* =========================================================
+   RENDER SHIFT REPORT
+   ========================================================= */
+
+function renderShiftAdminReport(report, games) {
+
+  const gameList = games.length
+    ? games.map(game => `
+        <div class="report-game-item">
+          <span>${esc(game.game_name)}</span>
+          <b class="green">✓</b>
+        </div>
+      `).join('')
+    : `
+      <div class="report-empty-games">
+        No games were updated during this shift.
+      </div>
+    `;
+
+
+  const pcList = String(
+    report.pc_no_defects || ''
+  )
+    .split(',')
+    .map(x => x.trim())
+    .filter(Boolean);
+
+
+  const cleanedList = String(
+    report.cleaned_pc || ''
+  )
+    .split(',')
+    .map(x => x.trim())
+    .filter(Boolean);
+
+
+  const pcChips = pcList.length
+    ? pcList.map(pc => `
+        <span class="pc-chip">
+          ${esc(pc)} <i>✓</i>
+        </span>
+      `).join('')
+    : '<span class="muted small">None marked</span>';
+
+
+  const cleanedChips = cleanedList.length
+    ? cleanedList.map(pc => `
+        <span class="pc-chip">
+          ${esc(pc)} <i>✓</i>
+        </span>
+      `).join('')
+    : '<span class="muted small">None marked</span>';
+
+
+  const signatureAdmin =
+    report.admin_signature
+      ? `
+        <img
+          class="signature"
+          src="${esc(report.admin_signature)}"
+          alt="Admin signature">
+      `
+      : '<span>No signature</span>';
+
+
+  const signatureTech =
+    report.tech_signature
+      ? `
+        <img
+          class="signature"
+          src="${esc(report.tech_signature)}"
+          alt="Technician signature">
+      `
+      : '<span>No signature</span>';
+
+
+  return `
+
+    <div
+      class="report-sheet"
+      id="printReport">
+
+      <!-- HEADER -->
+
+      <div class="report-header">
+
+        <div class="report-brand">
+
+          <div class="report-logo">
+            M
+          </div>
+
+          <div>
+
+            <div class="report-kicker">
+              MARV’S GAMING HUB (CONCEP)
+            </div>
+
+            <h2>
+              GAMING HUB REPORT
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div class="report-date">
+
+          <small>
+            SHIFT REPORT
+          </small>
+
+          <strong>
+            ${esc(report.shift_type || '—')}
+          </strong>
+
+          <span>
+            ${esc(report.shift_time || '—')}
+          </span>
+
+          <span>
+            ${esc(prettyDate(report.report_date))}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="report-banner">
+
+        <span>
+          SHIFT OPERATIONS REPORT
+        </span>
+
+        <em>
+          READ ONLY
+        </em>
+
+      </div>
+
+
+      <!-- CHANGES -->
+
+      <section class="report-section">
+
+        <div class="report-section-title">
+
+          <span>01</span>
+
+          <h3>
+            CHANGES
+          </h3>
+
+        </div>
+
+        <div class="followup-box">
+
+          ${esc(
+            report.changes ||
+            'No changes reported.'
+          )}
+
+        </div>
+
+      </section>
+
+
+      <!-- GAMES -->
+
+      <section class="report-section report-games-section">
+
+        <div class="report-section-title">
+
+          <span>02</span>
+
+          <h3>
+            UPDATED GAMES FOR THIS SHIFT
+          </h3>
+
+        </div>
+
+        <div class="report-games-content">
+
+          <div class="report-game-grid">
+
+            ${gameList}
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- KEYBOARD -->
+
+      <section class="report-section">
+
+        <div class="report-section-title">
+
+          <span>03</span>
+
+          <h3>
+            DEFECTIVE KEYBOARD
+          </h3>
+
+        </div>
+
+        <div class="followup-box">
+
+          ${esc(
+            report.defective_keyboard ||
+            'None reported.'
+          )}
+
+        </div>
+
+      </section>
+
+
+      <!-- MOUSE -->
+
+      <section class="report-section">
+
+        <div class="report-section-title">
+
+          <span>04</span>
+
+          <h3>
+            DEFECTIVE MOUSE
+          </h3>
+
+        </div>
+
+        <div class="followup-box">
+
+          ${esc(
+            report.defective_mouse ||
+            'None reported.'
+          )}
+
+        </div>
+
+      </section>
+
+
+      <!-- HEADSET -->
+
+      <section class="report-section">
+
+        <div class="report-section-title">
+
+          <span>05</span>
+
+          <h3>
+            DEFECTIVE HEADSET
+          </h3>
+
+        </div>
+
+        <div class="followup-box">
+
+          ${esc(
+            report.defective_headset ||
+            'None reported.'
+          )}
+
+        </div>
+
+      </section>
+
+
+      <!-- NO DEFECT PCS -->
+
+      <section class="report-section">
+
+        <div class="report-section-title">
+
+          <span>06</span>
+
+          <h3>
+            PC NUMBER WITH NO DEFECTS
+          </h3>
+
+        </div>
+
+        <div class="pc-grid">
+
+          ${pcChips}
+
+        </div>
+
+      </section>
+
+
+      <!-- SPARES -->
+
+      <section class="report-section">
+
+        <div class="report-section-title">
+
+          <span>07</span>
+
+          <h3>
+            SPARE ITEMS
+          </h3>
+
+        </div>
+
+
+        <div class="spare-grid">
+
+          <div class="spare-row">
+            <span>VIP Keyboard</span>
+            <strong>${esc(report.spare_vip_keyboard ?? 0)}</strong>
+          </div>
+
+          <div class="spare-row">
+            <span>Standard Keyboard</span>
+            <strong>${esc(report.spare_standard_keyboard ?? 0)}</strong>
+          </div>
+
+          <div class="spare-row">
+            <span>VIP Mouse</span>
+            <strong>${esc(report.spare_vip_mouse ?? 0)}</strong>
+          </div>
+
+          <div class="spare-row">
+            <span>Standard Mouse</span>
+            <strong>${esc(report.spare_standard_mouse ?? 0)}</strong>
+          </div>
+
+          <div class="spare-row">
+            <span>Spare Cord</span>
+            <strong>${esc(report.spare_cord ?? 0)}</strong>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- FOLLOW UP -->
+
+      <section class="report-section">
+
+        <div class="report-section-title">
+
+          <span>08</span>
+
+          <h3>
+            FOLLOW UP REPORT
+          </h3>
+
+        </div>
+
+        <div class="followup-box">
+
+          ${esc(
+            report.follow_up_report ||
+            'No follow-up report entered.'
+          )}
+
+        </div>
+
+      </section>
+
+
+      <!-- CLEANED PC -->
+
+      <section class="report-section">
+
+        <div class="report-section-title">
+
+          <span>09</span>
+
+          <h3>
+            CLEANED PC
+          </h3>
+
+        </div>
+
+        <div class="pc-grid">
+
+          ${cleanedChips}
+
+        </div>
+
+      </section>
+
+
+      <!-- SIGN OFF -->
+
+      <section class="report-section signoff-section">
+
+        <div class="report-section-title">
+
+          <span>10</span>
+
+          <h3>
+            REPORT SIGN-OFF
+          </h3>
+
+        </div>
+
+
+        <div class="signoff-grid">
+
+          <div class="signoff-card">
+
+            <div class="signoff-label">
+              ADMIN
+            </div>
+
+            <div class="signature-box">
+
+              ${signatureAdmin}
+
+            </div>
+
+            <strong>
+              ${esc(report.admin_name || '—')}
+            </strong>
+
+          </div>
+
+
+          <div class="signoff-card">
+
+            <div class="signoff-label">
+              TECH
+            </div>
+
+            <div class="signature-box">
+
+              ${signatureTech}
+
+            </div>
+
+            <strong>
+              ${esc(report.tech_name || '—')}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <div class="report-footer">
+
+        <span>
+          MARV’S GAMING HUB • SHIFT REPORT
+        </span>
+
+        <span>
+          Report ID: ${esc(report.id)}
+        </span>
+
+      </div>
+
+    </div>
+
+  `;
+}
+
+
+/* =========================================================
+   DELETE SHIFT REPORT
+   ========================================================= */
+
+async function deleteShiftReport(id) {
+
+  const report =
+    shiftReports.find(
+      x => x.id === id
+    );
+
+  if (!report) {
+
+    toast(
+      'Shift Report not found.',
+      true
+    );
+
+    return;
+  }
+
+
+  const confirmed = confirm(
+
+    `Are you sure you want to delete this Shift Report?\n\n` +
+
+    `Date: ${prettyDate(report.report_date)}\n` +
+
+    `Shift: ${report.shift_type || '—'}\n\n` +
+
+    `This action cannot be undone.`
+
+  );
+
+
+  if (!confirmed) return;
+
+
+  try {
+
+    /*
+     * Delete games first.
+     * This is safe even if CASCADE is enabled.
+     */
+
+    const {
+      error: gamesError
+    } =
+      await supabaseClient
+        .from('shift_report_games')
+        .delete()
+        .eq('shift_report_id', id);
+
+
+    if (gamesError) {
+      throw gamesError;
+    }
+
+
+    /*
+     * Delete the Shift Report itself.
+     */
+
+    const {
+      error: reportError
+    } =
+      await supabaseClient
+        .from('shift_reports')
+        .delete()
+        .eq('id', id);
+
+
+    if (reportError) {
+      throw reportError;
+    }
+
+
+    toast(
+      'Shift Report deleted successfully.'
+    );
+
+
+    await loadShiftReports();
+
+  } catch (err) {
+
+    console.error(
+      'Delete shift report error:',
+      err
+    );
+
+    toast(
+      err.message ||
+      'Failed to delete Shift Report.',
+      true
+    );
+  }
+}
+
 (async function init(){
  const {data}=await supabaseClient.auth.getSession();
- if(data.session?.user){const ok=await requireAdmin(data.session.user);if(ok){showApp(data.session.user);await loadReports()}else{await supabaseClient.auth.signOut();showLogin()}}
+ if(data.session?.user){const ok=await requireAdmin(data.session.user);if(ok){
+  showApp(data.session.user);
+
+  await Promise.all([
+    loadReports(),
+    loadShiftReports()
+  ]);
+}else{await supabaseClient.auth.signOut();showLogin()}}
  supabaseClient.auth.onAuthStateChange(async(event,session)=>{if(event==='SIGNED_OUT')showLogin();});
 })();
