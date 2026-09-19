@@ -48,7 +48,8 @@ const INVENTORY_MAP = {
   'headset-standard-fantech': ['Headset', 'Standard', 'Fantech'],
   'headset-vip-fantech': ['Headset', 'VIP', 'Fantech'],
   'headset-vip-badwolf': ['Headset', 'VIP', 'Badwolf'],
-  'headset-vip-red-dragon': ['Headset', 'VIP', 'Red Dragon']
+  'headset-vip-red-dragon': ['Headset', 'VIP', 'Red Dragon'],
+  'headset-vip-keytech': ['Headset', 'VIP', 'Keytech']
 };
 
 function getInventoryRows() {
@@ -711,7 +712,7 @@ const inventoryGroups = {
   mouseStandardTotal: ['mouse-standard-fantech','mouse-standard-red-dragon'],
   mouseVipTotal: ['mouse-vip-red-dragon'],
   headsetStandardTotal: ['headset-standard-fantech'],
-  headsetVipTotal: ['headset-vip-fantech','headset-vip-badwolf','headset-vip-red-dragon']
+  headsetVipTotal: ['headset-vip-fantech','headset-vip-badwolf','headset-vip-red-dragon','headset-vip-keytech']
 };
 
 function updateInventoryTotals(){
