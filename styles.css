@@ -4106,11 +4106,11 @@ body.shift-modal-open {
 
     /* Make Shift Report modal smaller */
     .shift-modal-card {
-        zoom: 0.8;
+        zoom: 1.0;
     }
 
     /* Make Print Report preview smaller */
     .shift-preview-card {
-        zoom: 0.8;
+        zoom: 1.0;
     }
 }
