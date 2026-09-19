@@ -894,21 +894,6 @@ backToShiftPicker?.addEventListener("click", () => {
 
 function buildShiftGameList() {
 
-  /* =========================================================
-   CLEAR ALL SHIFT GAMES
-   ========================================================= */
-
-document
-  .getElementById("clearShiftGames")
-  ?.addEventListener("click", () => {
-
-    document
-      .querySelectorAll('#shiftGameList input[type="checkbox"]')
-      .forEach(checkbox => {
-        checkbox.checked = false;
-      });
-
-  });
 
   const container = document.getElementById("shiftGameList");
   const emptyMessage = document.getElementById("shiftNoGames");
@@ -955,6 +940,22 @@ document
   });
 
 }
+
+/* =========================================================
+   CLEAR ALL SHIFT GAMES
+   ========================================================= */
+
+document
+  .getElementById("clearShiftGames")
+  ?.addEventListener("click", () => {
+
+    document
+      .querySelectorAll('#shiftGameList input[type="checkbox"]')
+      .forEach(checkbox => {
+        checkbox.checked = false;
+      });
+
+  });
 
 
 /* =========================================================
@@ -1051,10 +1052,11 @@ function setupShiftSignatureCanvas(canvas) {
 
   ctx.scale(ratio, ratio);
 
-  ctx.lineWidth = 2;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-  ctx.strokeStyle = "#dce7ff";
+ctx.lineWidth = 2.6;
+ctx.lineCap = "round";
+ctx.lineJoin = "round";
+ctx.strokeStyle = "#111827";
+ctx.globalAlpha = 1;
 
   let drawing = false;
 
@@ -1179,14 +1181,279 @@ function escapeShiftHtml(value) {
 
 document
   .getElementById("shiftReportForm")
-  ?.addEventListener("submit", event => {
+  ?.addEventListener("submit", async event => {
 
     event.preventDefault();
 
     const message =
       document.getElementById("shiftSaveMessage");
 
-    message.textContent =
-      "Shift Report form is ready. Database saving will be connected next.";
+    const saveButton =
+      document.getElementById("saveShiftReport");
+
+    if (!supabaseClient) {
+      message.textContent =
+        "Supabase is not connected.";
+
+      return;
+    }
+
+    if (!selectedShiftType) {
+      message.textContent =
+        "Please select a shift first.";
+
+      return;
+    }
+
+    saveButton.disabled = true;
+    saveButton.textContent = "Saving...";
+    message.textContent = "";
+
+    try {
+
+      /* =====================================================
+         SHIFT INFORMATION
+         ===================================================== */
+
+      const shiftType =
+        selectedShiftType === "morning"
+          ? "Morning Shift"
+          : "Night Shift";
+
+      const shiftTime =
+        selectedShiftType === "morning"
+          ? "9AM–9PM"
+          : "9PM–9AM";
+
+      const now = new Date();
+
+      const reportDate =
+        now.toLocaleDateString("en-CA");
+
+      /* =====================================================
+         UPDATED GAMES
+         ===================================================== */
+
+      const selectedGames = [
+        ...document.querySelectorAll(
+          '#shiftGameList input[type="checkbox"]:checked'
+        )
+      ].map(input => input.value);
+
+      /* =====================================================
+         PC WITH NO DEFECTS
+         ===================================================== */
+
+      const noDefectPcs = [
+        ...document.querySelectorAll(
+          '#shiftNoDefectPcList input[type="checkbox"]:checked'
+        )
+      ].map(input => input.value);
+
+      /* =====================================================
+         CLEANED PCS
+         ===================================================== */
+
+      const cleanedPcs = [
+        ...document.querySelectorAll(
+          '#shiftCleanedPcList input[type="checkbox"]:checked'
+        )
+      ].map(input => input.value);
+
+      /* =====================================================
+         SPARE ITEMS
+         ===================================================== */
+
+      const spareVipKeyboard =
+        Number(
+          document.getElementById("shiftSpareVipKeyboard")?.value || 0
+        );
+
+      const spareStandardKeyboard =
+        Number(
+          document.getElementById("shiftSpareStandardKeyboard")?.value || 0
+        );
+
+      const spareVipMouse =
+        Number(
+          document.getElementById("shiftSpareVipMouse")?.value || 0
+        );
+
+      const spareStandardMouse =
+        Number(
+          document.getElementById("shiftSpareStandardMouse")?.value || 0
+        );
+
+      const spareCord =
+        Number(
+          document.getElementById("shiftSpareCord")?.value || 0
+        );
+
+      /* =====================================================
+         INSERT MAIN SHIFT REPORT
+         ===================================================== */
+
+      const { data: shiftReport, error: shiftError } =
+        await supabaseClient
+          .from("shift_reports")
+          .insert({
+            report_date: reportDate,
+            shift_type: shiftType,
+            shift_time: shiftTime,
+
+            changes:
+              document.getElementById("shiftChanges")?.value?.trim() || null,
+
+            defective_keyboard:
+              document.getElementById("shiftDefectiveKeyboard")?.value?.trim() || null,
+
+            defective_mouse:
+              document.getElementById("shiftDefectiveMouse")?.value?.trim() || null,
+
+            defective_headset:
+              document.getElementById("shiftDefectiveHeadset")?.value?.trim() || null,
+
+            pc_no_defects:
+              noDefectPcs.length
+                ? noDefectPcs.join(", ")
+                : null,
+
+            spare_vip_keyboard: spareVipKeyboard,
+            spare_standard_keyboard: spareStandardKeyboard,
+            spare_vip_mouse: spareVipMouse,
+            spare_standard_mouse: spareStandardMouse,
+            spare_cord: spareCord,
+
+            follow_up_report:
+              document.getElementById("shiftFollowUp")?.value?.trim() || null,
+
+            cleaned_pc:
+              cleanedPcs.length
+                ? cleanedPcs.join(", ")
+                : null,
+
+            admin_name:
+              document.getElementById("shiftAdminName")?.value?.trim() || null,
+
+            tech_name:
+              document.getElementById("shiftTechName")?.value?.trim() || null,
+
+            admin_signature:
+              document.getElementById("shiftAdminSignature")?.toDataURL("image/png") || null,
+
+            tech_signature:
+              document.getElementById("shiftTechSignature")?.toDataURL("image/png") || null,
+
+            created_at: new Date().toISOString()
+          })
+          .select()
+          .single();
+
+      if (shiftError) {
+        throw shiftError;
+      }
+
+      const shiftReportId = shiftReport.id;
+
+      /* =====================================================
+         SAVE UPDATED GAMES
+         ===================================================== */
+
+      if (selectedGames.length) {
+
+        const gameRows = selectedGames.map(gameName => ({
+          shift_report_id: shiftReportId,
+          game_name: gameName
+        }));
+
+        const { error: gamesError } =
+          await supabaseClient
+            .from("shift_report_games")
+            .insert(gameRows);
+
+        if (gamesError) {
+
+          /* Remove the parent report if game saving fails */
+
+          await supabaseClient
+            .from("shift_reports")
+            .delete()
+            .eq("id", shiftReportId);
+
+          throw gamesError;
+        }
+      }
+
+      /* =====================================================
+         SUCCESS
+         ===================================================== */
+
+      message.textContent =
+        "Shift Report saved successfully.";
+
+      saveButton.textContent = "Saved ✓";
+
+      /* =====================================================
+         RESET FORM
+         ===================================================== */
+
+      document
+        .getElementById("shiftReportForm")
+        ?.reset();
+
+      document
+        .querySelectorAll(
+          '#shiftGameList input[type="checkbox"], ' +
+          '#shiftNoDefectPcList input[type="checkbox"], ' +
+          '#shiftCleanedPcList input[type="checkbox"]'
+        )
+        .forEach(input => {
+          input.checked = false;
+        });
+
+      /* Reset signature canvases */
+
+      [
+        "shiftAdminSignature",
+        "shiftTechSignature"
+      ].forEach(canvasId => {
+
+        const canvas =
+          document.getElementById(canvasId);
+
+        if (!canvas) return;
+
+        const ctx =
+          canvas.getContext("2d");
+
+        ctx.clearRect(
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+
+      });
+
+      setTimeout(() => {
+        saveButton.disabled = false;
+        saveButton.textContent = "Save Shift Report";
+      }, 2000);
+
+    } catch (error) {
+
+      console.error(
+        "Shift Report Save Error:",
+        error
+      );
+
+      message.textContent =
+        error?.message
+          ? `Failed to save Shift Report: ${error.message}`
+          : "Failed to save Shift Report.";
+
+      saveButton.disabled = false;
+      saveButton.textContent = "Save Shift Report";
+    }
 
   });
