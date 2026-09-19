@@ -3962,26 +3962,48 @@ body.shift-modal-open {
     background: #ffffff;
 }
 
-/* ===================================================== SAVED SHIFT REPORT — PC STATUS ===================================================== */
-/* PC NUMBER WITH NO DEFECTS / CLEANED PC */
-#reportModal .pc-status-head strong {
+/* =====================================================
+   SAVED SHIFT REPORT — PC SECTIONS
+   ===================================================== */
+
+/* PC SECTION HEADING */
+#reportModal .pc-status-block .pc-status-head {
+    color: #172033 !important;
+}
+
+#reportModal .pc-status-block .pc-status-head strong {
     color: #172033 !important;
     font-weight: 800 !important;
 }
 
-#reportModal .pc-status-head span {
+#reportModal .pc-status-block .pc-status-head span {
     color: #172033 !important;
+    font-weight: 700 !important;
 }
 
-/* PC NUMBER BOXES */
-#reportModal .pc-chip {
+/* PC NUMBER BOX */
+#reportModal .pc-status-block .pc-grid .pc-chip {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-width: 42px !important;
+    min-height: 34px !important;
+    padding: 7px 12px !important;
+
     background: #0d1728 !important;
     border: 1px solid #263a56 !important;
+    border-radius: 7px !important;
+
     color: #ffffff !important;
     font-weight: 800 !important;
 }
 
-#reportModal .pc-chip strong,
-#reportModal .pc-chip span {
+/* NUMBER INSIDE THE BOX */
+#reportModal .pc-status-block .pc-grid .pc-chip strong,
+#reportModal .pc-status-block .pc-grid .pc-chip span,
+#reportModal .pc-status-block .pc-grid .pc-chip b,
+#reportModal .pc-status-block .pc-grid .pc-chip i {
     color: #ffffff !important;
+    font-weight: 800 !important;
 }
