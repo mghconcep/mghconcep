@@ -33,11 +33,16 @@
     </section>
 
     <section class="report-section" id="report">
-      <div class="catalog-top">
-        <div>
-          <p class="eyebrow">GAMING HUB REPORT</p>
-        </div>
-      </div>
+  <div class="catalog-top">
+    <div>
+      <p class="eyebrow">GAMING HUB REPORT</p>
+    </div>
+
+    <!-- SHIFT REPORT BUTTON -->
+    <button type="button" class="shift-report-btn" id="openShiftReport">
+      <span>＋</span> Shift Report
+    </button>
+  </div>
 
       <form class="report-form" id="reportForm">
         <div class="form-card games-card">
@@ -646,6 +651,73 @@
     </section>
   </main>
 
+ <!-- =====================================================
+       SHIFT REPORT MODAL
+       ===================================================== -->
+  <div class="shift-modal" id="shiftModal" aria-hidden="true">
+
+    <div class="shift-modal-backdrop" id="shiftModalBackdrop"></div>
+
+    <div class="shift-modal-card" role="dialog" aria-modal="true" aria-labelledby="shiftModalTitle">
+
+      <!-- Modal Header -->
+      <div class="shift-modal-header">
+        <div>
+          <p class="eyebrow">MARV’S GAMING HUB</p>
+          <h2 id="shiftModalTitle">Shift Report</h2>
+          <p>Select the shift you want to create.</p>
+        </div>
+
+        <button
+          type="button"
+          class="shift-modal-close"
+          id="closeShiftReport"
+          aria-label="Close Shift Report"
+        >
+          ×
+        </button>
+      </div>
+
+      <!-- Shift Selection -->
+      <div class="shift-choice-grid" id="shiftChoiceGrid">
+
+        <button
+          type="button"
+          class="shift-choice morning"
+          data-shift-type="morning"
+          data-shift-label="MORNING SHIFT 9PM–9AM"
+        >
+          <span class="shift-choice-icon">🌅</span>
+
+          <span class="shift-choice-content">
+            <strong>Morning Shift</strong>
+            <small>9PM–9AM</small>
+          </span>
+
+          <span class="shift-choice-arrow">→</span>
+        </button>
+
+        <button
+          type="button"
+          class="shift-choice night"
+          data-shift-type="night"
+          data-shift-label="NIGHT SHIFT 9AM–9PM"
+        >
+          <span class="shift-choice-icon">🌙</span>
+
+          <span class="shift-choice-content">
+            <strong>Night Shift</strong>
+            <small>9AM–9PM</small>
+          </span>
+
+          <span class="shift-choice-arrow">→</span>
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+  
   <footer>
     <span>© 2026 VAL</span>
   </footer>
