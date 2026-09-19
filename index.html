@@ -1218,154 +1218,157 @@
                 </section>
 
 
-                <!-- NO DEFECT PCS -->
+                <!-- =============================================
+     NO DEFECT PCS
+     ============================================= -->
+                <section class="shift-form-section">
+
+                    <div class="shift-section-heading">
+                        <span>06</span>
+
+                        <div>
+                            <h3>PC NUMBER WITH NO DEFECTS</h3>
+                            <p>Select the PCs with no defects.</p>
+                        </div>
+                    </div>
+
+                    <div class="shift-pc-grid" id="shiftNoDefectPcList"></div>
+
+                </section>
+
+
+                <!-- SPARE ITEMS -->
 
                 <section class="shift-preview-section">
 
                     <div class="shift-preview-section-title">
-                        <span>06</span>
-                        <h3>PC NUMBER WITH NO DEFECTS</h3>
+
+                        <span>07</span>
+
+                        <h3>SPARE ITEMS</h3>
+
                     </div>
 
-            <div class="shift-preview-text" id="previewNoDefectPcs">
-                —
+                    <div class="shift-preview-spares">
+
+                        <div>
+                            <span>Spare VIP Keyboard</span>
+                            <strong id="previewSpareVipKeyboard">0</strong>
+                        </div>
+
+                        <div>
+                            <span>Spare Standard Keyboard</span>
+                            <strong id="previewSpareStandardKeyboard">0</strong>
+                        </div>
+
+                        <div>
+                            <span>Spare VIP Mouse</span>
+                            <strong id="previewSpareVipMouse">0</strong>
+                        </div>
+
+                        <div>
+                            <span>Spare Standard Mouse</span>
+                            <strong id="previewSpareStandardMouse">0</strong>
+                        </div>
+
+                        <div>
+                            <span>Spare Cord</span>
+                            <strong id="previewSpareCord">0</strong>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- FOLLOW UP -->
+
+                <section class="shift-preview-section">
+
+                    <div class="shift-preview-section-title">
+
+                        <span>08</span>
+
+                        <h3>FOLLOW UP REPORT</h3>
+
+                    </div>
+
+                    <div class="shift-preview-text" id="previewFollowUp">
+                        —
+                    </div>
+
+                </section>
+
+
+                <!-- CLEANED PC -->
+                <section class="shift-preview-section">
+                    <div class="shift-preview-section-title"> <span>09</span>
+                        <h3>CLEANED PC</h3>
+                    </div>
+                    <div class="shift-preview-text" id="previewCleanedPcs"> — </div>
+                </section>
+
+
+                <!-- SIGN OFF -->
+
+                <section class="shift-preview-section">
+
+                    <div class="shift-preview-section-title">
+
+                        <span>10</span>
+
+                        <h3>REPORT SIGN-OFF</h3>
+
+                    </div>
+
+                    <div class="shift-preview-signoff">
+
+                        <div class="shift-preview-signoff-box">
+
+                            <h4>ADMIN</h4>
+
+                            <img id="previewAdminSignature" class="shift-preview-signature" alt="Admin signature">
+
+                            <strong id="previewAdminName">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="shift-preview-signoff-box">
+
+                            <h4>TECHNICIAN</h4>
+
+                            <img id="previewTechSignature" class="shift-preview-signature" alt="Technician signature">
+
+                            <strong id="previewTechName">
+                                —
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <div class="shift-preview-footer">
+                    MARV’S GAMING HUB MANAGEMENT REPORT
+                </div>
+
             </div>
 
-            </section>
 
+            <div class="shift-preview-bottom-actions">
 
-            <!-- SPARE ITEMS -->
+                <button type="button" id="printShiftReport" class="shift-print-btn">
+                    🖨 Print Report
+                </button>
 
-            <section class="shift-preview-section">
-
-                <div class="shift-preview-section-title">
-
-                    <span>07</span>
-
-                    <h3>SPARE ITEMS</h3>
-
-                </div>
-
-                <div class="shift-preview-spares">
-
-                    <div>
-                        <span>Spare VIP Keyboard</span>
-                        <strong id="previewSpareVipKeyboard">0</strong>
-                    </div>
-
-                    <div>
-                        <span>Spare Standard Keyboard</span>
-                        <strong id="previewSpareStandardKeyboard">0</strong>
-                    </div>
-
-                    <div>
-                        <span>Spare VIP Mouse</span>
-                        <strong id="previewSpareVipMouse">0</strong>
-                    </div>
-
-                    <div>
-                        <span>Spare Standard Mouse</span>
-                        <strong id="previewSpareStandardMouse">0</strong>
-                    </div>
-
-                    <div>
-                        <span>Spare Cord</span>
-                        <strong id="previewSpareCord">0</strong>
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- FOLLOW UP -->
-
-            <section class="shift-preview-section">
-
-                <div class="shift-preview-section-title">
-
-                    <span>08</span>
-
-                    <h3>FOLLOW UP REPORT</h3>
-
-                </div>
-
-                <div class="shift-preview-text" id="previewFollowUp">
-                    —
-                </div>
-
-            </section>
-
-
-            <!-- CLEANED PC -->
-            <section class="shift-preview-section">
-                <div class="shift-preview-section-title"> <span>09</span>
-                    <h3>CLEANED PC</h3>
-                </div>
-                <div class="shift-preview-text" id="previewCleanedPcs"> — </div>
-            </section>
-
-
-            <!-- SIGN OFF -->
-
-            <section class="shift-preview-section">
-
-                <div class="shift-preview-section-title">
-
-                    <span>10</span>
-
-                    <h3>REPORT SIGN-OFF</h3>
-
-                </div>
-
-                <div class="shift-preview-signoff">
-
-                    <div class="shift-preview-signoff-box">
-
-                        <h4>ADMIN</h4>
-
-                        <img id="previewAdminSignature" class="shift-preview-signature" alt="Admin signature">
-
-                        <strong id="previewAdminName">
-                            —
-                        </strong>
-
-                    </div>
-
-
-                    <div class="shift-preview-signoff-box">
-
-                        <h4>TECHNICIAN</h4>
-
-                        <img id="previewTechSignature" class="shift-preview-signature" alt="Technician signature">
-
-                        <strong id="previewTechName">
-                            —
-                        </strong>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <div class="shift-preview-footer">
-                MARV’S GAMING HUB MANAGEMENT REPORT
             </div>
 
         </div>
-
-
-        <div class="shift-preview-bottom-actions">
-
-            <button type="button" id="printShiftReport" class="shift-print-btn">
-                🖨 Print Report
-            </button>
-
-        </div>
-
-    </div>
 
     </div>
 
