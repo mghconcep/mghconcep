@@ -1139,6 +1139,341 @@
     <span>© 2026 VAL</span>
   </footer>
 
+<!-- =====================================================
+     SHIFT REPORT PREVIEW MODAL
+     ===================================================== -->
+
+<div class="shift-preview-modal" id="shiftPreviewModal" aria-hidden="true">
+
+  <div
+    class="shift-preview-backdrop"
+    id="shiftPreviewBackdrop">
+  </div>
+
+  <div class="shift-preview-card">
+
+    <div class="shift-preview-actions">
+
+      <button
+        type="button"
+        class="shift-preview-close"
+        id="closeShiftPreview">
+        ×
+      </button>
+
+    </div>
+
+    <div class="shift-report-sheet" id="shiftReportSheet">
+
+      <!-- HEADER -->
+
+      <div class="shift-preview-header">
+
+        <p class="shift-preview-kicker">
+          MARV’S GAMING HUB (CONCEP)
+        </p>
+
+        <h2>GAMING HUB REPORT</h2>
+
+        <div class="shift-preview-meta">
+
+          <strong id="previewShiftLabel">
+            MORNING SHIFT 9AM–9PM
+          </strong>
+
+          <span id="previewShiftDate">
+            —
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- CHANGES -->
+
+      <section class="shift-preview-section">
+
+        <div class="shift-preview-section-title">
+
+          <span>01</span>
+
+          <h3>CHANGES</h3>
+
+        </div>
+
+        <div
+          class="shift-preview-text"
+          id="previewChanges">
+          —
+        </div>
+
+      </section>
+
+
+      <!-- UPDATED GAMES -->
+
+      <section class="shift-preview-section">
+
+        <div class="shift-preview-section-title">
+
+          <span>02</span>
+
+          <h3>UPDATED GAMES FOR THIS SHIFT</h3>
+
+        </div>
+
+        <div
+          class="shift-preview-games"
+          id="previewGames">
+          —
+        </div>
+
+      </section>
+
+
+      <!-- DEFECTIVE KEYBOARD -->
+
+      <section class="shift-preview-section">
+
+        <div class="shift-preview-section-title">
+
+          <span>03</span>
+
+          <h3>DEFECTIVE KEYBOARD</h3>
+
+        </div>
+
+        <div
+          class="shift-preview-text"
+          id="previewKeyboard">
+          —
+        </div>
+
+      </section>
+
+
+      <!-- DEFECTIVE MOUSE -->
+
+      <section class="shift-preview-section">
+
+        <div class="shift-preview-section-title">
+
+          <span>04</span>
+
+          <h3>DEFECTIVE MOUSE</h3>
+
+        </div>
+
+        <div
+          class="shift-preview-text"
+          id="previewMouse">
+          —
+        </div>
+
+      </section>
+
+
+      <!-- DEFECTIVE HEADSET -->
+
+      <section class="shift-preview-section">
+
+        <div class="shift-preview-section-title">
+
+          <span>05</span>
+
+          <h3>DEFECTIVE HEADSET</h3>
+
+        </div>
+
+        <div
+          class="shift-preview-text"
+          id="previewHeadset">
+          —
+        </div>
+
+      </section>
+
+
+      <!-- NO DEFECT PCS -->
+
+      <section class="shift-preview-section">
+
+        <div class="shift-preview-section-title">
+
+          <span>06</span>
+
+          <h3>PC NUMBER WITH NO DEFECTS</h3>
+
+        </div>
+
+        <div
+          class="shift-preview-pc-grid"
+          id="previewNoDefectPcs">
+          —
+        </div>
+
+      </section>
+
+
+      <!-- SPARE ITEMS -->
+
+      <section class="shift-preview-section">
+
+        <div class="shift-preview-section-title">
+
+          <span>07</span>
+
+          <h3>SPARE ITEMS</h3>
+
+        </div>
+
+        <div class="shift-preview-spares">
+
+          <div>
+            <span>Spare VIP Keyboard</span>
+            <strong id="previewSpareVipKeyboard">0</strong>
+          </div>
+
+          <div>
+            <span>Spare Standard Keyboard</span>
+            <strong id="previewSpareStandardKeyboard">0</strong>
+          </div>
+
+          <div>
+            <span>Spare VIP Mouse</span>
+            <strong id="previewSpareVipMouse">0</strong>
+          </div>
+
+          <div>
+            <span>Spare Standard Mouse</span>
+            <strong id="previewSpareStandardMouse">0</strong>
+          </div>
+
+          <div>
+            <span>Spare Cord</span>
+            <strong id="previewSpareCord">0</strong>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- FOLLOW UP -->
+
+      <section class="shift-preview-section">
+
+        <div class="shift-preview-section-title">
+
+          <span>08</span>
+
+          <h3>FOLLOW UP REPORT</h3>
+
+        </div>
+
+        <div
+          class="shift-preview-text"
+          id="previewFollowUp">
+          —
+        </div>
+
+      </section>
+
+
+      <!-- CLEANED PC -->
+
+      <section class="shift-preview-section">
+
+        <div class="shift-preview-section-title">
+
+          <span>09</span>
+
+          <h3>CLEANED PC</h3>
+
+        </div>
+
+        <div
+          class="shift-preview-pc-grid"
+          id="previewCleanedPcs">
+          —
+        </div>
+
+      </section>
+
+
+      <!-- SIGN OFF -->
+
+      <section class="shift-preview-section">
+
+        <div class="shift-preview-section-title">
+
+          <span>10</span>
+
+          <h3>REPORT SIGN-OFF</h3>
+
+        </div>
+
+        <div class="shift-preview-signoff">
+
+          <div class="shift-preview-signoff-box">
+
+            <h4>ADMIN</h4>
+
+            <img
+              id="previewAdminSignature"
+              class="shift-preview-signature"
+              alt="Admin signature">
+
+            <strong id="previewAdminName">
+              —
+            </strong>
+
+          </div>
+
+
+          <div class="shift-preview-signoff-box">
+
+            <h4>TECHNICIAN</h4>
+
+            <img
+              id="previewTechSignature"
+              class="shift-preview-signature"
+              alt="Technician signature">
+
+            <strong id="previewTechName">
+              —
+            </strong>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <div class="shift-preview-footer">
+        MARV’S GAMING HUB MANAGEMENT REPORT
+      </div>
+
+    </div>
+
+
+    <div class="shift-preview-bottom-actions">
+
+      <button
+        type="button"
+        id="printShiftReport"
+        class="shift-print-btn">
+        🖨 Print Report
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+  
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
 </body>
