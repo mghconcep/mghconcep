@@ -4100,3 +4100,8 @@ body.shift-modal-open {
         zoom: 1.25;
     }
 }
+/* Keep Shift Report modal at normal size */
+.shift-modal,
+#shiftPreviewModal {
+    zoom: 1;
+}
