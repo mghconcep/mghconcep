@@ -957,6 +957,38 @@ document
 
   });
 
+/* =========================================================
+   CLEAR ALL SHIFT PC SELECTIONS
+   ========================================================= */
+
+document
+  .getElementById("clearShiftNoDefectPcs")
+  ?.addEventListener("click", () => {
+
+    document
+      .querySelectorAll(
+        '#shiftNoDefectPcList input[type="checkbox"]'
+      )
+      .forEach(checkbox => {
+        checkbox.checked = false;
+      });
+
+  });
+
+document
+  .getElementById("clearShiftCleanedPcs")
+  ?.addEventListener("click", () => {
+
+    document
+      .querySelectorAll(
+        '#shiftCleanedPcList input[type="checkbox"]'
+      )
+      .forEach(checkbox => {
+        checkbox.checked = false;
+      });
+
+  });
+
 
 /* =========================================================
    BUILD PC LISTS
@@ -1717,10 +1749,12 @@ document
    SHOW SAVED SHIFT REPORT
    ===================================================== */
 
-showShiftReportPreview(
-  shiftReport,
-  selectedGames
-);
+if (typeof showShiftReportPreview === "function") {
+  showShiftReportPreview(
+    shiftReport,
+    selectedGames
+  );
+}
 
       /* =====================================================
          RESET FORM
