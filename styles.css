@@ -1914,3 +1914,39 @@ body.shift-modal-open {
   }
 
 }
+
+.shift-pc-heading {
+  align-items: center;
+}
+
+.shift-section-heading-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.shift-clear-pc-btn {
+  flex-shrink: 0;
+  padding: 7px 10px;
+  border: 1px solid #344b6c;
+  border-radius: 7px;
+  background: #101d31;
+  color: #8294af;
+  font: 700 8px Inter, Arial, sans-serif;
+  cursor: pointer;
+  transition: .15s ease;
+}
+
+.shift-clear-pc-btn:hover {
+  border-color: #657da7;
+  background: #172640;
+  color: #dce6fa;
+}
+
+@media (max-width: 700px) {
+  .shift-clear-pc-btn {
+    padding: 6px 8px;
+    font-size: 7px;
+  }
+}
