@@ -15,8 +15,224 @@
 .signoff-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.signoff-card{background:#fff;border:1px solid #dce2ec;border-radius:11px;padding:13px}.signoff-label{font-size:9px;letter-spacing:.12em;font-weight:900;color:#74819a;margin-bottom:8px}.signature-box{height:100px;border:1px dashed #bcc7d8;border-radius:8px;background:#fbfcfe;display:grid;place-items:center;overflow:hidden;color:#98a3b7;font-size:10px;margin-bottom:8px}.signature-box .signature{max-height:94px;max-width:100%;object-fit:contain;border:0;background:transparent}.signoff-card>strong{font-size:11px;color:#1d2940}.report-footer{display:flex;justify-content:space-between;gap:12px;padding:13px 30px;background:#edf1f7;color:#7b879d;font-size:8px;letter-spacing:.08em;text-transform:uppercase}
 .modal-actions{display:flex;align-items:center;gap:8px}.modal-actions .ghost{padding:9px 12px;font-size:11px}
 @media(max-width:760px){.report-header{padding:20px;align-items:flex-start;flex-direction:column}.report-date{text-align:left}.report-banner,.report-section{padding-left:20px;padding-right:20px}.report-mini-grid,.inventory-grid,.signoff-grid{grid-template-columns:1fr}.spare-grid{grid-template-columns:1fr}.report-footer{padding:12px 20px;flex-direction:column}.report-header h2{font-size:18px}.modal-actions .ghost{display:none}}
-@media print{body{background:#fff!important}.modal{position:static;padding:0}.modal-backdrop,.modal-head{display:none!important}.modal-card{max-height:none;overflow:visible;border:0;box-shadow:none;width:100%;background:#fff}.modal-body{padding:0}.report-sheet{box-shadow:none;border:0;border-radius:0}.report-section{break-inside:avoid}.report-table-wrap{overflow:visible}.report-table{min-width:0}.bg-glow,.toast{display:none!important}}
+@media print {
 
+    @page {
+        size: A4 portrait;
+        margin: 10mm;
+    }
+
+    html,
+    body {
+        width: 100%;
+        height: auto;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        background: #fff !important;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    #reportModal,
+    #reportModal * {
+        visibility: visible;
+    }
+
+    #reportModal {
+        position: static !important;
+        width: 100% !important;
+        height: auto !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: visible !important;
+        background: #fff !important;
+    }
+
+    #reportModal .modal-backdrop,
+    #reportModal .modal-head,
+    #reportModal .modal-actions,
+    #reportModal button {
+        display: none !important;
+    }
+
+    #reportModal .modal-card {
+        position: static !important;
+        width: 100% !important;
+        max-width: none !important;
+        height: auto !important;
+        max-height: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        background: #fff !important;
+    }
+
+    #reportModal .modal-body {
+        width: 100% !important;
+        max-width: none !important;
+        height: auto !important;
+        max-height: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: visible !important;
+    }
+
+    #reportModal .report-sheet {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        font-size: 10px !important;
+        line-height: 1.35 !important;
+        overflow: visible !important;
+    }
+
+    #reportModal .report-header {
+        padding: 16px !important;
+    }
+
+    #reportModal .report-header h2 {
+        font-size: 20px !important;
+    }
+
+    #reportModal .report-section {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 15px 16px !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    #reportModal .report-section-title {
+        margin-bottom: 9px !important;
+    }
+
+    #reportModal .report-section-title h3 {
+        font-size: 13px !important;
+    }
+
+    /* GAME GRID */
+    #reportModal .report-game-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 5px !important;
+    }
+
+    #reportModal .report-game-item {
+        min-height: 30px !important;
+        padding: 5px 7px !important;
+        font-size: 8px !important;
+        line-height: 1.2 !important;
+        overflow-wrap: anywhere !important;
+    }
+
+    #reportModal .report-game-item b {
+        flex: 0 0 18px !important;
+        width: 18px !important;
+        height: 18px !important;
+        font-size: 9px !important;
+    }
+
+    /* TABLES */
+    #reportModal .report-table-wrap {
+        width: 100% !important;
+        overflow: visible !important;
+    }
+
+    #reportModal .report-table {
+        width: 100% !important;
+        min-width: 0 !important;
+        table-layout: fixed !important;
+    }
+
+    #reportModal .report-table th,
+    #reportModal .report-table td {
+        padding: 5px 7px !important;
+        font-size: 8.5px !important;
+        word-break: break-word !important;
+        overflow-wrap: anywhere !important;
+    }
+
+    #reportModal .report-table th:first-child,
+    #reportModal .report-table td:first-child {
+        width: 70% !important;
+    }
+
+    #reportModal .report-table th:last-child,
+    #reportModal .report-table td:last-child {
+        width: 30% !important;
+        white-space: normal !important;
+    }
+
+    /* DEFECTS / INVENTORY */
+    #reportModal .report-mini-grid,
+    #reportModal .inventory-grid,
+    #reportModal .signoff-grid {
+        width: 100% !important;
+        page-break-inside: avoid;
+    }
+
+    #reportModal .report-mini-card,
+    #reportModal .inventory-card,
+    #reportModal .signoff-card,
+    #reportModal .pc-status-block,
+    #reportModal .followup-box,
+    #reportModal .spare-row {
+        page-break-inside: avoid;
+    }
+
+    /* PC CHIPS */
+    #reportModal .pc-grid {
+        gap: 4px !important;
+    }
+
+    #reportModal .pc-chip {
+        padding: 4px 6px !important;
+        font-size: 8px !important;
+    }
+
+    /* FOLLOW UP */
+    #reportModal .followup-box {
+        font-size: 9px !important;
+        line-height: 1.4 !important;
+        padding: 9px !important;
+    }
+
+    /* SIGNATURES */
+    #reportModal .signature-box {
+        height: 70px !important;
+        min-height: 70px !important;
+    }
+
+    #reportModal .signature-box .signature {
+        width: 150px !important;
+        height: 50px !important;
+    }
+
+    #reportModal .signoff-card > strong {
+        font-size: 10px !important;
+    }
+
+    /* FOOTER */
+    #reportModal .report-footer {
+        padding: 10px 16px !important;
+        font-size: 7px !important;
+    }
+
+    .bg-glow,
+    .toast {
+        display: none !important;
+    }
+}
 table {
   table-layout: auto;
 }
