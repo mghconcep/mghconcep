@@ -4119,4 +4119,13 @@ body.shift-modal-open {
     .shift-preview-card {
         max-height: calc(100vh - 40px);
     }
+
+    .shift-preview-bottom-actions {
+        position: sticky;
+        bottom: 0;
+        z-index: 10;
+        background: #111d31;
+        padding: 12px 28px 18px;
+        margin-top: 0;
+    }
 }
