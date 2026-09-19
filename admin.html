@@ -74,6 +74,42 @@
         </table>
       </div>
     </section>
+
+    <section class="card reports-card shift-admin-card">
+
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">SHIFT REPORTS</p>
+      <h3>Shift report history</h3>
+    </div>
+
+    <span id="shiftLoading" class="muted small"></span>
+  </div>
+
+  <div id="shiftEmptyState" class="empty hidden">
+    No saved shift reports found.
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Shift</th>
+          <th>Time</th>
+          <th>Admin</th>
+          <th>Tech</th>
+          <th>Saved</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody id="shiftReportRows"></tbody>
+    </table>
+  </div>
+
+</section>
+    
   </main>
 </section>
 
