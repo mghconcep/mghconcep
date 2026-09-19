@@ -1023,3 +1023,5 @@ td.report-actions .mini-delete {
         font-size: 13px;
     }
 }
+
+/* SPACE BETWEEN SAVED REPORTS AND SHIFT REPORTS */ .shift-admin-card { margin-top: 24px; }
