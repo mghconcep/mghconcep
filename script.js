@@ -1173,6 +1173,326 @@ function escapeShiftHtml(value) {
 
 }
 
+/* =====================================================
+   SHIFT REPORT PREVIEW
+   ===================================================== */
+
+const shiftPreviewModal =
+  document.getElementById("shiftPreviewModal");
+
+const closeShiftPreview =
+  document.getElementById("closeShiftPreview");
+
+const shiftPreviewBackdrop =
+  document.getElementById("shiftPreviewBackdrop");
+
+const printShiftReport =
+  document.getElementById("printShiftReport");
+
+
+function openShiftPreview() {
+
+  if (!shiftPreviewModal) return;
+
+  shiftPreviewModal.classList.add("is-open");
+
+  shiftPreviewModal.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+}
+
+
+function closeShiftPreviewModal() {
+
+  if (!shiftPreviewModal) return;
+
+  shiftPreviewModal.classList.remove("is-open");
+
+  shiftPreviewModal.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+}
+
+
+closeShiftPreview?.addEventListener(
+  "click",
+  closeShiftPreviewModal
+);
+
+
+shiftPreviewBackdrop?.addEventListener(
+  "click",
+  closeShiftPreviewModal
+);
+
+
+printShiftReport?.addEventListener(
+  "click",
+  () => {
+    window.print();
+  }
+);
+
+
+document.addEventListener("keydown", event => {
+
+  if (
+    event.key === "Escape" &&
+    shiftPreviewModal?.classList.contains("is-open")
+  ) {
+    closeShiftPreviewModal();
+  }
+
+});
+
+
+function setShiftPreviewText(id, value) {
+
+  const element =
+    document.getElementById(id);
+
+  if (!element) return;
+
+  element.textContent =
+    value !== null &&
+    value !== undefined &&
+    String(value).trim()
+      ? value
+      : "—";
+
+}
+
+
+function setShiftPreviewList(id, values) {
+
+  const container =
+    document.getElementById(id);
+
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  if (!values || !values.length) {
+
+    container.textContent = "—";
+
+    return;
+  }
+
+  values.forEach(value => {
+
+    const span =
+      document.createElement("span");
+
+    span.textContent = value;
+
+    container.appendChild(span);
+
+  });
+
+}
+
+
+function setShiftPreviewGames(games) {
+
+  const container =
+    document.getElementById("previewGames");
+
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  if (!games || !games.length) {
+
+    container.textContent = "—";
+
+    return;
+  }
+
+  games.forEach(game => {
+
+    const item =
+      document.createElement("div");
+
+    item.textContent = game;
+
+    container.appendChild(item);
+
+  });
+
+}
+
+
+function showShiftReportPreview(report, games) {
+
+  if (!report) return;
+
+
+  setShiftPreviewText(
+    "previewShiftLabel",
+    `${report.shift_type} ${report.shift_time}`
+  );
+
+
+  setShiftPreviewText(
+    "previewShiftDate",
+    report.report_date
+      ? new Date(
+          `${report.report_date}T00:00:00`
+        ).toLocaleDateString(
+          "en-PH",
+          {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+          }
+        )
+      : "—"
+  );
+
+
+  setShiftPreviewText(
+    "previewChanges",
+    report.changes
+  );
+
+
+  setShiftPreviewText(
+    "previewKeyboard",
+    report.defective_keyboard
+  );
+
+
+  setShiftPreviewText(
+    "previewMouse",
+    report.defective_mouse
+  );
+
+
+  setShiftPreviewText(
+    "previewHeadset",
+    report.defective_headset
+  );
+
+
+  setShiftPreviewText(
+    "previewFollowUp",
+    report.follow_up_report
+  );
+
+
+  setShiftPreviewGames(games);
+
+
+  setShiftPreviewList(
+    "previewNoDefectPcs",
+    report.pc_no_defects
+      ? report.pc_no_defects
+          .split(",")
+          .map(pc => pc.trim())
+          .filter(Boolean)
+      : []
+  );
+
+
+  setShiftPreviewList(
+    "previewCleanedPcs",
+    report.cleaned_pc
+      ? report.cleaned_pc
+          .split(",")
+          .map(pc => pc.trim())
+          .filter(Boolean)
+      : []
+  );
+
+
+  setShiftPreviewText(
+    "previewSpareVipKeyboard",
+    report.spare_vip_keyboard ?? 0
+  );
+
+
+  setShiftPreviewText(
+    "previewSpareStandardKeyboard",
+    report.spare_standard_keyboard ?? 0
+  );
+
+
+  setShiftPreviewText(
+    "previewSpareVipMouse",
+    report.spare_vip_mouse ?? 0
+  );
+
+
+  setShiftPreviewText(
+    "previewSpareStandardMouse",
+    report.spare_standard_mouse ?? 0
+  );
+
+
+  setShiftPreviewText(
+    "previewSpareCord",
+    report.spare_cord ?? 0
+  );
+
+
+  setShiftPreviewText(
+    "previewAdminName",
+    report.admin_name
+  );
+
+
+  setShiftPreviewText(
+    "previewTechName",
+    report.tech_name
+  );
+
+
+  const adminSignature =
+    document.getElementById(
+      "previewAdminSignature"
+    );
+
+  const techSignature =
+    document.getElementById(
+      "previewTechSignature"
+    );
+
+
+  if (adminSignature) {
+
+    adminSignature.src =
+      report.admin_signature || "";
+
+    adminSignature.style.display =
+      report.admin_signature
+        ? "block"
+        : "none";
+
+  }
+
+
+  if (techSignature) {
+
+    techSignature.src =
+      report.tech_signature || "";
+
+    techSignature.style.display =
+      report.tech_signature
+        ? "block"
+        : "none";
+
+  }
+
+
+  openShiftPreview();
+
+}
+
 
 /* =========================================================
    TEMPORARY SAVE HANDLER
