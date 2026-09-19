@@ -4095,13 +4095,28 @@ body.shift-modal-open {
     }
 
 }
+/* =====================================================
+   125% SITE SCALE — KEEP MODALS VISIBLE
+   ===================================================== */
+
 @media (min-width: 1001px) {
     body {
         zoom: 1.25;
     }
-}
-/* Keep Shift Report modal at normal size */
-.shift-modal,
-#shiftPreviewModal {
-    zoom: 1;
+
+    .shift-modal,
+    .shift-preview-modal {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .shift-modal-card {
+        max-height: calc(100vh - 50px);
+    }
+
+    .shift-preview-card {
+        max-height: calc(100vh - 40px);
+    }
 }
