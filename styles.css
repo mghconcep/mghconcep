@@ -1460,3 +1460,43 @@ body.shift-modal-open {
     width: 100%;
   }
 }
+
+/* =========================================================
+   SHIFT REPORT - CLEAR ALL GAMES
+   ========================================================= */
+
+.shift-games-heading {
+  align-items: center;
+}
+
+.shift-games-heading-content {
+  flex: 1;
+}
+
+.shift-clear-games-btn {
+  flex-shrink: 0;
+  padding: 7px 10px;
+  border: 1px solid #344b6c;
+  border-radius: 7px;
+  background: #101d31;
+  color: #8294af;
+  font: 700 8px Inter, Arial, sans-serif;
+  cursor: pointer;
+  transition: .15s ease;
+}
+
+.shift-clear-games-btn:hover {
+  border-color: #657da7;
+  background: #172640;
+  color: #dce6fa;
+}
+
+@media (max-width: 600px) {
+  .shift-games-heading {
+    align-items: flex-start;
+  }
+
+  .shift-clear-games-btn {
+    margin-left: auto;
+  }
+}
