@@ -1,1476 +1,1377 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MGH OVERALL REPORTS</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MGH OVERALL REPORTS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-  <div class="page-glow"></div>
+    <div class="page-glow"></div>
 
-  <main>
-    <section class="hero report-hero" id="home">
-      <div class="hero-copy">
-        <p class="eyebrow">GAMING HUB MANAGEMENT</p>
-        <h1>MARV’S<br><span>Gaming Hub Reports.</span></h1>
-        <p class="subtitle">Daily gaming hub reports, equipment status, peripheral counts, defective items, and follow-up information in one place.</p>
-        <a class="primary-btn" href="#report">View Report <span>→</span></a>
-      </div>
-
-      <div class="report-hero-panel" aria-label="Live date and time">
-        <div class="report-panel-top">
-          <span class="live-pill"><i></i> LIVE</span>
-        </div>
-        <div class="report-clock-label">CURRENT DATE &amp; TIME</div>
-        <div class="report-date" id="liveDate">Loading date…</div>
-        <div class="report-time" id="liveTime">--:--:--</div>
-        <div class="report-timezone">Local device time</div>
-      </div>
-    </section>
-
-    <section class="report-section" id="report">
-  <div class="catalog-top">
-    <div>
-      <p class="eyebrow">GAMING HUB REPORT</p>
-    </div>
-
-    <!-- SHIFT REPORT BUTTON -->
-    <button type="button" class="shift-report-btn" id="openShiftReport">
-      <span>＋</span> Shift Report
-    </button>
-  </div>
-
-      <form class="report-form" id="reportForm">
-        <div class="form-card games-card">
-          <div class="games-header">
-            <div>
-              <p class="form-title">Games Update</p>
-              <p class="games-hint">Select multiple games and set their current update status.</p>
+    <main>
+        <section class="hero report-hero" id="home">
+            <div class="hero-copy">
+                <p class="eyebrow">GAMING HUB MANAGEMENT</p>
+                <h1>MARV’S<br><span>Gaming Hub Reports.</span></h1>
+                <p class="subtitle">Daily gaming hub reports, equipment status, peripheral counts, defective items, and
+                    follow-up information in one place.</p>
+                <a class="primary-btn" href="#report">View Report <span>→</span></a>
             </div>
-            <div class="header-status-actions">
-              <button type="button" class="header-status updated-command" data-set-status="updated">
-                ✓ Updated <b id="updatedCount">0</b>
-              </button>
-              <button type="button" class="header-status check-command" data-set-status="check">
-                ! Need to Check <b id="checkCount">0</b>
-              </button>
-              <button type="button" class="header-status update-command" data-set-status="update">
-                ↻ Needs Update <b id="updateCount">0</b>
-              </button>
+
+            <div class="report-hero-panel" aria-label="Live date and time">
+                <div class="report-panel-top">
+                    <span class="live-pill"><i></i> LIVE</span>
+                </div>
+                <div class="report-clock-label">CURRENT DATE &amp; TIME</div>
+                <div class="report-date" id="liveDate">Loading date…</div>
+                <div class="report-time" id="liveTime">--:--:--</div>
+                <div class="report-timezone">Local device time</div>
             </div>
-            <span class="selected-count" id="selectedCount">0 selected / 45 games</span>
-          </div>
+        </section>
 
-          <div class="games-toolbar">
-            <div class="game-search">
-              <span>⌕</span>
-              <input id="gameSearch" type="search" placeholder="Search games..." autocomplete="off">
+        <section class="report-section" id="report">
+            <div class="catalog-top">
+                <div>
+                    <p class="eyebrow">GAMING HUB REPORT</p>
+                </div>
+
+                <!-- SHIFT REPORT BUTTON -->
+                <button type="button" class="shift-report-btn" id="openShiftReport">
+                    <span>＋</span> Shift Report
+                </button>
             </div>
-            <div class="game-actions">
-              <button type="button" class="mini-action" id="selectAllGames">Select all</button>
-              <button type="button" class="mini-action" id="clearGames">Clear</button>
-            </div>
-          </div>
-
-          <div class="game-view-row">
-            <span class="view-label">View:</span>
-            <div class="view-status-actions" aria-label="View games by status">
-              <button type="button" class="view-status-btn active" data-view-status="all">All</button>
-              <button type="button" class="view-status-btn" data-view-status="updated">Updated</button>
-              <button type="button" class="view-status-btn" data-view-status="check">Need to Check</button>
-              <button type="button" class="view-status-btn" data-view-status="update">Needs Update</button>
-            </div>
-          </div>
-
-          <div class="game-list-heading"><span id="listHeading">All Games</span><span id="listHint">Select games and use a status button above</span></div>
-          <div class="game-list" id="gameList">
-
-  <label class="game-option" data-game="VALORANT" data-status="updated">
-    <input type="checkbox" name="games" value="VALORANT">
-    <span class="game-check"></span>
-    <span class="game-name">VALORANT</span>
-  </label>
-
-  <label class="game-option" data-game="GENSIN" data-status="updated">
-    <input type="checkbox" name="games" value="GENSIN">
-    <span class="game-check"></span>
-    <span class="game-name">GENSHIN</span>
-  </label>
-
-  <label class="game-option" data-game="ROBLOX" data-status="updated">
-    <input type="checkbox" name="games" value="ROBLOX">
-    <span class="game-check"></span>
-    <span class="game-name">ROBLOX</span>
-  </label>
-
-  <label class="game-option" data-game="Warframe" data-status="updated">
-    <input type="checkbox" name="games" value="Warframe">
-    <span class="game-check"></span>
-    <span class="game-name">Warframe</span>
-  </label>
-
-  <label class="game-option" data-game="ARENA BREAKOUT" data-status="updated">
-    <input type="checkbox" name="games" value="ARENA BREAKOUT">
-    <span class="game-check"></span>
-    <span class="game-name">ARENA BREAKOUT</span>
-  </label>
-
-  <label class="game-option" data-game="MARVEL RIVALS" data-status="updated">
-    <input type="checkbox" name="games" value="MARVEL RIVALS">
-    <span class="game-check"></span>
-    <span class="game-name">MARVEL RIVALS</span>
-  </label>
-
-  <label class="game-option" data-game="Apex Legends Launcher" data-status="updated">
-    <input type="checkbox" name="games" value="Apex Legends Launcher">
-    <span class="game-check"></span>
-    <span class="game-name">Apex Legends Launcher</span>
-  </label>
-
-  <label class="game-option" data-game="Audition" data-status="updated">
-    <input type="checkbox" name="games" value="Audition">
-    <span class="game-check"></span>
-    <span class="game-name">Audition</span>
-  </label>
-
-  <label class="game-option" data-game="Back 4 Blood" data-status="updated">
-    <input type="checkbox" name="games" value="Back 4 Blood">
-    <span class="game-check"></span>
-    <span class="game-name">Back 4 Blood</span>
-  </label>
-
-  <label class="game-option" data-game="Baldur's Gate 3" data-status="updated">
-    <input type="checkbox" name="games" value="Baldur's Gate 3">
-    <span class="game-check"></span>
-    <span class="game-name">Baldur's Gate 3</span>
-  </label>
-
-  <label class="game-option" data-game="Blood Strike" data-status="updated">
-    <input type="checkbox" name="games" value="Blood Strike">
-    <span class="game-check"></span>
-    <span class="game-name">Blood Strike</span>
-  </label>
-
-  <label class="game-option" data-game="Crossfire PH Launcher" data-status="updated">
-    <input type="checkbox" name="games" value="Crossfire PH Launcher">
-    <span class="game-check"></span>
-    <span class="game-name">Crossfire PH Launcher</span>
-  </label>
-
-  <label class="game-option" data-game="CS2.0" data-status="updated">
-    <input type="checkbox" name="games" value="CS2.0">
-    <span class="game-check"></span>
-    <span class="game-name">CS2.0</span>
-  </label>
-
-  <label class="game-option" data-game="DNLauncher" data-status="updated">
-    <input type="checkbox" name="games" value="DNLauncher">
-    <span class="game-check"></span>
-    <span class="game-name">DNLauncher</span>
-  </label>
-
-  <label class="game-option" data-game="DOTA2" data-status="updated">
-    <input type="checkbox" name="games" value="DOTA2">
-    <span class="game-check"></span>
-    <span class="game-name">DOTA2</span>
-  </label>
-
-  <label class="game-option" data-game="Epic Games Launcher" data-status="updated">
-    <input type="checkbox" name="games" value="Epic Games Launcher">
-    <span class="game-check"></span>
-    <span class="game-name">Epic Games Launcher</span>
-  </label>
-
-  <label class="game-option" data-game="FiveM" data-status="updated">
-    <input type="checkbox" name="games" value="FiveM">
-    <span class="game-check"></span>
-    <span class="game-name">FiveM</span>
-  </label>
-
-  <label class="game-option" data-game="Fortnite" data-status="updated">
-    <input type="checkbox" name="games" value="Fortnite">
-    <span class="game-check"></span>
-    <span class="game-name">Fortnite</span>
-  </label>
-
-  <label class="game-option" data-game="FragPunk" data-status="updated">
-    <input type="checkbox" name="games" value="FragPunk">
-    <span class="game-check"></span>
-    <span class="game-name">FragPunk</span>
-  </label>
-
-  <label class="game-option" data-game="GTA5" data-status="updated">
-    <input type="checkbox" name="games" value="GTA5">
-    <span class="game-check"></span>
-    <span class="game-name">GTA5</span>
-  </label>
-
-  <label class="game-option" data-game="Gunz" data-status="updated">
-    <input type="checkbox" name="games" value="Gunz">
-    <span class="game-check"></span>
-    <span class="game-name">Gunz</span>
-  </label>
-
-  <label class="game-option" data-game="Heartopia" data-status="updated">
-    <input type="checkbox" name="games" value="Heartopia">
-    <span class="game-check"></span>
-    <span class="game-name">Heartopia</span>
-  </label>
-
-  <label class="game-option" data-game="Honkai Impact 3 Launcher.exe" data-status="updated">
-    <input type="checkbox" name="games" value="Honkai Impact 3 Launcher.exe">
-    <span class="game-check"></span>
-    <span class="game-name">Honkai Impact 3 Launcher.exe</span>
-  </label>
-
-  <label class="game-option" data-game="HoYoPlay Launcher.exe" data-status="updated">
-    <input type="checkbox" name="games" value="HoYoPlay Launcher.exe">
-    <span class="game-check"></span>
-    <span class="game-name">HoYoPlay Launcher.exe</span>
-  </label>
-
-  <label class="game-option" data-game="Icarus" data-status="updated">
-    <input type="checkbox" name="games" value="Icarus">
-    <span class="game-check"></span>
-    <span class="game-name">Icarus</span>
-  </label>
-
-  <label class="game-option" data-game="KnivesOut" data-status="updated">
-    <input type="checkbox" name="games" value="KnivesOut">
-    <span class="game-check"></span>
-    <span class="game-name">KnivesOut</span>
-  </label>
-
-  <label class="game-option" data-game="League of Legend" data-status="updated">
-    <input type="checkbox" name="games" value="League of Legend">
-    <span class="game-check"></span>
-    <span class="game-name">League of Legend</span>
-  </label>
-
-  <label class="game-option" data-game="Myth Games Launcher" data-status="updated">
-    <input type="checkbox" name="games" value="Myth Games Launcher">
-    <span class="game-check"></span>
-    <span class="game-name">Myth Games Launcher</span>
-  </label>
-
-  <label class="game-option" data-game="NarakaBladepoint" data-status="updated">
-    <input type="checkbox" name="games" value="NarakaBladepoint">
-    <span class="game-check"></span>
-    <span class="game-name">NarakaBladepoint</span>
-  </label>
-
-  <label class="game-option" data-game="osu!" data-status="updated">
-    <input type="checkbox" name="games" value="osu!">
-    <span class="game-check"></span>
-    <span class="game-name">osu!</span>
-  </label>
-
-  <label class="game-option" data-game="PointBlank" data-status="updated">
-    <input type="checkbox" name="games" value="PointBlank">
-    <span class="game-check"></span>
-    <span class="game-name">PointBlank</span>
-  </label>
-
-  <label class="game-option" data-game="PUBG" data-status="updated">
-    <input type="checkbox" name="games" value="PUBG">
-    <span class="game-check"></span>
-    <span class="game-name">PUBG</span>
-  </label>
-
-  <label class="game-option" data-game="Ragnarok The New World" data-status="updated">
-    <input type="checkbox" name="games" value="Ragnarok The New World">
-    <span class="game-check"></span>
-    <span class="game-name">Ragnarok The New World</span>
-  </label>
-
-  <!-- RiotClient is intentionally kept separate from VALORANT -->
-  <label class="game-option" data-game="RiotClient" data-status="updated">
-    <input type="checkbox" name="games" value="RiotClient">
-    <span class="game-check"></span>
-    <span class="game-name">RiotClient</span>
-  </label>
-
-  <label class="game-option" data-game="RobloxPlayer" data-status="updated">
-    <input type="checkbox" name="games" value="RobloxPlayer">
-    <span class="game-check"></span>
-    <span class="game-name">RobloxPlayer</span>
-  </label>
-
-  <label class="game-option" data-game="RustClient" data-status="updated">
-    <input type="checkbox" name="games" value="RustClient">
-    <span class="game-check"></span>
-    <span class="game-name">RustClient</span>
-  </label>
-
-  <label class="game-option" data-game="SF Rush" data-status="updated">
-    <input type="checkbox" name="games" value="SF Rush">
-    <span class="game-check"></span>
-    <span class="game-name">SF Rush</span>
-  </label>
-
-  <label class="game-option" data-game="StarRail Launcher.exe" data-status="updated">
-    <input type="checkbox" name="games" value="StarRail Launcher.exe">
-    <span class="game-check"></span>
-    <span class="game-name">StarRail Launcher.exe</span>
-  </label>
-
-  <label class="game-option" data-game="State of Decay 2" data-status="updated">
-    <input type="checkbox" name="games" value="State of Decay 2">
-    <span class="game-check"></span>
-    <span class="game-name">State of Decay 2</span>
-  </label>
-
-  <label class="game-option" data-game="Steam" data-status="updated">
-    <input type="checkbox" name="games" value="Steam">
-    <span class="game-check"></span>
-    <span class="game-name">Steam</span>
-  </label>
-
-  <label class="game-option" data-game="Stove Launcher" data-status="updated">
-    <input type="checkbox" name="games" value="Stove Launcher">
-    <span class="game-check"></span>
-    <span class="game-name">Stove Launcher</span>
-  </label>
-
-  <label class="game-option" data-game="TEKKEN 8" data-status="updated">
-    <input type="checkbox" name="games" value="TEKKEN 8">
-    <span class="game-check"></span>
-    <span class="game-name">TEKKEN 8</span>
-  </label>
-
-  <label class="game-option" data-game="TLauncher" data-status="updated">
-    <input type="checkbox" name="games" value="TLauncher">
-    <span class="game-check"></span>
-    <span class="game-name">TLauncher</span>
-  </label>
-
-  <label class="game-option" data-game="War Thunder" data-status="updated">
-    <input type="checkbox" name="games" value="War Thunder">
-    <span class="game-check"></span>
-    <span class="game-name">War Thunder</span>
-  </label>
-
-  <label class="game-option" data-game="ZenlessZoneZero Launcher.exe" data-status="updated">
-    <input type="checkbox" name="games" value="ZenlessZoneZero Launcher.exe">
-    <span class="game-check"></span>
-    <span class="game-name">ZenlessZoneZero Launcher.exe</span>
-  </label>
-
-</div>
-
-          <p class="no-games" id="noGames">No games found.</p>
-        </div>
-
-        <div class="form-card defective-card">
-  <div class="defective-head">
-    <div>
-      <p class="form-title">Defective Peripherals</p>
-      <p class="defective-subtitle">Add one or more defects to any PC. The same PC can have multiple defects.</p>
-    </div>
-    <button type="button" class="clear-defects-btn" id="clearDefects">Clear all</button>
-  </div>
-
-  <div class="add-defect-panel">
-    <div class="defect-input-grid">
-
-      <label class="pc-select-field">
-        PC Number
-        <select id="defectPcSelect" aria-label="Select PC number">
-          <option value="" selected disabled>Select PC</option>
-          <option value="PC01">PC01 — VIP</option>
-          <option value="PC02">PC02 — VIP</option>
-          <option value="PC03">PC03 — VIP</option>
-          <option value="PC04">PC04 — VIP</option>
-          <option value="PC05">PC05 — VIP</option>
-          <option value="PC06">PC06 — VIP</option>
-          <option value="PC07">PC07 — VIP</option>
-          <option value="PC08">PC08 — VIP</option>
-          <option value="PC09">PC09 — VIP</option>
-          <option value="PC10">PC10 — VIP</option>
-          <option value="PC11">PC11 — Standard</option>
-          <option value="PC12">PC12 — Standard</option>
-          <option value="PC13">PC13 — Standard</option>
-          <option value="PC14">PC14 — Standard</option>
-          <option value="PC15">PC15 — Standard</option>
-          <option value="PC16">PC16 — Standard</option>
-          <option value="PC17">PC17 — Standard</option>
-          <option value="PC18">PC18 — Standard</option>
-          <option value="PC19">PC19 — Standard</option>
-          <option value="PC20">PC20 — Standard</option>
-          <option value="PC21">PC21 — Standard</option>
-          <option value="PC22">PC22 — Standard</option>
-          <option value="PC23">PC23 — Standard</option>
-          <option value="PC24">PC24 — Standard</option>
-          <option value="PC25">PC25 — Standard</option>
-          <option value="PC26">PC26 — Standard</option>
-          <option value="PC27">PC27 — Standard</option>
-          <option value="PC28">PC28 — Standard</option>
-          <option value="PC29">PC29 — Standard</option>
-          <option value="PC30">PC30 — Standard</option>
-          <option value="PC31">PC31 — Standard</option>
-          <option value="PC32">PC32 — Standard</option>
-          <option value="PC33">PC33 — Standard</option>
-          <option value="PC34">PC34 — Standard</option>
-          <option value="PC35">PC35 — Standard</option>
-          <option value="PC36">PC36 — Standard</option>
-          <option value="PC37">PC37 — Standard</option>
-          <option value="PC38">PC38 — Standard</option>
-          <option value="PC39">PC39 — Standard</option>
-          <option value="PC40">PC40 — Standard</option>
-        </select>
-      </label>
-
-      <div class="defect-type-field">
-        <span>Defect Type</span>
-
-        <div class="defect-type-buttons" role="group" aria-label="Defect type">
-
-          <label>
-            <input type="checkbox" class="defect-type-check" value="keyboard">
-            <span>Keyboard</span>
-          </label>
-
-          <label>
-            <input type="checkbox" class="defect-type-check" value="headset">
-            <span>Headset</span>
-          </label>
-
-          <label>
-            <input type="checkbox" class="defect-type-check" value="mouse">
-            <span>Mouse</span>
-          </label>
-
-          <label>
-            <input type="checkbox" class="defect-type-check" value="monitor">
-            <span>Monitor</span>
-          </label>
-
-          <label>
-            <input type="checkbox" class="defect-type-check" value="power-cord">
-            <span>Power Cord</span>
-          </label>
-
-        </div>
-      </div>
-
-    </div>
-
-    <label class="defect-description">
-      Problem Description
-      <input type="text" id="defectDescription" placeholder="e.g. Right side no sound (Fantech)">
-    </label>
-
-    <div class="defect-add-row">
-      <span class="defect-selection" id="defectSelection">Select at least one defect type</span>
-      <button type="button" class="add-defect-btn" id="addDefect">+ Add Defect</button>
-    </div>
-  </div>
-
-  <div class="defect-totals">
-
-    <div class="defect-total-card">
-      <span>Defective Keyboard</span>
-      <div class="defect-count-lines">
-        <strong id="totalDefectKeyboardStandard">Standard - 0</strong>
-        <strong id="totalDefectKeyboardVip">VIP - 0</strong>
-      </div>
-    </div>
-
-    <div class="defect-total-card">
-      <span>Defective Headset</span>
-      <div class="defect-count-lines">
-        <strong id="totalDefectHeadsetStandard">Standard - 0</strong>
-        <strong id="totalDefectHeadsetVip">VIP - 0</strong>
-      </div>
-    </div>
-
-    <div class="defect-total-card">
-      <span>Defective Mouse</span>
-      <div class="defect-count-lines">
-        <strong id="totalDefectMouseStandard">Standard - 0</strong>
-        <strong id="totalDefectMouseVip">VIP - 0</strong>
-      </div>
-    </div>
-
-    <div class="defect-total-card">
-      <span>Defective Monitor</span>
-      <div class="defect-count-lines">
-        <strong id="totalDefectMonitorStandard">Standard - 0</strong>
-        <strong id="totalDefectMonitorVip">VIP - 0</strong>
-      </div>
-    </div>
-
-    <div class="defect-total-card">
-      <span>Defective Power Cord</span>
-      <div class="defect-count-lines">
-        <strong id="totalDefectPowerCordStandard">Standard - 0</strong>
-        <strong id="totalDefectPowerCordVip">VIP - 0</strong>
-      </div>
-    </div>
-
-  </div>
-</div>
-        <div class="form-card pc-status-card">
-          <div class="pc-status-head">
-            <div>
-              <p class="form-title">PC Status</p>
-              <p class="pc-status-subtitle">Tick the PCs that have no defects.</p>
-            </div>
-            <div class="pc-status-summary" aria-live="polite">
-              <span><b id="standardNoDefectsCount">0</b>/30 Standard</span>
-              <span><b id="vipNoDefectsCount">0</b>/10 VIP</span>
-            </div>
-          </div>
-
-          <div class="pc-status-groups">
-            <section class="pc-status-group">
-              <div class="pc-group-head">
-                <div><strong>Standard PCs</strong><small>PC11 – PC40</small></div>
-                <div class="pc-group-actions"><button type="button" class="pc-select-btn" data-pc-select="standard">Select All</button><button type="button" class="pc-select-btn" data-pc-clear="standard">Clear</button></div>
-              </div>
-              <div class="pc-check-grid" id="standardPcChecklist"></div>
-            </section>
-
-            <section class="pc-status-group">
-              <div class="pc-group-head">
-                <div><strong>VIP PCs</strong><small>PC01 – PC10</small></div>
-                <div class="pc-group-actions"><button type="button" class="pc-select-btn" data-pc-select="vip">Select All</button><button type="button" class="pc-select-btn" data-pc-clear="vip">Clear</button></div>
-              </div>
-              <div class="pc-check-grid" id="vipPcChecklist"></div>
-            </section>
-          </div>
-        </div>
-
-        <div class="form-card inventory-card">
-          <div class="inventory-heading">
-            <div>
-              <p class="form-title">Overall Peripherals Count</p>
-              <p class="inventory-subtitle">Edit the quantity directly. Brand totals update automatically.</p>
-            </div>
-          </div>
-
-          <div class="inventory-grid clean-inventory-grid">
-            <section class="inventory-item clean-inventory-item">
-              <div class="inventory-item-head"><span class="inventory-icon">⌨</span><div><strong>Keyboard</strong><small>40 total units</small></div></div>
-              <div class="inventory-tier clean-tier">
-                <div class="tier-head"><span class="tier-label">Standard</span><span class="tier-total">Total <strong id="keyboardStandardTotal">30</strong></span></div>
-                <label class="count-row">Red Dragon <input class="inventory-count" type="number" min="0" max="99" value="29" data-inventory="keyboard-standard-red-dragon"></label>
-                <label class="count-row">Inplay <input class="inventory-count" type="number" min="0" max="99" value="1" data-inventory="keyboard-standard-inplay"></label>
-              </div>
-              <div class="inventory-tier clean-tier">
-                <div class="tier-head"><span class="tier-label">VIP</span><span class="tier-total">Total <strong id="keyboardVipTotal">10</strong></span></div>
-                <label class="count-row">Red Dragon <input class="inventory-count" type="number" min="0" max="99" value="10" data-inventory="keyboard-vip-red-dragon"></label>
-              </div>
-            </section>
-
-            <section class="inventory-item clean-inventory-item">
-              <div class="inventory-item-head"><span class="inventory-icon">🖱</span><div><strong>Mouse</strong><small>40 total units</small></div></div>
-              <div class="inventory-tier clean-tier">
-                <div class="tier-head"><span class="tier-label">Standard</span><span class="tier-total">Total <strong id="mouseStandardTotal">30</strong></span></div>
-                <label class="count-row">Fantech <input class="inventory-count" type="number" min="0" max="99" value="6" data-inventory="mouse-standard-fantech"></label>
-                <label class="count-row">Red Dragon <input class="inventory-count" type="number" min="0" max="99" value="24" data-inventory="mouse-standard-red-dragon"></label>
-              </div>
-              <div class="inventory-tier clean-tier">
-                <div class="tier-head"><span class="tier-label">VIP</span><span class="tier-total">Total <strong id="mouseVipTotal">10</strong></span></div>
-                <label class="count-row">Red Dragon <input class="inventory-count" type="number" min="0" max="99" value="10" data-inventory="mouse-vip-red-dragon"></label>
-              </div>
-            </section>
-
-            <section class="inventory-item clean-inventory-item">
-              <div class="inventory-item-head"><span class="inventory-icon">🎧</span><div><strong>Headset</strong><small>40 total units</small></div></div>
-              <div class="inventory-tier clean-tier">
-                <div class="tier-head"><span class="tier-label">Standard</span><span class="tier-total">Total <strong id="headsetStandardTotal">30</strong></span></div>
-                <label class="count-row">Fantech <input class="inventory-count" type="number" min="0" max="99" value="30" data-inventory="headset-standard-fantech"></label>
-              </div>
-              <div class="inventory-tier clean-tier">
-                <div class="tier-head"><span class="tier-label">VIP</span><span class="tier-total">Total <strong id="headsetVipTotal">10</strong></span></div>
-                <label class="count-row">Fantech <input class="inventory-count" type="number" min="0" max="99" value="7" data-inventory="headset-vip-fantech"></label>
-                <label class="count-row">Badwolf <input class="inventory-count" type="number" min="0" max="99" value="2" data-inventory="headset-vip-badwolf"></label>
-                <label class="count-row">Red Dragon <input class="inventory-count" type="number" min="0" max="99" value="1" data-inventory="headset-vip-red-dragon"></label>
-              </div>
-            </section>
-          </div>
-        </div>
-
-        <div class="form-card">
-          <p class="form-title">Spare Items & Follow Up</p>
-          <div class="input-grid">
-            <label>Spare VIP Keyboard<input id="spareVipKeyboard" type="text" value="" inputmode="numeric" placeholder=""></label>
-            <label>Spare Standard Keyboard<input id="spareStandardKeyboard" type="text" value="" inputmode="numeric" placeholder=""></label>
-            <label>Spare VIP Mouse<input id="spareVipMouse" type="text" value="" inputmode="numeric" placeholder=""></label>
-            <label>Spare Standard Mouse<input id="spareStandardMouse" type="text" value="" inputmode="numeric" placeholder=""></label>
-            <label>Spare Cord<input id="spareCord" type="text" value="" inputmode="numeric" placeholder=""></label>
-            <label>Follow Up Report<input id="followUpReport" type="text" value="" placeholder=""></label>
-          </div>
-        </div>
-
-        <div class="form-card">
-          <p class="form-title">Report Sign-Off</p>
-          <div class="signature-grid">
-            <div class="signature-field">
-              <label class="signature-label" for="adminSignature">Admin Signature</label>
-              <div class="signature-pad-wrap">
-                <canvas class="signature-pad" id="adminSignature" aria-label="Admin signature box"></canvas>
-                <span class="signature-placeholder" id="adminSignaturePlaceholder">Sign here</span>
-                <button type="button" class="signature-clear" data-signature-clear="adminSignature">Clear</button>
-              </div>
-              <label class="signature-name" for="adminName">Admin
-                <select id="adminName">
-                  <option value="" selected>Select Admin</option>
-                  <option>ALECK ZANDRA BRIONES</option>
-                  <option>BIANCA AGPOON</option>
-                  <option>AIRA PINEDA</option>
-                </select>
-              </label>
-            </div>
-            <div class="signature-field">
-              <label class="signature-label" for="techSignature">Tech Signature</label>
-              <div class="signature-pad-wrap">
-                <canvas class="signature-pad" id="techSignature" aria-label="Tech signature box"></canvas>
-                <span class="signature-placeholder" id="techSignaturePlaceholder">Sign here</span>
-                <button type="button" class="signature-clear" data-signature-clear="techSignature">Clear</button>
-              </div>
-              <label class="signature-name" for="techName">Tech
-                <select id="techName">
-                  <option value="" selected>Select Tech</option>
-                  <option>JP GALIT</option>
-                  <option>ARCHIE TURLA</option>
-                </select>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <button class="primary-btn save-btn" type="submit">Save Report <span>✓</span></button>
-        <p class="save-message" id="saveMessage"></p>
-      </form>
-    </section>
-  </main>
-
- <!-- =====================================================
+
+            <form class="report-form" id="reportForm">
+                <div class="form-card games-card">
+                    <div class="games-header">
+                        <div>
+                            <p class="form-title">Games Update</p>
+                            <p class="games-hint">Select multiple games and set their current update status.</p>
+                        </div>
+                        <div class="header-status-actions">
+                            <button type="button" class="header-status updated-command" data-set-status="updated">
+                                ✓ Updated <b id="updatedCount">0</b>
+                            </button>
+                            <button type="button" class="header-status check-command" data-set-status="check">
+                                ! Need to Check <b id="checkCount">0</b>
+                            </button>
+                            <button type="button" class="header-status update-command" data-set-status="update">
+                                ↻ Needs Update <b id="updateCount">0</b>
+                            </button>
+                        </div>
+                        <span class="selected-count" id="selectedCount">0 selected / 45 games</span>
+                    </div>
+
+                    <div class="games-toolbar">
+                        <div class="game-search">
+                            <span>⌕</span>
+                            <input id="gameSearch" type="search" placeholder="Search games..." autocomplete="off">
+                        </div>
+                        <div class="game-actions">
+                            <button type="button" class="mini-action" id="selectAllGames">Select all</button>
+                            <button type="button" class="mini-action" id="clearGames">Clear</button>
+                        </div>
+                    </div>
+
+                    <div class="game-view-row">
+                        <span class="view-label">View:</span>
+                        <div class="view-status-actions" aria-label="View games by status">
+                            <button type="button" class="view-status-btn active" data-view-status="all">All</button>
+                            <button type="button" class="view-status-btn" data-view-status="updated">Updated</button>
+                            <button type="button" class="view-status-btn" data-view-status="check">Need to
+                                Check</button>
+                            <button type="button" class="view-status-btn" data-view-status="update">Needs
+                                Update</button>
+                        </div>
+                    </div>
+
+                    <div class="game-list-heading"><span id="listHeading">All Games</span><span id="listHint">Select
+                            games and use a status button above</span></div>
+                    <div class="game-list" id="gameList">
+
+                        <label class="game-option" data-game="VALORANT" data-status="updated">
+                            <input type="checkbox" name="games" value="VALORANT">
+                            <span class="game-check"></span>
+                            <span class="game-name">VALORANT</span>
+                        </label>
+
+                        <label class="game-option" data-game="GENSIN" data-status="updated">
+                            <input type="checkbox" name="games" value="GENSIN">
+                            <span class="game-check"></span>
+                            <span class="game-name">GENSHIN</span>
+                        </label>
+
+                        <label class="game-option" data-game="ROBLOX" data-status="updated">
+                            <input type="checkbox" name="games" value="ROBLOX">
+                            <span class="game-check"></span>
+                            <span class="game-name">ROBLOX</span>
+                        </label>
+
+                        <label class="game-option" data-game="Warframe" data-status="updated">
+                            <input type="checkbox" name="games" value="Warframe">
+                            <span class="game-check"></span>
+                            <span class="game-name">Warframe</span>
+                        </label>
+
+                        <label class="game-option" data-game="ARENA BREAKOUT" data-status="updated">
+                            <input type="checkbox" name="games" value="ARENA BREAKOUT">
+                            <span class="game-check"></span>
+                            <span class="game-name">ARENA BREAKOUT</span>
+                        </label>
+
+                        <label class="game-option" data-game="MARVEL RIVALS" data-status="updated">
+                            <input type="checkbox" name="games" value="MARVEL RIVALS">
+                            <span class="game-check"></span>
+                            <span class="game-name">MARVEL RIVALS</span>
+                        </label>
+
+                        <label class="game-option" data-game="Apex Legends Launcher" data-status="updated">
+                            <input type="checkbox" name="games" value="Apex Legends Launcher">
+                            <span class="game-check"></span>
+                            <span class="game-name">Apex Legends Launcher</span>
+                        </label>
+
+                        <label class="game-option" data-game="Audition" data-status="updated">
+                            <input type="checkbox" name="games" value="Audition">
+                            <span class="game-check"></span>
+                            <span class="game-name">Audition</span>
+                        </label>
+
+                        <label class="game-option" data-game="Back 4 Blood" data-status="updated">
+                            <input type="checkbox" name="games" value="Back 4 Blood">
+                            <span class="game-check"></span>
+                            <span class="game-name">Back 4 Blood</span>
+                        </label>
+
+                        <label class="game-option" data-game="Baldur's Gate 3" data-status="updated">
+                            <input type="checkbox" name="games" value="Baldur's Gate 3">
+                            <span class="game-check"></span>
+                            <span class="game-name">Baldur's Gate 3</span>
+                        </label>
+
+                        <label class="game-option" data-game="Blood Strike" data-status="updated">
+                            <input type="checkbox" name="games" value="Blood Strike">
+                            <span class="game-check"></span>
+                            <span class="game-name">Blood Strike</span>
+                        </label>
+
+                        <label class="game-option" data-game="Crossfire PH Launcher" data-status="updated">
+                            <input type="checkbox" name="games" value="Crossfire PH Launcher">
+                            <span class="game-check"></span>
+                            <span class="game-name">Crossfire PH Launcher</span>
+                        </label>
+
+                        <label class="game-option" data-game="CS2.0" data-status="updated">
+                            <input type="checkbox" name="games" value="CS2.0">
+                            <span class="game-check"></span>
+                            <span class="game-name">CS2.0</span>
+                        </label>
+
+                        <label class="game-option" data-game="DNLauncher" data-status="updated">
+                            <input type="checkbox" name="games" value="DNLauncher">
+                            <span class="game-check"></span>
+                            <span class="game-name">DNLauncher</span>
+                        </label>
+
+                        <label class="game-option" data-game="DOTA2" data-status="updated">
+                            <input type="checkbox" name="games" value="DOTA2">
+                            <span class="game-check"></span>
+                            <span class="game-name">DOTA2</span>
+                        </label>
+
+                        <label class="game-option" data-game="Epic Games Launcher" data-status="updated">
+                            <input type="checkbox" name="games" value="Epic Games Launcher">
+                            <span class="game-check"></span>
+                            <span class="game-name">Epic Games Launcher</span>
+                        </label>
+
+                        <label class="game-option" data-game="FiveM" data-status="updated">
+                            <input type="checkbox" name="games" value="FiveM">
+                            <span class="game-check"></span>
+                            <span class="game-name">FiveM</span>
+                        </label>
+
+                        <label class="game-option" data-game="Fortnite" data-status="updated">
+                            <input type="checkbox" name="games" value="Fortnite">
+                            <span class="game-check"></span>
+                            <span class="game-name">Fortnite</span>
+                        </label>
+
+                        <label class="game-option" data-game="FragPunk" data-status="updated">
+                            <input type="checkbox" name="games" value="FragPunk">
+                            <span class="game-check"></span>
+                            <span class="game-name">FragPunk</span>
+                        </label>
+
+                        <label class="game-option" data-game="GTA5" data-status="updated">
+                            <input type="checkbox" name="games" value="GTA5">
+                            <span class="game-check"></span>
+                            <span class="game-name">GTA5</span>
+                        </label>
+
+                        <label class="game-option" data-game="Gunz" data-status="updated">
+                            <input type="checkbox" name="games" value="Gunz">
+                            <span class="game-check"></span>
+                            <span class="game-name">Gunz</span>
+                        </label>
+
+                        <label class="game-option" data-game="Heartopia" data-status="updated">
+                            <input type="checkbox" name="games" value="Heartopia">
+                            <span class="game-check"></span>
+                            <span class="game-name">Heartopia</span>
+                        </label>
+
+                        <label class="game-option" data-game="Honkai Impact 3 Launcher.exe" data-status="updated">
+                            <input type="checkbox" name="games" value="Honkai Impact 3 Launcher.exe">
+                            <span class="game-check"></span>
+                            <span class="game-name">Honkai Impact 3 Launcher.exe</span>
+                        </label>
+
+                        <label class="game-option" data-game="HoYoPlay Launcher.exe" data-status="updated">
+                            <input type="checkbox" name="games" value="HoYoPlay Launcher.exe">
+                            <span class="game-check"></span>
+                            <span class="game-name">HoYoPlay Launcher.exe</span>
+                        </label>
+
+                        <label class="game-option" data-game="Icarus" data-status="updated">
+                            <input type="checkbox" name="games" value="Icarus">
+                            <span class="game-check"></span>
+                            <span class="game-name">Icarus</span>
+                        </label>
+
+                        <label class="game-option" data-game="KnivesOut" data-status="updated">
+                            <input type="checkbox" name="games" value="KnivesOut">
+                            <span class="game-check"></span>
+                            <span class="game-name">KnivesOut</span>
+                        </label>
+
+                        <label class="game-option" data-game="League of Legend" data-status="updated">
+                            <input type="checkbox" name="games" value="League of Legend">
+                            <span class="game-check"></span>
+                            <span class="game-name">League of Legend</span>
+                        </label>
+
+                        <label class="game-option" data-game="Myth Games Launcher" data-status="updated">
+                            <input type="checkbox" name="games" value="Myth Games Launcher">
+                            <span class="game-check"></span>
+                            <span class="game-name">Myth Games Launcher</span>
+                        </label>
+
+                        <label class="game-option" data-game="NarakaBladepoint" data-status="updated">
+                            <input type="checkbox" name="games" value="NarakaBladepoint">
+                            <span class="game-check"></span>
+                            <span class="game-name">NarakaBladepoint</span>
+                        </label>
+
+                        <label class="game-option" data-game="osu!" data-status="updated">
+                            <input type="checkbox" name="games" value="osu!">
+                            <span class="game-check"></span>
+                            <span class="game-name">osu!</span>
+                        </label>
+
+                        <label class="game-option" data-game="PointBlank" data-status="updated">
+                            <input type="checkbox" name="games" value="PointBlank">
+                            <span class="game-check"></span>
+                            <span class="game-name">PointBlank</span>
+                        </label>
+
+                        <label class="game-option" data-game="PUBG" data-status="updated">
+                            <input type="checkbox" name="games" value="PUBG">
+                            <span class="game-check"></span>
+                            <span class="game-name">PUBG</span>
+                        </label>
+
+                        <label class="game-option" data-game="Ragnarok The New World" data-status="updated">
+                            <input type="checkbox" name="games" value="Ragnarok The New World">
+                            <span class="game-check"></span>
+                            <span class="game-name">Ragnarok The New World</span>
+                        </label>
+
+                        <!-- RiotClient is intentionally kept separate from VALORANT -->
+                        <label class="game-option" data-game="RiotClient" data-status="updated">
+                            <input type="checkbox" name="games" value="RiotClient">
+                            <span class="game-check"></span>
+                            <span class="game-name">RiotClient</span>
+                        </label>
+
+                        <label class="game-option" data-game="RobloxPlayer" data-status="updated">
+                            <input type="checkbox" name="games" value="RobloxPlayer">
+                            <span class="game-check"></span>
+                            <span class="game-name">RobloxPlayer</span>
+                        </label>
+
+                        <label class="game-option" data-game="RustClient" data-status="updated">
+                            <input type="checkbox" name="games" value="RustClient">
+                            <span class="game-check"></span>
+                            <span class="game-name">RustClient</span>
+                        </label>
+
+                        <label class="game-option" data-game="SF Rush" data-status="updated">
+                            <input type="checkbox" name="games" value="SF Rush">
+                            <span class="game-check"></span>
+                            <span class="game-name">SF Rush</span>
+                        </label>
+
+                        <label class="game-option" data-game="StarRail Launcher.exe" data-status="updated">
+                            <input type="checkbox" name="games" value="StarRail Launcher.exe">
+                            <span class="game-check"></span>
+                            <span class="game-name">StarRail Launcher.exe</span>
+                        </label>
+
+                        <label class="game-option" data-game="State of Decay 2" data-status="updated">
+                            <input type="checkbox" name="games" value="State of Decay 2">
+                            <span class="game-check"></span>
+                            <span class="game-name">State of Decay 2</span>
+                        </label>
+
+                        <label class="game-option" data-game="Steam" data-status="updated">
+                            <input type="checkbox" name="games" value="Steam">
+                            <span class="game-check"></span>
+                            <span class="game-name">Steam</span>
+                        </label>
+
+                        <label class="game-option" data-game="Stove Launcher" data-status="updated">
+                            <input type="checkbox" name="games" value="Stove Launcher">
+                            <span class="game-check"></span>
+                            <span class="game-name">Stove Launcher</span>
+                        </label>
+
+                        <label class="game-option" data-game="TEKKEN 8" data-status="updated">
+                            <input type="checkbox" name="games" value="TEKKEN 8">
+                            <span class="game-check"></span>
+                            <span class="game-name">TEKKEN 8</span>
+                        </label>
+
+                        <label class="game-option" data-game="TLauncher" data-status="updated">
+                            <input type="checkbox" name="games" value="TLauncher">
+                            <span class="game-check"></span>
+                            <span class="game-name">TLauncher</span>
+                        </label>
+
+                        <label class="game-option" data-game="War Thunder" data-status="updated">
+                            <input type="checkbox" name="games" value="War Thunder">
+                            <span class="game-check"></span>
+                            <span class="game-name">War Thunder</span>
+                        </label>
+
+                        <label class="game-option" data-game="ZenlessZoneZero Launcher.exe" data-status="updated">
+                            <input type="checkbox" name="games" value="ZenlessZoneZero Launcher.exe">
+                            <span class="game-check"></span>
+                            <span class="game-name">ZenlessZoneZero Launcher.exe</span>
+                        </label>
+
+                    </div>
+
+                    <p class="no-games" id="noGames">No games found.</p>
+                </div>
+
+                <div class="form-card defective-card">
+                    <div class="defective-head">
+                        <div>
+                            <p class="form-title">Defective Peripherals</p>
+                            <p class="defective-subtitle">Add one or more defects to any PC. The same PC can have
+                                multiple defects.</p>
+                        </div>
+                        <button type="button" class="clear-defects-btn" id="clearDefects">Clear all</button>
+                    </div>
+
+                    <div class="add-defect-panel">
+                        <div class="defect-input-grid">
+
+                            <label class="pc-select-field">
+                                PC Number
+                                <select id="defectPcSelect" aria-label="Select PC number">
+                                    <option value="" selected disabled>Select PC</option>
+                                    <option value="PC01">PC01 — VIP</option>
+                                    <option value="PC02">PC02 — VIP</option>
+                                    <option value="PC03">PC03 — VIP</option>
+                                    <option value="PC04">PC04 — VIP</option>
+                                    <option value="PC05">PC05 — VIP</option>
+                                    <option value="PC06">PC06 — VIP</option>
+                                    <option value="PC07">PC07 — VIP</option>
+                                    <option value="PC08">PC08 — VIP</option>
+                                    <option value="PC09">PC09 — VIP</option>
+                                    <option value="PC10">PC10 — VIP</option>
+                                    <option value="PC11">PC11 — Standard</option>
+                                    <option value="PC12">PC12 — Standard</option>
+                                    <option value="PC13">PC13 — Standard</option>
+                                    <option value="PC14">PC14 — Standard</option>
+                                    <option value="PC15">PC15 — Standard</option>
+                                    <option value="PC16">PC16 — Standard</option>
+                                    <option value="PC17">PC17 — Standard</option>
+                                    <option value="PC18">PC18 — Standard</option>
+                                    <option value="PC19">PC19 — Standard</option>
+                                    <option value="PC20">PC20 — Standard</option>
+                                    <option value="PC21">PC21 — Standard</option>
+                                    <option value="PC22">PC22 — Standard</option>
+                                    <option value="PC23">PC23 — Standard</option>
+                                    <option value="PC24">PC24 — Standard</option>
+                                    <option value="PC25">PC25 — Standard</option>
+                                    <option value="PC26">PC26 — Standard</option>
+                                    <option value="PC27">PC27 — Standard</option>
+                                    <option value="PC28">PC28 — Standard</option>
+                                    <option value="PC29">PC29 — Standard</option>
+                                    <option value="PC30">PC30 — Standard</option>
+                                    <option value="PC31">PC31 — Standard</option>
+                                    <option value="PC32">PC32 — Standard</option>
+                                    <option value="PC33">PC33 — Standard</option>
+                                    <option value="PC34">PC34 — Standard</option>
+                                    <option value="PC35">PC35 — Standard</option>
+                                    <option value="PC36">PC36 — Standard</option>
+                                    <option value="PC37">PC37 — Standard</option>
+                                    <option value="PC38">PC38 — Standard</option>
+                                    <option value="PC39">PC39 — Standard</option>
+                                    <option value="PC40">PC40 — Standard</option>
+                                </select>
+                            </label>
+
+                            <div class="defect-type-field">
+                                <span>Defect Type</span>
+
+                                <div class="defect-type-buttons" role="group" aria-label="Defect type">
+
+                                    <label>
+                                        <input type="checkbox" class="defect-type-check" value="keyboard">
+                                        <span>Keyboard</span>
+                                    </label>
+
+                                    <label>
+                                        <input type="checkbox" class="defect-type-check" value="headset">
+                                        <span>Headset</span>
+                                    </label>
+
+                                    <label>
+                                        <input type="checkbox" class="defect-type-check" value="mouse">
+                                        <span>Mouse</span>
+                                    </label>
+
+                                    <label>
+                                        <input type="checkbox" class="defect-type-check" value="monitor">
+                                        <span>Monitor</span>
+                                    </label>
+
+                                    <label>
+                                        <input type="checkbox" class="defect-type-check" value="power-cord">
+                                        <span>Power Cord</span>
+                                    </label>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <label class="defect-description">
+                            Problem Description
+                            <input type="text" id="defectDescription" placeholder="e.g. Right side no sound (Fantech)">
+                        </label>
+
+                        <div class="defect-add-row">
+                            <span class="defect-selection" id="defectSelection">Select at least one defect type</span>
+                            <button type="button" class="add-defect-btn" id="addDefect">+ Add Defect</button>
+                        </div>
+                    </div>
+
+                    <div class="defect-totals">
+
+                        <div class="defect-total-card">
+                            <span>Defective Keyboard</span>
+                            <div class="defect-count-lines">
+                                <strong id="totalDefectKeyboardStandard">Standard - 0</strong>
+                                <strong id="totalDefectKeyboardVip">VIP - 0</strong>
+                            </div>
+                        </div>
+
+                        <div class="defect-total-card">
+                            <span>Defective Headset</span>
+                            <div class="defect-count-lines">
+                                <strong id="totalDefectHeadsetStandard">Standard - 0</strong>
+                                <strong id="totalDefectHeadsetVip">VIP - 0</strong>
+                            </div>
+                        </div>
+
+                        <div class="defect-total-card">
+                            <span>Defective Mouse</span>
+                            <div class="defect-count-lines">
+                                <strong id="totalDefectMouseStandard">Standard - 0</strong>
+                                <strong id="totalDefectMouseVip">VIP - 0</strong>
+                            </div>
+                        </div>
+
+                        <div class="defect-total-card">
+                            <span>Defective Monitor</span>
+                            <div class="defect-count-lines">
+                                <strong id="totalDefectMonitorStandard">Standard - 0</strong>
+                                <strong id="totalDefectMonitorVip">VIP - 0</strong>
+                            </div>
+                        </div>
+
+                        <div class="defect-total-card">
+                            <span>Defective Power Cord</span>
+                            <div class="defect-count-lines">
+                                <strong id="totalDefectPowerCordStandard">Standard - 0</strong>
+                                <strong id="totalDefectPowerCordVip">VIP - 0</strong>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-card pc-status-card">
+                    <div class="pc-status-head">
+                        <div>
+                            <p class="form-title">PC Status</p>
+                            <p class="pc-status-subtitle">Tick the PCs that have no defects.</p>
+                        </div>
+                        <div class="pc-status-summary" aria-live="polite">
+                            <span><b id="standardNoDefectsCount">0</b>/30 Standard</span>
+                            <span><b id="vipNoDefectsCount">0</b>/10 VIP</span>
+                        </div>
+                    </div>
+
+                    <div class="pc-status-groups">
+                        <section class="pc-status-group">
+                            <div class="pc-group-head">
+                                <div><strong>Standard PCs</strong><small>PC11 – PC40</small></div>
+                                <div class="pc-group-actions"><button type="button" class="pc-select-btn"
+                                        data-pc-select="standard">Select All</button><button type="button"
+                                        class="pc-select-btn" data-pc-clear="standard">Clear</button></div>
+                            </div>
+                            <div class="pc-check-grid" id="standardPcChecklist"></div>
+                        </section>
+
+                        <section class="pc-status-group">
+                            <div class="pc-group-head">
+                                <div><strong>VIP PCs</strong><small>PC01 – PC10</small></div>
+                                <div class="pc-group-actions"><button type="button" class="pc-select-btn"
+                                        data-pc-select="vip">Select All</button><button type="button"
+                                        class="pc-select-btn" data-pc-clear="vip">Clear</button></div>
+                            </div>
+                            <div class="pc-check-grid" id="vipPcChecklist"></div>
+                        </section>
+                    </div>
+                </div>
+
+                <div class="form-card inventory-card">
+                    <div class="inventory-heading">
+                        <div>
+                            <p class="form-title">Overall Peripherals Count</p>
+                            <p class="inventory-subtitle">Edit the quantity directly. Brand totals update automatically.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="inventory-grid clean-inventory-grid">
+                        <section class="inventory-item clean-inventory-item">
+                            <div class="inventory-item-head"><span class="inventory-icon">⌨</span>
+                                <div><strong>Keyboard</strong><small>40 total units</small></div>
+                            </div>
+                            <div class="inventory-tier clean-tier">
+                                <div class="tier-head"><span class="tier-label">Standard</span><span
+                                        class="tier-total">Total <strong id="keyboardStandardTotal">30</strong></span>
+                                </div>
+                                <label class="count-row">Red Dragon <input class="inventory-count" type="number" min="0"
+                                        max="99" value="29" data-inventory="keyboard-standard-red-dragon"></label>
+                                <label class="count-row">Inplay <input class="inventory-count" type="number" min="0"
+                                        max="99" value="1" data-inventory="keyboard-standard-inplay"></label>
+                            </div>
+                            <div class="inventory-tier clean-tier">
+                                <div class="tier-head"><span class="tier-label">VIP</span><span class="tier-total">Total
+                                        <strong id="keyboardVipTotal">10</strong></span></div>
+                                <label class="count-row">Red Dragon <input class="inventory-count" type="number" min="0"
+                                        max="99" value="10" data-inventory="keyboard-vip-red-dragon"></label>
+                            </div>
+                        </section>
+
+                        <section class="inventory-item clean-inventory-item">
+                            <div class="inventory-item-head"><span class="inventory-icon">🖱</span>
+                                <div><strong>Mouse</strong><small>40 total units</small></div>
+                            </div>
+                            <div class="inventory-tier clean-tier">
+                                <div class="tier-head"><span class="tier-label">Standard</span><span
+                                        class="tier-total">Total <strong id="mouseStandardTotal">30</strong></span>
+                                </div>
+                                <label class="count-row">Fantech <input class="inventory-count" type="number" min="0"
+                                        max="99" value="6" data-inventory="mouse-standard-fantech"></label>
+                                <label class="count-row">Red Dragon <input class="inventory-count" type="number" min="0"
+                                        max="99" value="24" data-inventory="mouse-standard-red-dragon"></label>
+                            </div>
+                            <div class="inventory-tier clean-tier">
+                                <div class="tier-head"><span class="tier-label">VIP</span><span class="tier-total">Total
+                                        <strong id="mouseVipTotal">10</strong></span></div>
+                                <label class="count-row">Red Dragon <input class="inventory-count" type="number" min="0"
+                                        max="99" value="10" data-inventory="mouse-vip-red-dragon"></label>
+                            </div>
+                        </section>
+
+                        <section class="inventory-item clean-inventory-item">
+                            <div class="inventory-item-head"><span class="inventory-icon">🎧</span>
+                                <div><strong>Headset</strong><small>40 total units</small></div>
+                            </div>
+                            <div class="inventory-tier clean-tier">
+                                <div class="tier-head"><span class="tier-label">Standard</span><span
+                                        class="tier-total">Total <strong id="headsetStandardTotal">30</strong></span>
+                                </div>
+                                <label class="count-row">Fantech <input class="inventory-count" type="number" min="0"
+                                        max="99" value="30" data-inventory="headset-standard-fantech"></label>
+                            </div>
+                            <div class="inventory-tier clean-tier">
+                                <div class="tier-head"><span class="tier-label">VIP</span><span class="tier-total">Total
+                                        <strong id="headsetVipTotal">10</strong></span></div>
+                                <label class="count-row">Fantech <input class="inventory-count" type="number" min="0"
+                                        max="99" value="7" data-inventory="headset-vip-fantech"></label>
+                                <label class="count-row">Badwolf <input class="inventory-count" type="number" min="0"
+                                        max="99" value="2" data-inventory="headset-vip-badwolf"></label>
+                                <label class="count-row">Red Dragon <input class="inventory-count" type="number" min="0"
+                                        max="99" value="1" data-inventory="headset-vip-red-dragon"></label>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <p class="form-title">Spare Items & Follow Up</p>
+                    <div class="input-grid">
+                        <label>Spare VIP Keyboard<input id="spareVipKeyboard" type="text" value="" inputmode="numeric"
+                                placeholder=""></label>
+                        <label>Spare Standard Keyboard<input id="spareStandardKeyboard" type="text" value=""
+                                inputmode="numeric" placeholder=""></label>
+                        <label>Spare VIP Mouse<input id="spareVipMouse" type="text" value="" inputmode="numeric"
+                                placeholder=""></label>
+                        <label>Spare Standard Mouse<input id="spareStandardMouse" type="text" value=""
+                                inputmode="numeric" placeholder=""></label>
+                        <label>Spare Cord<input id="spareCord" type="text" value="" inputmode="numeric"
+                                placeholder=""></label>
+                        <label>Follow Up Report<input id="followUpReport" type="text" value="" placeholder=""></label>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <p class="form-title">Report Sign-Off</p>
+                    <div class="signature-grid">
+                        <div class="signature-field">
+                            <label class="signature-label" for="adminSignature">Admin Signature</label>
+                            <div class="signature-pad-wrap">
+                                <canvas class="signature-pad" id="adminSignature"
+                                    aria-label="Admin signature box"></canvas>
+                                <span class="signature-placeholder" id="adminSignaturePlaceholder">Sign here</span>
+                                <button type="button" class="signature-clear"
+                                    data-signature-clear="adminSignature">Clear</button>
+                            </div>
+                            <label class="signature-name" for="adminName">Admin
+                                <select id="adminName">
+                                    <option value="" selected>Select Admin</option>
+                                    <option>ALECK ZANDRA BRIONES</option>
+                                    <option>BIANCA AGPOON</option>
+                                    <option>AIRA PINEDA</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="signature-field">
+                            <label class="signature-label" for="techSignature">Tech Signature</label>
+                            <div class="signature-pad-wrap">
+                                <canvas class="signature-pad" id="techSignature"
+                                    aria-label="Tech signature box"></canvas>
+                                <span class="signature-placeholder" id="techSignaturePlaceholder">Sign here</span>
+                                <button type="button" class="signature-clear"
+                                    data-signature-clear="techSignature">Clear</button>
+                            </div>
+                            <label class="signature-name" for="techName">Tech
+                                <select id="techName">
+                                    <option value="" selected>Select Tech</option>
+                                    <option>JP GALIT</option>
+                                    <option>ARCHIE TURLA</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="primary-btn save-btn" type="submit">Save Report <span>✓</span></button>
+                <p class="save-message" id="saveMessage"></p>
+            </form>
+        </section>
+    </main>
+
+    <!-- =====================================================
      SHIFT REPORT MODAL
      ===================================================== -->
-<div class="shift-modal" id="shiftModal" aria-hidden="true">
+    <div class="shift-modal" id="shiftModal" aria-hidden="true">
 
-  <div class="shift-modal-backdrop" id="shiftModalBackdrop"></div>
+        <div class="shift-modal-backdrop" id="shiftModalBackdrop"></div>
 
-  <div class="shift-modal-card" role="dialog" aria-modal="true">
+        <div class="shift-modal-card" role="dialog" aria-modal="true">
 
-    <!-- =================================================
+            <!-- =================================================
          SHIFT SELECTION
          ================================================= -->
-    <div id="shiftPickerView">
+            <div id="shiftPickerView">
 
-      <div class="shift-modal-header">
-        <div>
-          <p class="eyebrow">MARV’S GAMING HUB</p>
-          <h2>Shift Report</h2>
-          <p>Select the shift you want to create.</p>
-        </div>
+                <div class="shift-modal-header">
+                    <div>
+                        <p class="eyebrow">MARV’S GAMING HUB</p>
+                        <h2>Shift Report</h2>
+                        <p>Select the shift you want to create.</p>
+                    </div>
 
-        <button
-          type="button"
-          class="shift-modal-close"
-          id="closeShiftReport"
-          aria-label="Close Shift Report"
-        >
-          ×
-        </button>
-      </div>
+                    <button type="button" class="shift-modal-close" id="closeShiftReport"
+                        aria-label="Close Shift Report">
+                        ×
+                    </button>
+                </div>
 
-      <div class="shift-choice-grid">
+                <div class="shift-choice-grid">
 
-        <button
-          type="button"
-          class="shift-choice morning"
-          data-shift-type="morning"
-          data-shift-label="MORNING SHIFT 9AM–9PM"
-        >
-          <span class="shift-choice-icon">🌅</span>
+                    <button type="button" class="shift-choice morning" data-shift-type="morning"
+                        data-shift-label="MORNING SHIFT 9AM–9PM">
+                        <span class="shift-choice-icon">🌅</span>
 
-          <span class="shift-choice-content">
-            <strong>Morning Shift</strong>
-            <small>9AM–9PM</small>
-          </span>
+                        <span class="shift-choice-content">
+                            <strong>Morning Shift</strong>
+                            <small>9AM–9PM</small>
+                        </span>
 
-          <span class="shift-choice-arrow">→</span>
-        </button>
+                        <span class="shift-choice-arrow">→</span>
+                    </button>
 
-        <button
-          type="button"
-          class="shift-choice night"
-          data-shift-type="night"
-          data-shift-label="NIGHT SHIFT 9PM–9AM"
-        >
-          <span class="shift-choice-icon">🌙</span>
+                    <button type="button" class="shift-choice night" data-shift-type="night"
+                        data-shift-label="NIGHT SHIFT 9PM–9AM">
+                        <span class="shift-choice-icon">🌙</span>
 
-          <span class="shift-choice-content">
-            <strong>Night Shift</strong>
-            <small>9PM–9AM</small>
-          </span>
+                        <span class="shift-choice-content">
+                            <strong>Night Shift</strong>
+                            <small>9PM–9AM</small>
+                        </span>
 
-          <span class="shift-choice-arrow">→</span>
-        </button>
+                        <span class="shift-choice-arrow">→</span>
+                    </button>
 
-      </div>
+                </div>
 
-    </div>
+            </div>
 
 
-    <!-- =================================================
+            <!-- =================================================
          SHIFT REPORT FORM
          ================================================= -->
-    <div id="shiftReportView" hidden>
+            <div id="shiftReportView" hidden>
 
-      <div class="shift-report-header">
+                <div class="shift-report-header">
 
-        <button
-          type="button"
-          class="shift-back-btn"
-          id="backToShiftPicker"
-        >
-          ← Change Shift
-        </button>
+                    <button type="button" class="shift-back-btn" id="backToShiftPicker">
+                        ← Change Shift
+                    </button>
 
-        <div class="shift-report-title">
-          <p class="eyebrow">MARV’S GAMING HUB (CONCEP)</p>
+                    <div class="shift-report-title">
+                        <p class="eyebrow">MARV’S GAMING HUB (CONCEP)</p>
 
-          <h2>GAMING HUB REPORT</h2>
+                        <h2>GAMING HUB REPORT</h2>
 
-          <div class="shift-report-meta">
-            <strong id="selectedShiftLabel">
-              MORNING SHIFT 9AM–9PM
-            </strong>
+                        <div class="shift-report-meta">
+                            <strong id="selectedShiftLabel">
+                                MORNING SHIFT 9AM–9PM
+                            </strong>
 
-            <span id="shiftReportDate"></span>
-          </div>
-        </div>
+                            <span id="shiftReportDate"></span>
+                        </div>
+                    </div>
 
-      </div>
+                </div>
 
 
-      <form id="shiftReportForm">
+                <form id="shiftReportForm">
 
 
-        <!-- =============================================
+                    <!-- =============================================
              CHANGES
              ============================================= -->
-        <section class="shift-form-section">
+                    <section class="shift-form-section">
 
-          <div class="shift-section-heading">
-            <span>01</span>
-            <div>
-              <h3>CHANGES</h3>
-              <p>Changes or important updates during this shift.</p>
-            </div>
-          </div>
+                        <div class="shift-section-heading">
+                            <span>01</span>
+                            <div>
+                                <h3>CHANGES</h3>
+                                <p>Changes or important updates during this shift.</p>
+                            </div>
+                        </div>
 
-          <textarea
-            id="shiftChanges"
-            class="shift-textarea"
-            rows="4"
-            placeholder="Enter changes, updates, or important information..."
-          ></textarea>
+                        <textarea id="shiftChanges" class="shift-textarea" rows="4"
+                            placeholder="Enter changes, updates, or important information..."></textarea>
 
-        </section>
+                    </section>
 
 
-        <!-- =============================================
+                    <!-- =============================================
              UPDATED GAMES
              ============================================= -->
-        <section class="shift-form-section">
+                    <section class="shift-form-section">
 
-          <div class="shift-section-heading shift-games-heading">
-  <span>02</span>
+                        <div class="shift-section-heading shift-games-heading">
+                            <span>02</span>
 
-  <div class="shift-games-heading-content">
-    <h3>UPDATED GAMES FOR THIS SHIFT</h3>
-    <p>Select the games that were updated during this shift.</p>
-  </div>
+                            <div class="shift-games-heading-content">
+                                <h3>UPDATED GAMES FOR THIS SHIFT</h3>
+                                <p>Select the games that were updated during this shift.</p>
+                            </div>
 
-  <button
-    type="button"
-    class="shift-clear-games-btn"
-    id="clearShiftGames"
-  >
-    Clear All
-  </button>
-</div>
+                            <button type="button" class="shift-clear-games-btn" id="clearShiftGames">
+                                Clear All
+                            </button>
+                        </div>
 
-          <div
-            class="shift-game-list"
-            id="shiftGameList"
-          ></div>
+                        <div class="shift-game-list" id="shiftGameList"></div>
 
-          <p
-            class="shift-empty-message"
-            id="shiftNoGames"
-            hidden
-          >
-            No games available.
-          </p>
+                        <p class="shift-empty-message" id="shiftNoGames" hidden>
+                            No games available.
+                        </p>
 
-        </section>
+                    </section>
 
 
-        <!-- =============================================
+                    <!-- =============================================
              DEFECTIVE KEYBOARD
              ============================================= -->
-        <section class="shift-form-section">
+                    <section class="shift-form-section">
 
-          <div class="shift-section-heading">
-            <span>03</span>
-            <div>
-              <h3>DEFECTIVE KEYBOARD</h3>
-              <p>List the PC number and problem.</p>
-            </div>
-          </div>
+                        <div class="shift-section-heading">
+                            <span>03</span>
+                            <div>
+                                <h3>DEFECTIVE KEYBOARD</h3>
+                                <p>List the PC number and problem.</p>
+                            </div>
+                        </div>
 
-          <textarea
-            id="shiftDefectiveKeyboard"
-            class="shift-textarea"
-            rows="3"
-            placeholder="Example: PC12 - Keyboard keys not responding..."
-          ></textarea>
+                        <textarea id="shiftDefectiveKeyboard" class="shift-textarea" rows="3"
+                            placeholder="Example: PC12 - Keyboard keys not responding..."></textarea>
 
-        </section>
+                    </section>
 
 
-        <!-- =============================================
+                    <!-- =============================================
              DEFECTIVE MOUSE
              ============================================= -->
-        <section class="shift-form-section">
+                    <section class="shift-form-section">
 
-          <div class="shift-section-heading">
-            <span>04</span>
-            <div>
-              <h3>DEFECTIVE MOUSE</h3>
-              <p>List the PC number and problem.</p>
-            </div>
-          </div>
+                        <div class="shift-section-heading">
+                            <span>04</span>
+                            <div>
+                                <h3>DEFECTIVE MOUSE</h3>
+                                <p>List the PC number and problem.</p>
+                            </div>
+                        </div>
 
-          <textarea
-            id="shiftDefectiveMouse"
-            class="shift-textarea"
-            rows="3"
-            placeholder="Example: PC18 - Mouse double clicking..."
-          ></textarea>
+                        <textarea id="shiftDefectiveMouse" class="shift-textarea" rows="3"
+                            placeholder="Example: PC18 - Mouse double clicking..."></textarea>
 
-        </section>
+                    </section>
 
 
-        <!-- =============================================
+                    <!-- =============================================
              DEFECTIVE HEADSET
              ============================================= -->
-        <section class="shift-form-section">
+                    <section class="shift-form-section">
 
-          <div class="shift-section-heading">
-            <span>05</span>
-            <div>
-              <h3>DEFECTIVE HEADSET</h3>
-              <p>List the PC number and problem.</p>
-            </div>
-          </div>
+                        <div class="shift-section-heading">
+                            <span>05</span>
+                            <div>
+                                <h3>DEFECTIVE HEADSET</h3>
+                                <p>List the PC number and problem.</p>
+                            </div>
+                        </div>
 
-          <textarea
-            id="shiftDefectiveHeadset"
-            class="shift-textarea"
-            rows="3"
-            placeholder="Example: PC05 - No audio / microphone problem..."
-          ></textarea>
+                        <textarea id="shiftDefectiveHeadset" class="shift-textarea" rows="3"
+                            placeholder="Example: PC05 - No audio / microphone problem..."></textarea>
 
-        </section>
+                    </section>
 
 
-        <!-- =============================================
-             PC WITH NO DEFECTS
-             ============================================= -->
-        <section class="shift-form-section">
-
-          <div class="shift-section-heading">
-            <span>06</span>
-            <div>
-              <h3>PC NUMBER WITH NO DEFECTS</h3>
-              <p>Select the PCs checked during this shift.</p>
-            </div>
-          </div>
-
-          <div
-            class="shift-pc-grid"
-            id="shiftNoDefectPcList"
-          ></div>
-
-        </section>
+                    <!-- NO DEFECT PCS -->
+                    <section class="shift-preview-section">
+                        <div class="shift-preview-section-title"> <span>06</span>
+                            <h3>PC NUMBER WITH NO DEFECTS</h3>
+                        </div>
+                        <div class="shift-preview-text" id="previewNoDefectPcs"> — </div>
+                    </section>
 
 
-        <!-- =============================================
+                    <!-- =============================================
              SPARES
              ============================================= -->
-        <section class="shift-form-section">
+                    <section class="shift-form-section">
 
-          <div class="shift-section-heading">
-            <span>07</span>
-            <div>
-              <h3>SPARE ITEMS</h3>
-              <p>Record the available spare items.</p>
-            </div>
-          </div>
+                        <div class="shift-section-heading">
+                            <span>07</span>
+                            <div>
+                                <h3>SPARE ITEMS</h3>
+                                <p>Record the available spare items.</p>
+                            </div>
+                        </div>
 
-          <div class="shift-spare-grid">
+                        <div class="shift-spare-grid">
 
-            <label class="shift-field">
-              <span>Spare VIP Keyboard</span>
-              <input
-                type="number"
-                id="shiftSpareVipKeyboard"
-                min="0"
-                value="0"
-              >
-            </label>
+                            <label class="shift-field">
+                                <span>Spare VIP Keyboard</span>
+                                <input type="number" id="shiftSpareVipKeyboard" min="0" value="0">
+                            </label>
 
-            <label class="shift-field">
-              <span>Spare Standard Keyboard</span>
-              <input
-                type="number"
-                id="shiftSpareStandardKeyboard"
-                min="0"
-                value="0"
-              >
-            </label>
+                            <label class="shift-field">
+                                <span>Spare Standard Keyboard</span>
+                                <input type="number" id="shiftSpareStandardKeyboard" min="0" value="0">
+                            </label>
 
-            <label class="shift-field">
-              <span>Spare VIP Mouse</span>
-              <input
-                type="number"
-                id="shiftSpareVipMouse"
-                min="0"
-                value="0"
-              >
-            </label>
+                            <label class="shift-field">
+                                <span>Spare VIP Mouse</span>
+                                <input type="number" id="shiftSpareVipMouse" min="0" value="0">
+                            </label>
 
-            <label class="shift-field">
-              <span>Spare Standard Mouse</span>
-              <input
-                type="number"
-                id="shiftSpareStandardMouse"
-                min="0"
-                value="0"
-              >
-            </label>
+                            <label class="shift-field">
+                                <span>Spare Standard Mouse</span>
+                                <input type="number" id="shiftSpareStandardMouse" min="0" value="0">
+                            </label>
 
-            <label class="shift-field">
-              <span>Spare Cord</span>
-              <input
-                type="number"
-                id="shiftSpareCord"
-                min="0"
-                value="0"
-              >
-            </label>
+                            <label class="shift-field">
+                                <span>Spare Cord</span>
+                                <input type="number" id="shiftSpareCord" min="0" value="0">
+                            </label>
 
-          </div>
+                        </div>
 
-        </section>
+                    </section>
 
 
-        <!-- =============================================
+                    <!-- =============================================
              FOLLOW UP
              ============================================= -->
-        <section class="shift-form-section">
+                    <section class="shift-form-section">
 
-          <div class="shift-section-heading">
-            <span>08</span>
-            <div>
-              <h3>FOLLOW UP REPORT</h3>
-              <p>Items that need attention on the next shift.</p>
-            </div>
-          </div>
+                        <div class="shift-section-heading">
+                            <span>08</span>
+                            <div>
+                                <h3>FOLLOW UP REPORT</h3>
+                                <p>Items that need attention on the next shift.</p>
+                            </div>
+                        </div>
 
-          <textarea
-            id="shiftFollowUp"
-            class="shift-textarea"
-            rows="4"
-            placeholder="Enter follow-up items..."
-          ></textarea>
+                        <textarea id="shiftFollowUp" class="shift-textarea" rows="4"
+                            placeholder="Enter follow-up items..."></textarea>
 
-        </section>
+                    </section>
 
 
-        <!-- =============================================
+                    <!-- =============================================
              CLEANED PC
              ============================================= -->
-        <section class="shift-form-section">
+                    <section class="shift-form-section">
 
-          <div class="shift-section-heading">
-            <span>09</span>
-            <div>
-              <h3>CLEANED PC</h3>
-              <p>Select the PCs cleaned during this shift.</p>
-            </div>
-          </div>
+                        <div class="shift-section-heading">
+                            <span>09</span>
+                            <div>
+                                <h3>CLEANED PC</h3>
+                                <p>Select the PCs cleaned during this shift.</p>
+                            </div>
+                        </div>
 
-          <div
-            class="shift-pc-grid"
-            id="shiftCleanedPcList"
-          ></div>
+                        <div class="shift-pc-grid" id="shiftCleanedPcList"></div>
 
-        </section>
+                    </section>
 
 
-        <!-- =============================================
+                    <!-- =============================================
              SIGN OFF
              ============================================= -->
-        <section class="shift-form-section">
+                    <section class="shift-form-section">
 
-          <div class="shift-section-heading">
-            <span>10</span>
-            <div>
-              <h3>REPORT SIGN-OFF</h3>
-              <p>Admin and technician confirmation.</p>
-            </div>
-          </div>
-
-
-          <div class="shift-signoff-grid">
-
-            <!-- ADMIN -->
-            <div class="shift-signoff-card">
-
-              <h4>ADMIN</h4>
-
-              <label class="shift-field">
-                <span>Admin Name</span>
-                <input
-                  type="text"
-                  id="shiftAdminName"
-                  placeholder="Enter admin name"
-                >
-              </label>
-
-              <div class="shift-signature-label">
-                Signature
-              </div>
-
-              <div class="shift-signature-box">
-                <canvas id="shiftAdminSignature"></canvas>
-              </div>
-
-              <button
-                type="button"
-                class="shift-clear-signature"
-                data-clear-signature="shiftAdminSignature"
-              >
-                Clear Signature
-              </button>
-
-            </div>
+                        <div class="shift-section-heading">
+                            <span>10</span>
+                            <div>
+                                <h3>REPORT SIGN-OFF</h3>
+                                <p>Admin and technician confirmation.</p>
+                            </div>
+                        </div>
 
 
-            <!-- TECH -->
-            <div class="shift-signoff-card">
+                        <div class="shift-signoff-grid">
 
-              <h4>TECHNICIAN</h4>
+                            <!-- ADMIN -->
+                            <div class="shift-signoff-card">
 
-              <label class="shift-field">
-                <span>Technician Name</span>
-                <input
-                  type="text"
-                  id="shiftTechName"
-                  placeholder="Enter technician name"
-                >
-              </label>
+                                <h4>ADMIN</h4>
 
-              <div class="shift-signature-label">
-                Signature
-              </div>
+                                <label class="shift-field">
+                                    <span>Admin Name</span>
+                                    <input type="text" id="shiftAdminName" placeholder="Enter admin name">
+                                </label>
 
-              <div class="shift-signature-box">
-                <canvas id="shiftTechSignature"></canvas>
-              </div>
+                                <div class="shift-signature-label">
+                                    Signature
+                                </div>
 
-              <button
-                type="button"
-                class="shift-clear-signature"
-                data-clear-signature="shiftTechSignature"
-              >
-                Clear Signature
-              </button>
+                                <div class="shift-signature-box">
+                                    <canvas id="shiftAdminSignature"></canvas>
+                                </div>
 
-            </div>
+                                <button type="button" class="shift-clear-signature"
+                                    data-clear-signature="shiftAdminSignature">
+                                    Clear Signature
+                                </button>
 
-          </div>
-
-        </section>
+                            </div>
 
 
-        <!-- =============================================
+                            <!-- TECH -->
+                            <div class="shift-signoff-card">
+
+                                <h4>TECHNICIAN</h4>
+
+                                <label class="shift-field">
+                                    <span>Technician Name</span>
+                                    <input type="text" id="shiftTechName" placeholder="Enter technician name">
+                                </label>
+
+                                <div class="shift-signature-label">
+                                    Signature
+                                </div>
+
+                                <div class="shift-signature-box">
+                                    <canvas id="shiftTechSignature"></canvas>
+                                </div>
+
+                                <button type="button" class="shift-clear-signature"
+                                    data-clear-signature="shiftTechSignature">
+                                    Clear Signature
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- =============================================
              SAVE
              ============================================= -->
-        <div class="shift-save-area">
+                    <div class="shift-save-area">
 
-          <div
-            class="shift-save-message"
-            id="shiftSaveMessage"
-          ></div>
+                        <div class="shift-save-message" id="shiftSaveMessage"></div>
 
-          <button
-            type="submit"
-            class="shift-save-btn"
-            id="saveShiftReport"
-          >
-            Save Shift Report
-          </button>
+                        <button type="submit" class="shift-save-btn" id="saveShiftReport">
+                            Save Shift Report
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
 
         </div>
-
-      </form>
 
     </div>
 
-  </div>
+    <footer>
+        <span>© 2026 VAL</span>
+    </footer>
 
-</div>
-  
-  <footer>
-    <span>© 2026 VAL</span>
-  </footer>
-
-<!-- =====================================================
+    <!-- =====================================================
      SHIFT REPORT PREVIEW MODAL
      ===================================================== -->
 
-<div class="shift-preview-modal" id="shiftPreviewModal" aria-hidden="true">
+    <div class="shift-preview-modal" id="shiftPreviewModal" aria-hidden="true">
 
-  <div
-    class="shift-preview-backdrop"
-    id="shiftPreviewBackdrop">
-  </div>
+        <div class="shift-preview-backdrop" id="shiftPreviewBackdrop">
+        </div>
 
-  <div class="shift-preview-card">
+        <div class="shift-preview-card">
 
-    <div class="shift-preview-actions">
+            <div class="shift-preview-actions">
 
-      <button
-        type="button"
-        class="shift-preview-close"
-        id="closeShiftPreview">
-        ×
-      </button>
+                <button type="button" class="shift-preview-close" id="closeShiftPreview">
+                    ×
+                </button>
+
+            </div>
+
+            <div class="shift-report-sheet" id="shiftReportSheet">
+
+                <!-- HEADER -->
+
+                <div class="shift-preview-header">
+
+                    <p class="shift-preview-kicker">
+                        MARV’S GAMING HUB (CONCEP)
+                    </p>
+
+                    <h2>GAMING HUB REPORT</h2>
+
+                    <div class="shift-preview-meta">
+
+                        <strong id="previewShiftLabel">
+                            MORNING SHIFT 9AM–9PM
+                        </strong>
+
+                        <span id="previewShiftDate">
+                            —
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CHANGES -->
+
+                <section class="shift-preview-section">
+
+                    <div class="shift-preview-section-title">
+
+                        <span>01</span>
+
+                        <h3>CHANGES</h3>
+
+                    </div>
+
+                    <div class="shift-preview-text" id="previewChanges">
+                        —
+                    </div>
+
+                </section>
+
+
+                <!-- UPDATED GAMES -->
+
+                <section class="shift-preview-section">
+
+                    <div class="shift-preview-section-title">
+
+                        <span>02</span>
+
+                        <h3>UPDATED GAMES FOR THIS SHIFT</h3>
+
+                    </div>
+
+                    <div class="shift-preview-games" id="previewGames">
+                        —
+                    </div>
+
+                </section>
+
+
+                <!-- DEFECTIVE KEYBOARD -->
+
+                <section class="shift-preview-section">
+
+                    <div class="shift-preview-section-title">
+
+                        <span>03</span>
+
+                        <h3>DEFECTIVE KEYBOARD</h3>
+
+                    </div>
+
+                    <div class="shift-preview-text" id="previewKeyboard">
+                        —
+                    </div>
+
+                </section>
+
+
+                <!-- DEFECTIVE MOUSE -->
+
+                <section class="shift-preview-section">
+
+                    <div class="shift-preview-section-title">
+
+                        <span>04</span>
+
+                        <h3>DEFECTIVE MOUSE</h3>
+
+                    </div>
+
+                    <div class="shift-preview-text" id="previewMouse">
+                        —
+                    </div>
+
+                </section>
+
+
+                <!-- DEFECTIVE HEADSET -->
+
+                <section class="shift-preview-section">
+
+                    <div class="shift-preview-section-title">
+
+                        <span>05</span>
+
+                        <h3>DEFECTIVE HEADSET</h3>
+
+                    </div>
+
+                    <div class="shift-preview-text" id="previewHeadset">
+                        —
+                    </div>
+
+                </section>
+
+
+                <!-- NO DEFECT PCS -->
+
+                <section class="shift-preview-section">
+
+                    <div class="shift-preview-section-title">
+                        <span>06</span>
+                        <h3>PC NUMBER WITH NO DEFECTS</h3>
+                    </div>
+            </div>
+
+            <div class="shift-preview-text" id="previewNoDefectPcs">
+                —
+            </div>
+
+            </section>
+
+
+            <!-- SPARE ITEMS -->
+
+            <section class="shift-preview-section">
+
+                <div class="shift-preview-section-title">
+
+                    <span>07</span>
+
+                    <h3>SPARE ITEMS</h3>
+
+                </div>
+
+                <div class="shift-preview-spares">
+
+                    <div>
+                        <span>Spare VIP Keyboard</span>
+                        <strong id="previewSpareVipKeyboard">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Spare Standard Keyboard</span>
+                        <strong id="previewSpareStandardKeyboard">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Spare VIP Mouse</span>
+                        <strong id="previewSpareVipMouse">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Spare Standard Mouse</span>
+                        <strong id="previewSpareStandardMouse">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Spare Cord</span>
+                        <strong id="previewSpareCord">0</strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- FOLLOW UP -->
+
+            <section class="shift-preview-section">
+
+                <div class="shift-preview-section-title">
+
+                    <span>08</span>
+
+                    <h3>FOLLOW UP REPORT</h3>
+
+                </div>
+
+                <div class="shift-preview-text" id="previewFollowUp">
+                    —
+                </div>
+
+            </section>
+
+
+            <!-- CLEANED PC -->
+            <section class="shift-preview-section">
+                <div class="shift-preview-section-title"> <span>09</span>
+                    <h3>CLEANED PC</h3>
+                </div>
+                <div class="shift-preview-text" id="previewCleanedPcs"> — </div>
+            </section>
+
+
+            <!-- SIGN OFF -->
+
+            <section class="shift-preview-section">
+
+                <div class="shift-preview-section-title">
+
+                    <span>10</span>
+
+                    <h3>REPORT SIGN-OFF</h3>
+
+                </div>
+
+                <div class="shift-preview-signoff">
+
+                    <div class="shift-preview-signoff-box">
+
+                        <h4>ADMIN</h4>
+
+                        <img id="previewAdminSignature" class="shift-preview-signature" alt="Admin signature">
+
+                        <strong id="previewAdminName">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="shift-preview-signoff-box">
+
+                        <h4>TECHNICIAN</h4>
+
+                        <img id="previewTechSignature" class="shift-preview-signature" alt="Technician signature">
+
+                        <strong id="previewTechName">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <div class="shift-preview-footer">
+                MARV’S GAMING HUB MANAGEMENT REPORT
+            </div>
+
+        </div>
+
+
+        <div class="shift-preview-bottom-actions">
+
+            <button type="button" id="printShiftReport" class="shift-print-btn">
+                🖨 Print Report
+            </button>
+
+        </div>
 
     </div>
 
-    <div class="shift-report-sheet" id="shiftReportSheet">
-
-      <!-- HEADER -->
-
-      <div class="shift-preview-header">
-
-        <p class="shift-preview-kicker">
-          MARV’S GAMING HUB (CONCEP)
-        </p>
-
-        <h2>GAMING HUB REPORT</h2>
-
-        <div class="shift-preview-meta">
-
-          <strong id="previewShiftLabel">
-            MORNING SHIFT 9AM–9PM
-          </strong>
-
-          <span id="previewShiftDate">
-            —
-          </span>
-
-        </div>
-
-      </div>
-
-
-      <!-- CHANGES -->
-
-      <section class="shift-preview-section">
-
-        <div class="shift-preview-section-title">
-
-          <span>01</span>
-
-          <h3>CHANGES</h3>
-
-        </div>
-
-        <div
-          class="shift-preview-text"
-          id="previewChanges">
-          —
-        </div>
-
-      </section>
-
-
-      <!-- UPDATED GAMES -->
-
-      <section class="shift-preview-section">
-
-        <div class="shift-preview-section-title">
-
-          <span>02</span>
-
-          <h3>UPDATED GAMES FOR THIS SHIFT</h3>
-
-        </div>
-
-        <div
-          class="shift-preview-games"
-          id="previewGames">
-          —
-        </div>
-
-      </section>
-
-
-      <!-- DEFECTIVE KEYBOARD -->
-
-      <section class="shift-preview-section">
-
-        <div class="shift-preview-section-title">
-
-          <span>03</span>
-
-          <h3>DEFECTIVE KEYBOARD</h3>
-
-        </div>
-
-        <div
-          class="shift-preview-text"
-          id="previewKeyboard">
-          —
-        </div>
-
-      </section>
-
-
-      <!-- DEFECTIVE MOUSE -->
-
-      <section class="shift-preview-section">
-
-        <div class="shift-preview-section-title">
-
-          <span>04</span>
-
-          <h3>DEFECTIVE MOUSE</h3>
-
-        </div>
-
-        <div
-          class="shift-preview-text"
-          id="previewMouse">
-          —
-        </div>
-
-      </section>
-
-
-      <!-- DEFECTIVE HEADSET -->
-
-      <section class="shift-preview-section">
-
-        <div class="shift-preview-section-title">
-
-          <span>05</span>
-
-          <h3>DEFECTIVE HEADSET</h3>
-
-        </div>
-
-        <div
-          class="shift-preview-text"
-          id="previewHeadset">
-          —
-        </div>
-
-      </section>
-
-
-      <!-- NO DEFECT PCS -->
-
-      <section class="shift-preview-section">
-
-       <div class="shift-preview-section-title">
-    <span>06</span>
-    <h3>PC NUMBER WITH NO DEFECTS</h3>
-  </div>
-</div>
-
-        <div
-          class="shift-preview-text"
-          id="previewNoDefectPcs">
-          —
-        </div>
-
-      </section>
-
-
-      <!-- SPARE ITEMS -->
-
-      <section class="shift-preview-section">
-
-        <div class="shift-preview-section-title">
-
-          <span>07</span>
-
-          <h3>SPARE ITEMS</h3>
-
-        </div>
-
-        <div class="shift-preview-spares">
-
-          <div>
-            <span>Spare VIP Keyboard</span>
-            <strong id="previewSpareVipKeyboard">0</strong>
-          </div>
-
-          <div>
-            <span>Spare Standard Keyboard</span>
-            <strong id="previewSpareStandardKeyboard">0</strong>
-          </div>
-
-          <div>
-            <span>Spare VIP Mouse</span>
-            <strong id="previewSpareVipMouse">0</strong>
-          </div>
-
-          <div>
-            <span>Spare Standard Mouse</span>
-            <strong id="previewSpareStandardMouse">0</strong>
-          </div>
-
-          <div>
-            <span>Spare Cord</span>
-            <strong id="previewSpareCord">0</strong>
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- FOLLOW UP -->
-
-      <section class="shift-preview-section">
-
-        <div class="shift-preview-section-title">
-
-          <span>08</span>
-
-          <h3>FOLLOW UP REPORT</h3>
-
-        </div>
-
-        <div
-          class="shift-preview-text"
-          id="previewFollowUp">
-          —
-        </div>
-
-      </section>
-
-
-      <!-- CLEANED PC -->
-
-      <section class="shift-preview-section">
-
-       <div class="shift-preview-section-title">
-    <span>09</span>
-    <h3>CLEANED PC</h3>
-  </div>
-</div>
-
-        <div
-          class="shift-preview-text"
-          id="previewCleanedPcs">
-          —
-        </div>
-
-      </section>
-
-
-      <!-- SIGN OFF -->
-
-      <section class="shift-preview-section">
-
-        <div class="shift-preview-section-title">
-
-          <span>10</span>
-
-          <h3>REPORT SIGN-OFF</h3>
-
-        </div>
-
-        <div class="shift-preview-signoff">
-
-          <div class="shift-preview-signoff-box">
-
-            <h4>ADMIN</h4>
-
-            <img
-              id="previewAdminSignature"
-              class="shift-preview-signature"
-              alt="Admin signature">
-
-            <strong id="previewAdminName">
-              —
-            </strong>
-
-          </div>
-
-
-          <div class="shift-preview-signoff-box">
-
-            <h4>TECHNICIAN</h4>
-
-            <img
-              id="previewTechSignature"
-              class="shift-preview-signature"
-              alt="Technician signature">
-
-            <strong id="previewTechName">
-              —
-            </strong>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <div class="shift-preview-footer">
-        MARV’S GAMING HUB MANAGEMENT REPORT
-      </div>
-
     </div>
 
-
-    <div class="shift-preview-bottom-actions">
-
-      <button
-        type="button"
-        id="printShiftReport"
-        class="shift-print-btn">
-        🖨 Print Report
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
