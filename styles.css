@@ -1050,3 +1050,413 @@ footer{max-width:940px;margin:auto;padding:25px 0 35px;border-top:1px solid #1b2
 body.shift-modal-open {
   overflow: hidden;
 }
+
+/* =========================================================
+   SHIFT REPORT FORM
+   ========================================================= */
+
+.shift-report-header {
+  border-bottom: 1px solid #263953;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.shift-back-btn {
+  border: 0;
+  background: transparent;
+  color: #7894c5;
+  padding: 0;
+  margin-bottom: 18px;
+  font: 700 10px Inter, Arial, sans-serif;
+  cursor: pointer;
+}
+
+.shift-back-btn:hover {
+  color: #b8caff;
+}
+
+.shift-report-title .eyebrow {
+  margin-bottom: 7px;
+}
+
+.shift-report-title h2 {
+  margin: 0;
+  color: #f4f7ff;
+  font-size: 25px;
+  letter-spacing: -.7px;
+}
+
+.shift-report-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 9px;
+}
+
+.shift-report-meta strong {
+  color: #7fa7ff;
+  font-size: 10px;
+  letter-spacing: .5px;
+}
+
+.shift-report-meta span {
+  color: #788ba7;
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   FORM SECTIONS
+   ========================================================= */
+
+.shift-form-section {
+  margin-bottom: 14px;
+  padding: 18px;
+  border: 1px solid #263a55;
+  border-radius: 12px;
+  background: rgba(9, 17, 31, .55);
+}
+
+.shift-section-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.shift-section-heading > span {
+  width: 29px;
+  height: 29px;
+  flex: 0 0 29px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #172946;
+  color: #76a0ff;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.shift-section-heading h3 {
+  margin: 0;
+  color: #eaf0ff;
+  font-size: 12px;
+  letter-spacing: .2px;
+}
+
+.shift-section-heading p {
+  margin: 4px 0 0;
+  color: #71839e;
+  font-size: 9px;
+}
+
+
+/* =========================================================
+   TEXTAREAS
+   ========================================================= */
+
+.shift-textarea {
+  width: 100%;
+  min-height: 85px;
+  resize: vertical;
+  padding: 12px;
+  border: 1px solid #293e5b;
+  border-radius: 9px;
+  outline: none;
+  background: #0b1526;
+  color: #e8efff;
+  font: 500 11px/1.55 Inter, Arial, sans-serif;
+}
+
+.shift-textarea::placeholder {
+  color: #566984;
+}
+
+.shift-textarea:focus {
+  border-color: #547cff;
+  box-shadow: 0 0 0 3px rgba(84, 124, 255, .08);
+}
+
+
+/* =========================================================
+   GAME LIST
+   ========================================================= */
+
+.shift-game-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 3px;
+}
+
+.shift-game-option {
+  position: relative;
+}
+
+.shift-game-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.shift-game-option label {
+  display: flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 8px 10px;
+  border: 1px solid #273b57;
+  border-radius: 8px;
+  background: #0c1728;
+  color: #8496b1;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .15s ease;
+}
+
+.shift-game-option label:hover {
+  border-color: #4d6eaa;
+  color: #cbd8ef;
+}
+
+.shift-game-option input:checked + label {
+  border-color: #527cff;
+  background: rgba(67, 134, 255, .13);
+  color: #dbe6ff;
+}
+
+.shift-game-option input:checked + label:before {
+  content: "✓";
+  width: 17px;
+  height: 17px;
+  display: grid;
+  place-items: center;
+  margin-right: 7px;
+  border-radius: 5px;
+  background: #4386ff;
+  color: white;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.shift-empty-message {
+  color: #657994;
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   PC CHECKLIST
+   ========================================================= */
+
+.shift-pc-grid {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.shift-pc-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.shift-pc-option label {
+  min-height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #273b57;
+  border-radius: 7px;
+  background: #0c1728;
+  color: #778aa5;
+  font-size: 9px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: .15s ease;
+}
+
+.shift-pc-option label:hover {
+  border-color: #4f70aa;
+  color: #c8d5eb;
+}
+
+.shift-pc-option input:checked + label {
+  border-color: #4d8bff;
+  background: rgba(67, 134, 255, .14);
+  color: #dbe7ff;
+}
+
+
+/* =========================================================
+   SPARES
+   ========================================================= */
+
+.shift-spare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.shift-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.shift-field > span {
+  color: #71839d;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.shift-field input {
+  width: 100%;
+  height: 39px;
+  padding: 0 10px;
+  border: 1px solid #293e5b;
+  border-radius: 8px;
+  outline: none;
+  background: #0b1526;
+  color: #e8efff;
+  font: 600 10px Inter, Arial, sans-serif;
+}
+
+.shift-field input:focus {
+  border-color: #547cff;
+}
+
+
+/* =========================================================
+   SIGNATURES
+   ========================================================= */
+
+.shift-signoff-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.shift-signoff-card {
+  padding: 14px;
+  border: 1px solid #293d59;
+  border-radius: 10px;
+  background: #0c1728;
+}
+
+.shift-signoff-card h4 {
+  margin: 0 0 13px;
+  color: #dce6fa;
+  font-size: 10px;
+  letter-spacing: .7px;
+}
+
+.shift-signature-label {
+  margin: 13px 0 6px;
+  color: #71839d;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.shift-signature-box {
+  height: 100px;
+  overflow: hidden;
+  border: 1px dashed #344b6c;
+  border-radius: 8px;
+  background: #091321;
+}
+
+.shift-signature-box canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.shift-clear-signature {
+  margin-top: 7px;
+  padding: 5px 8px;
+  border: 1px solid #293e5b;
+  border-radius: 6px;
+  background: #101d31;
+  color: #788ca9;
+  font-size: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.shift-clear-signature:hover {
+  color: #d2ddf2;
+  border-color: #50698e;
+}
+
+
+/* =========================================================
+   SAVE
+   ========================================================= */
+
+.shift-save-area {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid #263953;
+}
+
+.shift-save-message {
+  color: #7e91ad;
+  font-size: 10px;
+}
+
+.shift-save-btn {
+  min-height: 43px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #4386ff, #7356ff);
+  color: white;
+  font: 800 10px Inter, Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(67, 102, 255, .20);
+  transition: .15s ease;
+}
+
+.shift-save-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 11px 30px rgba(67, 102, 255, .28);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .shift-game-list {
+    grid-template-columns: 1fr;
+  }
+
+  .shift-pc-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .shift-spare-grid,
+  .shift-signoff-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .shift-save-area {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .shift-save-btn {
+    width: 100%;
+  }
+}
