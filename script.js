@@ -1992,34 +1992,22 @@ function setOverallPreviewText(id, value) {
 }
 
 
-function setOverallPreviewList(
-  id,
-  values
-) {
-
-  const container =
-    document.getElementById(id);
+function setOverallPreviewList(id, values) {
+  const container = document.getElementById(id);
 
   if (!container) return;
 
   container.innerHTML = "";
 
   if (!values || !values.length) {
-
     container.textContent = "—";
-
     return;
   }
 
   values.forEach(value => {
-
-    const item =
-      document.createElement("div");
-
+    const item = document.createElement("span");
     item.textContent = value;
-
     container.appendChild(item);
-
   });
 }
 
@@ -2091,12 +2079,15 @@ function collectOverallReportPreviewData() {
      06 — SIGN-OFF
      ===================================================== */
 
-  return {
+ return {
+    date: new Date().toLocaleDateString('en-PH', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    }),
 
     games,
-
     defects,
-
     noDefectPcs,
 
     inventory,
@@ -2146,6 +2137,11 @@ function collectOverallReportPreviewData() {
 function showOverallReportPreview(report) {
 
   if (!report) return;
+ 
+  setOverallPreviewText(
+    "overallPreviewDate",
+    report.date
+  );
 
 
   /* =====================================================
@@ -2198,53 +2194,35 @@ function showOverallReportPreview(report) {
      02 — DEFECTIVE PERIPHERALS
      ===================================================== */
 
-  const defectsContainer =
+const defectsContainer =
     document.getElementById("overallPreviewDefects");
 
-  if (defectsContainer) {
+if (defectsContainer) {
 
-    defectsContainer.innerHTML = "";
+  defectsContainer.innerHTML = "";
 
-    if (!report.defects || !report.defects.length) {
+  if (!report.defects || !report.defects.length) {
 
-      defectsContainer.textContent = "—";
+    defectsContainer.textContent = "—";
 
-    } else {
+  } else {
 
-      report.defects.forEach(defect => {
+    report.defects.forEach(defect => {
 
-        const row =
-          document.createElement("div");
+      const row = document.createElement("div");
 
-        row.className = "overall-preview-defect";
+      row.textContent =
+        `${defect.pc} — ${defect.tier} — ${defect.type}` +
+        (defect.note ? ` — ${defect.note}` : "");
 
-        const title =
-          document.createElement("strong");
+      defectsContainer.appendChild(row);
 
-        title.textContent =
-          `${defect.pc} — ${defect.tier} — ${defect.type}`;
-
-        row.appendChild(title);
-
-        if (defect.note) {
-
-          const note =
-            document.createElement("span");
-
-          note.textContent =
-            defect.note;
-
-          row.appendChild(note);
-
-        }
-
-        defectsContainer.appendChild(row);
-
-      });
-
-    }
+    });
 
   }
+}
+
+  
 
 
   /* =====================================================
@@ -2261,51 +2239,32 @@ function showOverallReportPreview(report) {
      04 — INVENTORY
      ===================================================== */
 
-  const inventoryContainer =
-    document.getElementById(
-      "overallPreviewInventory"
-    );
+const inventoryContainer =
+    document.getElementById("overallPreviewInventory");
 
-  if (inventoryContainer) {
+if (inventoryContainer) {
 
-    inventoryContainer.innerHTML = "";
+  inventoryContainer.innerHTML = "";
 
-    if (!report.inventory || !report.inventory.length) {
+  if (!report.inventory || !report.inventory.length) {
 
-      inventoryContainer.textContent = "—";
+    inventoryContainer.textContent = "—";
 
-    } else {
+  } else {
 
-      report.inventory.forEach(item => {
+    report.inventory.forEach(item => {
 
-        const row =
-          document.createElement("div");
+      const row = document.createElement("div");
 
-        row.className = "spare-row";
+      row.textContent =
+        `${item.name} — ${item.quantity ?? "0"}`;
 
-        const name =
-          document.createElement("span");
+      inventoryContainer.appendChild(row);
 
-        name.textContent =
-          item.name;
-
-        const quantity =
-          document.createElement("strong");
-
-        quantity.textContent =
-          item.quantity ?? "0";
-
-        row.appendChild(name);
-        row.appendChild(quantity);
-
-        inventoryContainer.appendChild(row);
-
-      });
-
-    }
+    });
 
   }
-
+}
 
   /* =====================================================
      05 — SPARE ITEMS
