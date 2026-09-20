@@ -3874,9 +3874,11 @@ body.shift-modal-open {
         display: none !important;
     }
 
-    /* Show ONLY the active report preview */
-    body > #shiftPreviewModal,
-    body > #overallPreviewModal {
+    /* =================================================
+       SHIFT REPORT — PRINT ONLY WHEN OPEN
+       ================================================= */
+
+    body > #shiftPreviewModal.is-open {
         display: block !important;
         position: static !important;
         width: 100% !important;
@@ -3888,13 +3890,35 @@ body.shift-modal-open {
         background: #fff !important;
     }
 
-    /* Remove modal background */
+    /* =================================================
+       OVERALL REPORT — PRINT ONLY WHEN OPEN
+       ================================================= */
+
+    body > #overallPreviewModal.is-open {
+        display: block !important;
+        position: static !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        background: #fff !important;
+    }
+
+    /* =================================================
+       REMOVE MODAL BACKGROUND
+       ================================================= */
+
     #shiftPreviewModal .shift-preview-backdrop,
     #overallPreviewModal .shift-preview-backdrop {
         display: none !important;
     }
 
-    /* Remove modal/card styling */
+    /* =================================================
+       REMOVE MODAL / CARD STYLING
+       ================================================= */
+
     #shiftPreviewModal .shift-preview-card,
     #overallPreviewModal .shift-preview-card {
         display: block !important;
@@ -3910,9 +3934,13 @@ body.shift-modal-open {
         border-radius: 0 !important;
         box-shadow: none !important;
         background: #fff !important;
+        zoom: 1 !important;
     }
 
-    /* Hide close button and print button */
+    /* =================================================
+       HIDE CLOSE + PRINT BUTTONS
+       ================================================= */
+
     #shiftPreviewModal .shift-preview-actions,
     #shiftPreviewModal .shift-preview-bottom-actions,
     #overallPreviewModal .shift-preview-actions,
@@ -3920,7 +3948,10 @@ body.shift-modal-open {
         display: none !important;
     }
 
-    /* Printable report sheet */
+    /* =================================================
+       PRINTABLE REPORT SHEETS
+       ================================================= */
+
     #shiftReportSheet,
     #overallReportSheet {
         display: block !important;
@@ -3935,9 +3966,13 @@ body.shift-modal-open {
         background: #fff !important;
         color: #111827 !important;
         border-radius: 0 !important;
+        zoom: 1 !important;
     }
 
-    /* Prevent awkward section splitting */
+    /* =================================================
+       PREVENT AWKWARD SECTION SPLITTING
+       ================================================= */
+
     .shift-preview-section {
         break-inside: avoid !important;
         page-break-inside: avoid !important;
