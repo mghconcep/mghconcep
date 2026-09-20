@@ -1952,13 +1952,12 @@ overallPreviewBackdrop?.addEventListener(
 printOverallReport?.addEventListener(
   "click",
   () => {
-    document.body.classList.add("printing-overall-report");
-
-    window.print();
-
-    setTimeout(() => {
-      document.body.classList.remove("printing-overall-report");
-    }, 1000);
+   printOverallReport?.addEventListener(
+    "click",
+    () => {
+        window.print();
+    }
+);
   }
 );
 
