@@ -3870,13 +3870,13 @@ body.shift-modal-open {
     }
 
     /* Hide the entire normal website */
-    body>* {
+    body > * {
         display: none !important;
     }
 
     /* Show ONLY the active report preview */
-    body>#shiftPreviewModal,
-    body>#overallPreviewModal {
+    body > #shiftPreviewModal,
+    body > #overallPreviewModal {
         display: block !important;
         position: static !important;
         width: 100% !important;
@@ -3912,7 +3912,7 @@ body.shift-modal-open {
         background: #fff !important;
     }
 
-    /* Hide close + print buttons */
+    /* Hide close button and print button */
     #shiftPreviewModal .shift-preview-actions,
     #shiftPreviewModal .shift-preview-bottom-actions,
     #overallPreviewModal .shift-preview-actions,
@@ -3937,7 +3937,7 @@ body.shift-modal-open {
         border-radius: 0 !important;
     }
 
-    /* Keep sections together */
+    /* Prevent awkward section splitting */
     .shift-preview-section {
         break-inside: avoid !important;
         page-break-inside: avoid !important;
