@@ -2195,21 +2195,73 @@ if (defectsContainer) {
 
   } else {
 
+    const grouped = {};
+
     report.defects.forEach(defect => {
 
-      const row = document.createElement("div");
+      if (!grouped[defect.pc]) {
+        grouped[defect.pc] = {
+          tier: defect.tier,
+          defects: []
+        };
+      }
 
-      row.textContent =
-        `${defect.pc} — ${defect.tier} — ${defect.type}` +
-        (defect.note ? ` — ${defect.note}` : "");
+      grouped[defect.pc].defects.push(defect);
 
-      defectsContainer.appendChild(row);
+    });
+
+    Object.entries(grouped).forEach(([pc, data]) => {
+
+      const card = document.createElement("div");
+      card.className = "overall-defect-pc-card";
+
+      const header = document.createElement("div");
+      header.className = "overall-defect-pc-header";
+
+      const pcName = document.createElement("strong");
+      pcName.textContent = pc;
+
+      const tier = document.createElement("span");
+      tier.textContent = data.tier;
+
+      header.appendChild(pcName);
+      header.appendChild(tier);
+
+      const defectList = document.createElement("div");
+      defectList.className = "overall-defect-list";
+
+      data.defects.forEach(defect => {
+
+        const defectItem = document.createElement("div");
+        defectItem.className = "overall-defect-item";
+
+        const type = document.createElement("strong");
+        type.textContent = defect.type;
+
+        defectItem.appendChild(type);
+
+        if (defect.note) {
+
+          const note = document.createElement("span");
+          note.textContent = defect.note;
+
+          defectItem.appendChild(note);
+
+        }
+
+        defectList.appendChild(defectItem);
+
+      });
+
+      card.appendChild(header);
+      card.appendChild(defectList);
+
+      defectsContainer.appendChild(card);
 
     });
 
   }
 }
-
   
 
 
