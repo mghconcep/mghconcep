@@ -62,11 +62,10 @@ function getInventoryRows() {
 }
 
 const SPARE_INPUTS = {
-  'VIP Keyboard': 'spareVipKeyboard',
-  'Standard Keyboard': 'spareStandardKeyboard',
-  'VIP Mouse': 'spareVipMouse',
-  'Standard Mouse': 'spareStandardMouse',
-  'Spare Cord': 'spareCord'
+  'Keyboard': 'spareKeyboard',
+  'Mouse': 'spareMouse',
+  'Headset': 'spareHeadset',
+  'Power Cord': 'sparePowerCord'
 };
 
 function getSpareRows() {
@@ -110,17 +109,17 @@ async function saveReportToSupabase() {
   try {
     const games = getSelectedGameRows().map(row => ({ ...row, report_id: reportId }));
     const defects = Array.from(defectRecords.values()).map(row => ({
-  report_id: reportId,
-  pc_number: Number(row.pc.replace('PC', '')),
-  peripheral_type: ({
-    keyboard: 'Keyboard',
-    headset: 'Headset',
-    mouse: 'Mouse',
-    monitor: 'Monitor',
-    'power-cord': 'Power Cord'
-  })[row.type],
-  description: row.note || null
-}));
+      report_id: reportId,
+      pc_number: Number(row.pc.replace('PC', '')),
+      peripheral_type: ({
+        keyboard: 'Keyboard',
+        headset: 'Headset',
+        mouse: 'Mouse',
+        monitor: 'Monitor',
+        'power-cord': 'Power Cord'
+      })[row.type],
+      description: row.note || null
+    }));
     const pcStatus = getPcStatusRows().map(row => ({ ...row, report_id: reportId }));
     const inventory = getInventoryRows().map(row => ({ ...row, report_id: reportId }));
     const spares = getSpareRows().map(row => ({ ...row, report_id: reportId }));
@@ -675,7 +674,7 @@ function setupSignaturePad(canvasId, placeholderId) {
   const stop = (event) => {
     if (!drawing) return;
     drawing = false;
-    try { canvas.releasePointerCapture?.(event.pointerId); } catch (_) {}
+    try { canvas.releasePointerCapture?.(event.pointerId); } catch (_) { }
   };
   canvas.addEventListener("pointerup", stop);
   canvas.addEventListener("pointercancel", stop);
@@ -697,32 +696,32 @@ setupSignaturePad("adminSignature", "adminSignaturePlaceholder");
 setupSignaturePad("techSignature", "techSignaturePlaceholder");
 
 
-  const liveDate = document.getElementById("liveDate");
-  const liveTime = document.getElementById("liveTime");
-  function updateLiveDateTime() {
-    if (!liveDate || !liveTime) return;
-    const now = new Date();
-    liveDate.textContent = now.toLocaleDateString(undefined, {
-      weekday: "long", year: "numeric", month: "long", day: "numeric"
-    });
-    liveTime.textContent = now.toLocaleTimeString(undefined, {
-      hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true
-    });
-  }
-  updateLiveDateTime();
-  setInterval(updateLiveDateTime, 1000);
+const liveDate = document.getElementById("liveDate");
+const liveTime = document.getElementById("liveTime");
+function updateLiveDateTime() {
+  if (!liveDate || !liveTime) return;
+  const now = new Date();
+  liveDate.textContent = now.toLocaleDateString(undefined, {
+    weekday: "long", year: "numeric", month: "long", day: "numeric"
+  });
+  liveTime.textContent = now.toLocaleTimeString(undefined, {
+    hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true
+  });
+}
+updateLiveDateTime();
+setInterval(updateLiveDateTime, 1000);
 
 // Editable peripheral inventory counts
 const inventoryGroups = {
-  keyboardStandardTotal: ['keyboard-standard-red-dragon','keyboard-standard-inplay'],
+  keyboardStandardTotal: ['keyboard-standard-red-dragon', 'keyboard-standard-inplay'],
   keyboardVipTotal: ['keyboard-vip-red-dragon'],
-  mouseStandardTotal: ['mouse-standard-fantech','mouse-standard-red-dragon'],
+  mouseStandardTotal: ['mouse-standard-fantech', 'mouse-standard-red-dragon'],
   mouseVipTotal: ['mouse-vip-red-dragon'],
   headsetStandardTotal: ['headset-standard-fantech'],
-  headsetVipTotal: ['headset-vip-fantech','headset-vip-badwolf','headset-vip-red-dragon','headset-vip-keytech']
+  headsetVipTotal: ['headset-vip-fantech', 'headset-vip-badwolf', 'headset-vip-red-dragon', 'headset-vip-keytech']
 };
 
-function updateInventoryTotals(){
+function updateInventoryTotals() {
   Object.entries(inventoryGroups).forEach(([totalId, keys]) => {
     const total = keys.reduce((sum, key) => {
       const input = document.querySelector(`[data-inventory="${key}"]`);
@@ -745,45 +744,45 @@ document.querySelectorAll('.inventory-count').forEach(input => {
 updateInventoryTotals();
 
 /* PC status checklist */
-(function initPcStatusChecklist(){
+(function initPcStatusChecklist() {
   const standardWrap = document.getElementById('standardPcChecklist');
   const vipWrap = document.getElementById('vipPcChecklist');
   if (!standardWrap || !vipWrap) return;
 
-  function buildChecks(container, start, end, prefix){
-    for(let n=start;n<=end;n++){
-      const pc=`PC${String(n).padStart(2,'0')}`;
-      const id=`${prefix}-${n}`;
-      const item=document.createElement('div');
-      item.className='pc-check';
-      item.innerHTML=`<input type="checkbox" id="${id}" data-pc-status="no-defect" data-pc="${pc}"><label for="${id}">${pc}</label>`;
+  function buildChecks(container, start, end, prefix) {
+    for (let n = start; n <= end; n++) {
+      const pc = `PC${String(n).padStart(2, '0')}`;
+      const id = `${prefix}-${n}`;
+      const item = document.createElement('div');
+      item.className = 'pc-check';
+      item.innerHTML = `<input type="checkbox" id="${id}" data-pc-status="no-defect" data-pc="${pc}"><label for="${id}">${pc}</label>`;
       container.appendChild(item);
     }
   }
 
-  buildChecks(standardWrap,11,40,'standard-pc');
-  buildChecks(vipWrap,1,10,'vip-pc');
+  buildChecks(standardWrap, 11, 40, 'standard-pc');
+  buildChecks(vipWrap, 1, 10, 'vip-pc');
 
-  function updateCounts(){
-    const std=standardWrap.querySelectorAll('input:checked').length;
-    const vip=vipWrap.querySelectorAll('input:checked').length;
-    const a=document.getElementById('standardNoDefectsCount');
-    const b=document.getElementById('vipNoDefectsCount');
-    if(a) a.textContent=std;
-    if(b) b.textContent=vip;
+  function updateCounts() {
+    const std = standardWrap.querySelectorAll('input:checked').length;
+    const vip = vipWrap.querySelectorAll('input:checked').length;
+    const a = document.getElementById('standardNoDefectsCount');
+    const b = document.getElementById('vipNoDefectsCount');
+    if (a) a.textContent = std;
+    if (b) b.textContent = vip;
   }
 
-  document.querySelectorAll('[data-pc-select]').forEach(btn=>btn.addEventListener('click',()=>{
-    const wrap=btn.dataset.pcSelect==='vip'?vipWrap:standardWrap;
-    wrap.querySelectorAll('input').forEach(cb=>cb.checked=true);
+  document.querySelectorAll('[data-pc-select]').forEach(btn => btn.addEventListener('click', () => {
+    const wrap = btn.dataset.pcSelect === 'vip' ? vipWrap : standardWrap;
+    wrap.querySelectorAll('input').forEach(cb => cb.checked = true);
     updateCounts();
   }));
-  document.querySelectorAll('[data-pc-clear]').forEach(btn=>btn.addEventListener('click',()=>{
-    const wrap=btn.dataset.pcClear==='vip'?vipWrap:standardWrap;
-    wrap.querySelectorAll('input').forEach(cb=>cb.checked=false);
+  document.querySelectorAll('[data-pc-clear]').forEach(btn => btn.addEventListener('click', () => {
+    const wrap = btn.dataset.pcClear === 'vip' ? vipWrap : standardWrap;
+    wrap.querySelectorAll('input').forEach(cb => cb.checked = false);
     updateCounts();
   }));
-  document.querySelectorAll('[data-pc-status]').forEach(cb=>cb.addEventListener('change',updateCounts));
+  document.querySelectorAll('[data-pc-status]').forEach(cb => cb.addEventListener('change', updateCounts));
   updateCounts();
 })();
 /* =========================================================
@@ -922,9 +921,9 @@ function buildShiftGameList() {
   games.forEach((game, index) => {
 
     const gameName =
-  game.querySelector(".game-name")?.textContent?.trim() ||
-  game.dataset.game ||
-  `Game ${index + 1}`;
+      game.querySelector(".game-name")?.textContent?.trim() ||
+      game.dataset.game ||
+      `Game ${index + 1}`;
 
     const id = `shiftGame_${index}`;
 
@@ -1136,11 +1135,11 @@ function setupShiftSignatureCanvas(canvas) {
 
   ctx.scale(ratio, ratio);
 
-ctx.lineWidth = 2.6;
-ctx.lineCap = "round";
-ctx.lineJoin = "round";
-ctx.strokeStyle = "#111827";
-ctx.globalAlpha = 1;
+  ctx.lineWidth = 2.6;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.strokeStyle = "#111827";
+  ctx.globalAlpha = 1;
 
   let drawing = false;
 
@@ -1343,8 +1342,8 @@ function setShiftPreviewText(id, value) {
 
   element.textContent =
     value !== null &&
-    value !== undefined &&
-    String(value).trim()
+      value !== undefined &&
+      String(value).trim()
       ? value
       : "—";
 
@@ -1426,15 +1425,15 @@ function showShiftReportPreview(report, games) {
     "previewShiftDate",
     report.report_date
       ? new Date(
-          `${report.report_date}T00:00:00`
-        ).toLocaleDateString(
-          "en-PH",
-          {
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-          }
-        )
+        `${report.report_date}T00:00:00`
+      ).toLocaleDateString(
+        "en-PH",
+        {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        }
+      )
       : "—"
   );
 
@@ -1476,9 +1475,9 @@ function showShiftReportPreview(report, games) {
     "previewNoDefectPcs",
     report.pc_no_defects
       ? report.pc_no_defects
-          .split(",")
-          .map(pc => pc.trim())
-          .filter(Boolean)
+        .split(",")
+        .map(pc => pc.trim())
+        .filter(Boolean)
       : []
   );
 
@@ -1487,40 +1486,34 @@ function showShiftReportPreview(report, games) {
     "previewCleanedPcs",
     report.cleaned_pc
       ? report.cleaned_pc
-          .split(",")
-          .map(pc => pc.trim())
-          .filter(Boolean)
+        .split(",")
+        .map(pc => pc.trim())
+        .filter(Boolean)
       : []
   );
 
 
   setShiftPreviewText(
-    "previewSpareVipKeyboard",
-    report.spare_vip_keyboard ?? 0
+    "previewSpareKeyboard",
+    report.spare_keyboard ?? 0
   );
 
 
   setShiftPreviewText(
-    "previewSpareStandardKeyboard",
-    report.spare_standard_keyboard ?? 0
+    "previewSpareMouse",
+    report.spare_mouse ?? 0
   );
 
 
   setShiftPreviewText(
-    "previewSpareVipMouse",
-    report.spare_vip_mouse ?? 0
+    "previewSpareHeadset",
+    report.spare_headset ?? 0
   );
 
 
   setShiftPreviewText(
-    "previewSpareStandardMouse",
-    report.spare_standard_mouse ?? 0
-  );
-
-
-  setShiftPreviewText(
-    "previewSpareCord",
-    report.spare_cord ?? 0
+    "previewSparePowerCord",
+    report.spare_power_cord ?? 0
   );
 
 
@@ -1665,32 +1658,27 @@ document
       ].map(input => input.value);
 
       /* =====================================================
-         SPARE ITEMS
-         ===================================================== */
+    SPARE ITEMS
+    ===================================================== */
 
-      const spareVipKeyboard =
+      const spareKeyboard =
         Number(
-          document.getElementById("shiftSpareVipKeyboard")?.value || 0
+          document.getElementById("shiftSpareKeyboard")?.value || 0
         );
 
-      const spareStandardKeyboard =
+      const spareMouse =
         Number(
-          document.getElementById("shiftSpareStandardKeyboard")?.value || 0
+          document.getElementById("shiftSpareMouse")?.value || 0
         );
 
-      const spareVipMouse =
+      const spareHeadset =
         Number(
-          document.getElementById("shiftSpareVipMouse")?.value || 0
+          document.getElementById("shiftSpareHeadset")?.value || 0
         );
 
-      const spareStandardMouse =
+      const sparePowerCord =
         Number(
-          document.getElementById("shiftSpareStandardMouse")?.value || 0
-        );
-
-      const spareCord =
-        Number(
-          document.getElementById("shiftSpareCord")?.value || 0
+          document.getElementById("shiftSparePowerCord")?.value || 0
         );
 
       /* =====================================================
@@ -1722,11 +1710,10 @@ document
                 ? noDefectPcs.join(", ")
                 : null,
 
-            spare_vip_keyboard: spareVipKeyboard,
-            spare_standard_keyboard: spareStandardKeyboard,
-            spare_vip_mouse: spareVipMouse,
-            spare_standard_mouse: spareStandardMouse,
-            spare_cord: spareCord,
+            spare_keyboard: spareKeyboard,
+            spare_mouse: spareMouse,
+            spare_headset: spareHeadset,
+            spare_power_cord: sparePowerCord,
 
             follow_up_report:
               document.getElementById("shiftFollowUp")?.value?.trim() || null,
@@ -1801,12 +1788,12 @@ document
    SHOW SAVED SHIFT REPORT
    ===================================================== */
 
-if (typeof showShiftReportPreview === "function") {
-  showShiftReportPreview(
-    shiftReport,
-    selectedGames
-  );
-}
+      if (typeof showShiftReportPreview === "function") {
+        showShiftReportPreview(
+          shiftReport,
+          selectedGames
+        );
+      }
 
       /* =====================================================
          RESET FORM
