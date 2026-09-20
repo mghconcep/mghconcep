@@ -4190,3 +4190,81 @@ body.shift-modal-open {
     }
 }
 
+/* =========================================
+   OVERALL REPORT — SECTION 03
+   DEFECTIVE PERIPHERALS
+   ========================================= */
+
+#overallPreviewDefects {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.overall-defect-pc-card {
+    background: #111d31;
+    border: 1px solid rgba(67, 134, 255, 0.25);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+.overall-defect-pc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background: rgba(67, 134, 255, 0.08);
+    border-bottom: 1px solid rgba(67, 134, 255, 0.18);
+}
+
+.overall-defect-pc-header strong {
+    color: #f5f7ff;
+    letter-spacing: .02em;
+}
+
+.overall-defect-pc-header span {
+    padding: 4px 9px;
+    border-radius: 6px;
+    background: rgba(139, 85, 255, 0.14);
+    color: #c9b8ff;
+    border: 1px solid rgba(139, 85, 255, 0.25);
+}
+
+.overall-defect-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.overall-defect-item {
+    display: grid;
+    grid-template-columns: 125px 1fr;
+    gap: 14px;
+    align-items: start;
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.overall-defect-item:last-child {
+    border-bottom: 0;
+}
+
+.overall-defect-item strong {
+    color: #eef2ff;
+}
+
+.overall-defect-item span {
+    color: #9aa9c2;
+    line-height: 1.45;
+    word-break: break-word;
+}
+
+@media (max-width: 700px) {
+
+    .overall-defect-item {
+        grid-template-columns: 105px 1fr;
+        gap: 10px;
+        padding: 9px 12px;
+    }
+
+}
