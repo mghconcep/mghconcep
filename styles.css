@@ -4202,33 +4202,31 @@ body.shift-modal-open {
 }
 
 .overall-defect-pc-card {
-    background: #111d31;
-    border: 1px solid rgba(67, 134, 255, 0.25);
-    border-radius: 12px;
+    background: #f1f3f6;
+    border: 1px solid #d9dde5;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
 }
 
 .overall-defect-pc-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 15px;
-    background: rgba(67, 134, 255, 0.08);
-    border-bottom: 1px solid rgba(67, 134, 255, 0.18);
+    padding: 11px 14px;
+    background: #e7e9ed;
+    border-bottom: 1px solid #d9dde5;
 }
 
 .overall-defect-pc-header strong {
-    color: #f5f7ff;
-    letter-spacing: .02em;
+    color: #111827;
 }
 
 .overall-defect-pc-header span {
     padding: 4px 9px;
     border-radius: 6px;
-    background: rgba(139, 85, 255, 0.14);
-    color: #c9b8ff;
-    border: 1px solid rgba(139, 85, 255, 0.25);
+    background: #dfe3e8;
+    color: #4b5563;
+    border: 1px solid #cdd2d9;
 }
 
 .overall-defect-list {
@@ -4241,8 +4239,9 @@ body.shift-modal-open {
     grid-template-columns: 125px 1fr;
     gap: 14px;
     align-items: start;
-    padding: 10px 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 10px 14px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e1e4e8;
 }
 
 .overall-defect-item:last-child {
@@ -4250,21 +4249,19 @@ body.shift-modal-open {
 }
 
 .overall-defect-item strong {
-    color: #eef2ff;
+    color: #111827;
 }
 
 .overall-defect-item span {
-    color: #9aa9c2;
+    color: #6b7280;
     line-height: 1.45;
     word-break: break-word;
 }
 
 @media (max-width: 700px) {
-
     .overall-defect-item {
         grid-template-columns: 105px 1fr;
         gap: 10px;
         padding: 9px 12px;
     }
-
 }
