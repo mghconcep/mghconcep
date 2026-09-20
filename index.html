@@ -1409,20 +1409,15 @@
 
     </div>
 
-    <!-- OVERALL REPORT PREVIEW -->
+<!-- OVERALL REPORT PREVIEW -->
 <div class="shift-preview-modal" id="overallPreviewModal" aria-hidden="true">
 
     <div class="shift-preview-backdrop" id="overallPreviewBackdrop"></div>
 
-    <div class="shift-preview-card" role="dialog" aria-modal="true">
+    <div class="shift-preview-card">
 
-        <div class="shift-preview-header">
-            <div>
-                <p class="shift-preview-kicker">
-    MARV’S GAMING HUB (CONCEP)
-</p>
-                <h2>Overall Report Preview</h2>
-            </div>
+        <!-- CLOSE BUTTON -->
+        <div class="shift-preview-actions">
 
             <button
                 type="button"
@@ -1431,81 +1426,119 @@
                 aria-label="Close preview">
                 ×
             </button>
-        </div>
 
+        </div>
 
         <div class="shift-report-sheet" id="overallReportSheet">
 
-            <!-- 01 GAMES -->
+            <!-- HEADER -->
+            <div class="shift-preview-header">
+
+                <p class="shift-preview-kicker">
+                    MARV’S GAMING HUB (CONCEP)
+                </p>
+
+                <h2>GAMING HUB REPORT</h2>
+
+                <div class="shift-preview-meta">
+
+                    <strong>
+                        OVERALL REPORT
+                    </strong>
+
+                    <span id="overallPreviewDate">
+                        —
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- 01 CHANGES -->
             <section class="shift-preview-section">
 
                 <div class="shift-preview-section-title">
                     <span>01</span>
-                    <h3>GAMES UPDATE</h3>
+                    <h3>CHANGES</h3>
                 </div>
 
-                <div id="overallPreviewGames">
+                <div
+                    class="shift-preview-text"
+                    id="overallPreviewChanges">
                     —
                 </div>
 
             </section>
 
-
-            <!-- 02 DEFECTIVE PERIPHERALS -->
+            <!-- 02 GAMES UPDATE -->
             <section class="shift-preview-section">
 
                 <div class="shift-preview-section-title">
                     <span>02</span>
-                    <h3>DEFECTIVE PERIPHERALS</h3>
+                    <h3>GAMES UPDATE</h3>
                 </div>
 
-                <div id="overallPreviewDefects">
+                <div
+                    class="shift-preview-games"
+                    id="overallPreviewGames">
                     —
                 </div>
 
             </section>
 
-
-            <!-- 03 PC STATUS -->
+            <!-- 03 DEFECTIVE PERIPHERALS -->
             <section class="shift-preview-section">
 
                 <div class="shift-preview-section-title">
                     <span>03</span>
-                    <h3>PC STATUS</h3>
+                    <h3>DEFECTIVE PERIPHERALS</h3>
                 </div>
 
-                <div class="shift-preview-grid">
-
-                    <div>
-                        <span>PC NUMBER WITH NO DEFECTS</span>
-                        <strong id="overallPreviewNoDefectPcs">—</strong>
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- 04 INVENTORY -->
-            <section class="shift-preview-section">
-
-                <div class="shift-preview-section-title">
-                    <span>04</span>
-                    <h3>OVERALL PERIPHERALS COUNT</h3>
-                </div>
-
-                <div id="overallPreviewInventory">
+                <div
+                    class="shift-preview-text"
+                    id="overallPreviewDefects">
                     —
                 </div>
 
             </section>
 
+            <!-- 04 PC NUMBER WITH NO DEFECTS -->
+            <section class="shift-preview-section">
 
-            <!-- 05 SPARE ITEMS -->
+                <div class="shift-preview-section-title">
+                    <span>04</span>
+                    <h3>PC NUMBER WITH NO DEFECTS</h3>
+                </div>
+
+                <div
+                    class="shift-preview-pc-grid"
+                    id="overallPreviewNoDefectPcs">
+                    —
+                </div>
+
+            </section>
+
+            <!-- 05 OVERALL PERIPHERALS COUNT -->
             <section class="shift-preview-section">
 
                 <div class="shift-preview-section-title">
                     <span>05</span>
+                    <h3>OVERALL PERIPHERALS COUNT</h3>
+                </div>
+
+                <div
+                    class="shift-preview-spares"
+                    id="overallPreviewInventory">
+                    —
+                </div>
+
+            </section>
+
+            <!-- 06 SPARE ITEMS & FOLLOW UP -->
+            <section class="shift-preview-section">
+
+                <div class="shift-preview-section-title">
+                    <span>06</span>
                     <h3>SPARE ITEMS & FOLLOW UP</h3>
                 </div>
 
@@ -1533,66 +1566,83 @@
 
                 </div>
 
-                <div class="overall-preview-text-row">
-                    <span>FOLLOW UP REPORT</span>
-                    <strong id="overallPreviewFollowUp">—</strong>
-                </div>
+                <div class="shift-preview-text" style="margin-top: 14px;">
 
-                <div class="overall-preview-text-row">
-                    <span>CHANGES</span>
-                    <strong id="overallPreviewChanges">—</strong>
+                    <strong
+                        style="display:block; margin-bottom:6px; font-size:10px; letter-spacing:.06em;">
+                        FOLLOW UP REPORT
+                    </strong>
+
+                    <span id="overallPreviewFollowUp">
+                        —
+                    </span>
+
                 </div>
 
             </section>
 
-
-            <!-- 06 SIGN OFF -->
+            <!-- 07 REPORT SIGN-OFF -->
             <section class="shift-preview-section">
 
                 <div class="shift-preview-section-title">
-                    <span>06</span>
+                    <span>07</span>
                     <h3>REPORT SIGN-OFF</h3>
                 </div>
 
-                <div class="shift-preview-grid">
+                <div class="shift-preview-signoff">
 
-                    <div>
-                        <span>ADMIN</span>
-                        <strong id="overallPreviewAdminName">—</strong>
+                    <!-- ADMIN -->
+                    <div class="shift-preview-signoff-box">
+
+                        <h4>ADMIN</h4>
+
                         <img
                             id="overallPreviewAdminSignature"
-                            class="overall-preview-signature"
-                            alt="Admin Signature">
+                            class="shift-preview-signature"
+                            alt="Admin signature">
+
+                        <strong id="overallPreviewAdminName">
+                            —
+                        </strong>
+
                     </div>
 
-                    <div>
-                        <span>TECHNICIAN</span>
-                        <strong id="overallPreviewTechName">—</strong>
+                    <!-- TECHNICIAN -->
+                    <div class="shift-preview-signoff-box">
+
+                        <h4>TECHNICIAN</h4>
+
                         <img
                             id="overallPreviewTechSignature"
-                            class="overall-preview-signature"
-                            alt="Technician Signature">
+                            class="shift-preview-signature"
+                            alt="Technician signature">
+
+                        <strong id="overallPreviewTechName">
+                            —
+                        </strong>
+
                     </div>
 
                 </div>
 
             </section>
 
+            <!-- FOOTER -->
             <div class="shift-preview-footer">
-    MARV’S GAMING HUB MANAGEMENT REPORT
-</div>
+                MARV’S GAMING HUB MANAGEMENT REPORT
+            </div>
 
         </div>
 
-
+        <!-- PRINT BUTTON -->
         <div class="shift-preview-bottom-actions">
 
-           <button
-    type="button"
-    class="shift-print-btn"
-    id="printOverallReport">
-    🖨 Print Report
-</button>
+            <button
+                type="button"
+                id="printOverallReport"
+                class="shift-print-btn">
+                🖨 Print Report
+            </button>
 
         </div>
 
