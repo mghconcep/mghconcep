@@ -8,14 +8,18 @@ let reports = [];
 let shiftReports = [];
 let currentUser = null;
 
-function esc(value){return String(value ?? '').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>
-    ':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
-    function prettyDate(date){if(!date)return '—'; const d=new Date(date+'T00:00:00'); return
-    d.toLocaleDateString(undefined,{day:'2-digit',month:'short',year:'numeric'});}
-    function prettyDateTime(value){if(!value)return '—'; const d=new Date(value); return
-    d.toLocaleString(undefined,{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});}
-    function toast(msg, bad=false){const t=$('toast');t.textContent=msg;t.className='toast show
-    '+(bad?'bad':'');setTimeout(()=>t.className='toast',2600)}
+function esc(value) {
+return String(value ?? '').replace(/[&<>'"]/g, c => ({
+  '&': '&amp;',
+  '<': '&lt;' , '>' : '&gt;' , "'" : '&#39;' , '"' : '&quot;' }[c])); } function prettyDate(date) { if (!date)
+    return '—' ; const d=new Date(date + 'T00:00:00' ); return d.toLocaleDateString(undefined, { day: '2-digit' ,
+    month: 'short' , year: 'numeric' }); } function prettyDateTime(value) { if (!value) return '—' ; const d=new
+    Date(value); return d.toLocaleString(undefined, { day: '2-digit' , month: 'short' , year: 'numeric' ,
+    hour: '2-digit' , minute: '2-digit' }); } function toast(msg, bad=false) { const t=$('toast'); t.textContent=msg;
+    t.className='toast show ' + (bad ? 'bad' : '' ); setTimeout(()=> {
+    t.className = 'toast';
+    }, 2600);
+    }
 
     async function requireAdmin(user){
     // The existing AGST Store project already has an admin_users table with user_id.
@@ -25,13 +29,21 @@ function esc(value){return String(value ?? '').replace(/[&<>'"]/g,c=>({'&':'&amp
     return !!data;
     }
 
-    function showApp(user){
-    currentUser=user;$('loginView').classList.add('hidden');$('appView').classList.remove('hidden');$('userEmail').textContent=user.email||'Signed
-    in';
-    }
-    function
-    showLogin(){currentUser=null;$('appView').classList.add('hidden');$('loginView').classList.remove('hidden');}
+    function showApp(user) {
+    currentUser = user;
 
+    $('loginView').classList.add('hidden');
+    $('appView').classList.remove('hidden');
+
+    $('userEmail').textContent = user.email || 'Signed in';
+    }
+
+    function showLogin() {
+    currentUser = null;
+
+    $('appView').classList.add('hidden');
+    $('loginView').classList.remove('hidden');
+    }
     $('loginForm').addEventListener('submit',async e=>{
     e.preventDefault();$('loginError').textContent='';
     const email=$('email').value.trim(),password=$('password').value;
@@ -63,8 +75,8 @@ function esc(value){return String(value ?? '').replace(/[&<>'"]/g,c=>({'&':'&amp
     const byReport=new Map((signoffs||[]).map(x=>[x.report_id,x]));
     reports=(data||[]).map(r=>({...r,signoff:byReport.get(r.id)||{}}));
     renderReports();
-    }catch(err){console.error(err);$('loading').textContent='Database error';toast(err.message||'Could not load
-    reports.',true);}
+    }catch(err){console.error(err);$('loading').textContent='Database error';toast(err.message || 'Could not load
+    reports.', true);
     finally{setTimeout(()=>{$('loading').textContent='';},600)}
     }
 
@@ -77,7 +89,8 @@ function esc(value){return String(value ?? '').replace(/[&<>'"]/g,c=>({'&':'&amp
     }
     if(!q)return true;
     return
-    [r.report_date,r.follow_up_report,r.signoff?.admin_name,r.signoff?.tech_name].some(v=>String(v||'').toLowerCase().includes(q));
+    return [r.report_date, r.follow_up_report, r.signoff?.admin_name, r.signoff?.tech_name]
+    .some(v => String(v || '').toLowerCase().includes(q));
     });
     }
     function renderReports(){
@@ -282,7 +295,7 @@ function esc(value){return String(value ?? '').replace(/[&<>'"]/g,c=>({'&':'&amp
       const defectRows=d.defects.slice().sort((a,b)=>a.pc_number-b.pc_number ||
       String(a.peripheral_type).localeCompare(String(b.peripheral_type))).map(x=>`<tr>
         <td>${pcLabel(x.pc_number)}</td>
-        <td>${esc(x.pc_number<=10?'VIP':'Standard')}< /td>
+        <td>${esc(x.pc_number <= 10 ? 'VIP' : 'Standard' )}</td>
         <td>${esc(x.peripheral_type)}</td>
         <td>${esc(x.description||'—')}</td>
       </tr>`).join('');
