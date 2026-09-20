@@ -157,20 +157,47 @@ async function saveReportToSupabase() {
 if (reportForm) {
   reportForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+
     const saveButton = reportForm.querySelector('.save-btn');
+
     if (saveButton) {
       saveButton.disabled = true;
       saveButton.classList.add('is-saving');
     }
+
     setSaveMessage('Saving report to Supabase…');
 
     try {
+      /*
+       * Capture the current Overall Report data
+       * BEFORE the form is reset.
+       */
+      const overallPreviewData = collectOverallReportPreviewData();
+
       const reportId = await saveReportToSupabase();
-      setSaveMessage(`✓ Report saved successfully • ${reportId.slice(0, 8)}…`, 'success');
+
+      setSaveMessage(
+        `✓ Report saved successfully • ${reportId.slice(0, 8)}…`,
+        'success'
+      );
+
+      /*
+       * Open Overall Report Preview
+       * only after Supabase save succeeds.
+       */
+      showOverallReportPreview(overallPreviewData);
+
     } catch (error) {
       console.error('Supabase save failed:', error);
-      const message = error?.message || 'Unknown Supabase error.';
-      setSaveMessage(`Could not save report: ${message}`, 'error');
+
+      const message =
+        error?.message || 'Unknown Supabase error.';
+
+      setSaveMessage(
+        `Could not save report: ${message}`,
+        'error'
+      );
+
     } finally {
       if (saveButton) {
         saveButton.disabled = false;
