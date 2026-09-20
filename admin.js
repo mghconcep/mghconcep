@@ -63,28 +63,38 @@ return String(value ?? '').replace(/[&<>'"]/g, c => ({
     });
     $('signOut').addEventListener('click',async()=>{await supabaseClient.auth.signOut();showLogin();});
 
-    async function loadReports(){
-    $('loading').innerHTML='<span class="spinner"></span>Loading';
-    try{
-    const {data,error}=await
-    supabaseClient.from('gaming_reports').select('id,report_date,created_at,updated_at,follow_up_report,created_by').order('report_date',{ascending:false}).order('created_at',{ascending:false});
-    if(error)throw error;
-    const {data:signoffs,error:signoffError}=await
-    supabaseClient.from('report_signoffs').select('report_id,admin_name,tech_name');
-    if(signoffError)throw signoffError;
-    const byReport=new Map((signoffs||[]).map(x=>[x.report_id,x]));
-    reports=(data||[]).map(r=>({...r,signoff:byReport.get(r.id)||{}}));
-    renderReports();
-  } catch (err) {
-    console.error(err);
-    $('loading').textContent = 'Database error';
-    toast(err.message || 'Could not load reports.', true);
-} finally {
-    setTimeout(() => {
-        $('loading').textContent = '';
-    }, 600);
-}
+  async function loadReports() {
+    $('loading').textContent = 'Loading...';
+
+    try {
+        const { data, error } = await supabaseClient
+            .from('gaming_reports')
+            .select(`
+                id,
+                report_date,
+                shift,
+                submitted_at,
+                follow_up_report
+            `)
+            .order('report_date', { ascending: false })
+            .order('submitted_at', { ascending: false });
+
+        if (error) throw error;
+
+        reports = data || [];
+        renderReports();
+
+    } catch (err) {
+        console.error(err);
+        $('loading').textContent = 'Database error';
+        toast(err.message || 'Could not load reports.', true);
+
+    } finally {
+        setTimeout(() => {
+            $('loading').textContent = '';
+        }, 600);
     }
+}
 
     function filteredReports(){
     const date=$('dateFilter').value, q=$('searchFilter').value.trim().toLowerCase();
