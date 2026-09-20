@@ -4265,3 +4265,94 @@ body.shift-modal-open {
         padding: 9px 12px;
     }
 }
+/* Added Defects - Defective Peripherals only */
+.added-defects-section {
+    margin-top: 18px;
+}
+
+.added-defects-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.added-defects-heading span:last-child {
+    min-width: 28px;
+    text-align: center;
+}
+
+.defect-records-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.no-defects-message {
+    padding: 14px;
+    text-align: center;
+    opacity: 0.7;
+}
+
+.defect-record-pc {
+    overflow: hidden;
+}
+
+.defect-record-pc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.defect-record-pc-header span {
+    font-size: 0.85em;
+}
+
+.defect-record-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.defect-record-item {
+    display: grid;
+    grid-template-columns: 120px 1fr auto;
+    gap: 12px;
+    align-items: center;
+}
+
+.defect-record-type {
+    font-weight: 600;
+}
+
+.defect-record-note {
+    min-width: 0;
+    word-break: break-word;
+}
+
+.remove-defect-btn {
+    border: 0;
+    cursor: pointer;
+    font: inherit;
+}
+
+@media (max-width: 700px) {
+    .defect-record-item {
+        grid-template-columns: 1fr auto;
+        gap: 6px 10px;
+    }
+
+    .defect-record-type {
+        grid-column: 1;
+    }
+
+    .defect-record-note {
+        grid-column: 1;
+    }
+
+    .remove-defect-btn {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+    }
+}
