@@ -1887,3 +1887,518 @@ document
     }
 
   });
+/* =========================================================
+   OVERALL REPORT PREVIEW + PRINT
+   ========================================================= */
+
+const overallPreviewModal =
+  document.getElementById("overallPreviewModal");
+
+const overallPreviewBackdrop =
+  document.getElementById("overallPreviewBackdrop");
+
+const closeOverallPreview =
+  document.getElementById("closeOverallPreview");
+
+const closeOverallPreviewBottom =
+  document.getElementById("closeOverallPreviewBottom");
+
+const printOverallReport =
+  document.getElementById("printOverallReport");
+
+
+function openOverallPreview() {
+  if (!overallPreviewModal) return;
+
+  overallPreviewModal.classList.add("is-open");
+
+  overallPreviewModal.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+}
+
+
+function closeOverallPreviewModal() {
+  if (!overallPreviewModal) return;
+
+  overallPreviewModal.classList.remove("is-open");
+
+  overallPreviewModal.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+}
+
+
+closeOverallPreview?.addEventListener(
+  "click",
+  closeOverallPreviewModal
+);
+
+
+closeOverallPreviewBottom?.addEventListener(
+  "click",
+  closeOverallPreviewModal
+);
+
+
+overallPreviewBackdrop?.addEventListener(
+  "click",
+  closeOverallPreviewModal
+);
+
+
+printOverallReport?.addEventListener(
+  "click",
+  () => {
+    window.print();
+  }
+);
+
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      event.key === "Escape" &&
+      overallPreviewModal?.classList.contains("is-open")
+    ) {
+      closeOverallPreviewModal();
+    }
+
+  }
+);
+
+
+/* ---------------------------------------------------------
+   Preview Helpers
+   --------------------------------------------------------- */
+
+function setOverallPreviewText(id, value) {
+
+  const element =
+    document.getElementById(id);
+
+  if (!element) return;
+
+  element.textContent =
+    value !== null &&
+    value !== undefined &&
+    String(value).trim()
+      ? value
+      : "—";
+}
+
+
+function setOverallPreviewList(
+  id,
+  values
+) {
+
+  const container =
+    document.getElementById(id);
+
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  if (!values || !values.length) {
+
+    container.textContent = "—";
+
+    return;
+  }
+
+  values.forEach(value => {
+
+    const item =
+      document.createElement("div");
+
+    item.textContent = value;
+
+    container.appendChild(item);
+
+  });
+}
+
+
+/* ---------------------------------------------------------
+   Collect Overall Report Data
+   --------------------------------------------------------- */
+
+function collectOverallReportPreviewData() {
+
+  const getValue = id => {
+    const element = document.getElementById(id);
+    return element?.value ?? "";
+  };
+
+
+  /* =====================================================
+     01 — GAMES
+     ===================================================== */
+
+  const games = getSelectedGameRows().map(game => ({
+    name: game.game_name,
+    status: game.status
+  }));
+
+
+  /* =====================================================
+     02 — DEFECTIVE PERIPHERALS
+     ===================================================== */
+
+  const defects = Array.from(defectRecords.values()).map(record => ({
+    pc: record.pc,
+    tier: record.tier,
+    type: typeLabels[record.type] || record.type,
+    note: record.note || ""
+  }));
+
+
+  /* =====================================================
+     03 — PC STATUS
+     ===================================================== */
+
+  const noDefectPcs = [
+    ...document.querySelectorAll(
+      '#standardPcChecklist input[data-pc]:checked, ' +
+      '#vipPcChecklist input[data-pc]:checked'
+    )
+  ].map(input => input.dataset.pc);
+
+
+  /* =====================================================
+     04 — INVENTORY
+     ===================================================== */
+
+  const inventory = getInventoryRows().map(item => ({
+    name: `${item.peripheral_type} — ${item.category} — ${item.brand}`,
+    quantity: item.quantity
+  }));
+
+
+  /* =====================================================
+     05 — SPARE ITEMS
+     ===================================================== */
+
+  const spareRows = getSpareRows();
+
+
+  /* =====================================================
+     06 — SIGN-OFF
+     ===================================================== */
+
+  return {
+
+    games,
+
+    defects,
+
+    noDefectPcs,
+
+    inventory,
+
+    spareKeyboard:
+      spareRows.find(row => row.item_type === "Keyboard")?.quantity,
+
+    spareMouse:
+      spareRows.find(row => row.item_type === "Mouse")?.quantity,
+
+    spareHeadset:
+      spareRows.find(row => row.item_type === "Headset")?.quantity,
+
+    sparePowerCord:
+      spareRows.find(row => row.item_type === "Power Cord")?.quantity,
+
+    followUp:
+      getValue("followUpReport"),
+
+    changes:
+      getValue("changes"),
+
+    adminName:
+      getValue("adminName"),
+
+    techName:
+      getValue("techName"),
+
+    adminSignature:
+      document
+        .getElementById("adminSignature")
+        ?.toDataURL?.("image/png") || "",
+
+    techSignature:
+      document
+        .getElementById("techSignature")
+        ?.toDataURL?.("image/png") || ""
+
+  };
+
+}
+
+/* ---------------------------------------------------------
+   Show Overall Report Preview
+   --------------------------------------------------------- */
+
+function showOverallReportPreview(report) {
+
+  if (!report) return;
+
+
+  /* =====================================================
+     01 — GAMES
+     ===================================================== */
+
+  const gamesContainer =
+    document.getElementById("overallPreviewGames");
+
+  if (gamesContainer) {
+
+    gamesContainer.innerHTML = "";
+
+    if (!report.games || !report.games.length) {
+
+      gamesContainer.textContent = "—";
+
+    } else {
+
+      report.games.forEach(game => {
+
+        const row =
+          document.createElement("div");
+
+        row.className = "overall-preview-game";
+
+        const name =
+          document.createElement("span");
+
+        name.textContent = game.name;
+
+        const status =
+          document.createElement("strong");
+
+        status.textContent = game.status;
+
+        row.appendChild(name);
+        row.appendChild(status);
+
+        gamesContainer.appendChild(row);
+
+      });
+
+    }
+
+  }
+
+
+  /* =====================================================
+     02 — DEFECTIVE PERIPHERALS
+     ===================================================== */
+
+  const defectsContainer =
+    document.getElementById("overallPreviewDefects");
+
+  if (defectsContainer) {
+
+    defectsContainer.innerHTML = "";
+
+    if (!report.defects || !report.defects.length) {
+
+      defectsContainer.textContent = "—";
+
+    } else {
+
+      report.defects.forEach(defect => {
+
+        const row =
+          document.createElement("div");
+
+        row.className = "overall-preview-defect";
+
+        const title =
+          document.createElement("strong");
+
+        title.textContent =
+          `${defect.pc} — ${defect.tier} — ${defect.type}`;
+
+        row.appendChild(title);
+
+        if (defect.note) {
+
+          const note =
+            document.createElement("span");
+
+          note.textContent =
+            defect.note;
+
+          row.appendChild(note);
+
+        }
+
+        defectsContainer.appendChild(row);
+
+      });
+
+    }
+
+  }
+
+
+  /* =====================================================
+     03 — PC STATUS
+     ===================================================== */
+
+  setOverallPreviewList(
+    "overallPreviewNoDefectPcs",
+    report.noDefectPcs
+  );
+
+
+  /* =====================================================
+     04 — INVENTORY
+     ===================================================== */
+
+  const inventoryContainer =
+    document.getElementById(
+      "overallPreviewInventory"
+    );
+
+  if (inventoryContainer) {
+
+    inventoryContainer.innerHTML = "";
+
+    if (!report.inventory || !report.inventory.length) {
+
+      inventoryContainer.textContent = "—";
+
+    } else {
+
+      report.inventory.forEach(item => {
+
+        const row =
+          document.createElement("div");
+
+        row.className = "spare-row";
+
+        const name =
+          document.createElement("span");
+
+        name.textContent =
+          item.name;
+
+        const quantity =
+          document.createElement("strong");
+
+        quantity.textContent =
+          item.quantity ?? "0";
+
+        row.appendChild(name);
+        row.appendChild(quantity);
+
+        inventoryContainer.appendChild(row);
+
+      });
+
+    }
+
+  }
+
+
+  /* =====================================================
+     05 — SPARE ITEMS
+     ===================================================== */
+
+  setOverallPreviewText(
+    "overallPreviewSpareKeyboard",
+    report.spareKeyboard
+  );
+
+  setOverallPreviewText(
+    "overallPreviewSpareMouse",
+    report.spareMouse
+  );
+
+  setOverallPreviewText(
+    "overallPreviewSpareHeadset",
+    report.spareHeadset
+  );
+
+  setOverallPreviewText(
+    "overallPreviewSparePowerCord",
+    report.sparePowerCord
+  );
+
+
+  setOverallPreviewText(
+    "overallPreviewFollowUp",
+    report.followUp
+  );
+
+
+  setOverallPreviewText(
+    "overallPreviewChanges",
+    report.changes
+  );
+
+
+  /* =====================================================
+     06 — SIGN-OFF
+     ===================================================== */
+
+  setOverallPreviewText(
+    "overallPreviewAdminName",
+    report.adminName
+  );
+
+  setOverallPreviewText(
+    "overallPreviewTechName",
+    report.techName
+  );
+
+
+  const adminSignature =
+    document.getElementById(
+      "overallPreviewAdminSignature"
+    );
+
+  if (adminSignature) {
+
+    adminSignature.src =
+      report.adminSignature || "";
+
+    adminSignature.style.display =
+      report.adminSignature
+        ? "block"
+        : "none";
+
+  }
+
+
+  const techSignature =
+    document.getElementById(
+      "overallPreviewTechSignature"
+    );
+
+  if (techSignature) {
+
+    techSignature.src =
+      report.techSignature || "";
+
+    techSignature.style.display =
+      report.techSignature
+        ? "block"
+        : "none";
+
+  }
+
+
+  /* =====================================================
+     OPEN PREVIEW
+     ===================================================== */
+
+  openOverallPreview();
+
+}
