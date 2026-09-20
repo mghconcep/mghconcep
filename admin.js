@@ -75,8 +75,15 @@ return String(value ?? '').replace(/[&<>'"]/g, c => ({
     const byReport=new Map((signoffs||[]).map(x=>[x.report_id,x]));
     reports=(data||[]).map(r=>({...r,signoff:byReport.get(r.id)||{}}));
     renderReports();
-    }catch(err){console.error(err);$('loading').textContent='Database error';toast(err.message || 'Could not load reports.', true);
-    finally{setTimeout(()=>{$('loading').textContent='';},600)}
+  } catch (err) {
+    console.error(err);
+    $('loading').textContent = 'Database error';
+    toast(err.message || 'Could not load reports.', true);
+} finally {
+    setTimeout(() => {
+        $('loading').textContent = '';
+    }, 600);
+}
     }
 
     function filteredReports(){
@@ -86,10 +93,16 @@ return String(value ?? '').replace(/[&<>'"]/g, c => ({
     const savedDate = new Date(r.created_at).toLocaleDateString('en-CA');
     if (savedDate !== date) return false;
     }
-    if(!q)return true;
-    return
-    return [r.report_date, r.follow_up_report, r.signoff?.admin_name, r.signoff?.tech_name]
-    .some(v => String(v || '').toLowerCase().includes(q));
+  if (!q) return true;
+
+return [
+    r.report_date,
+    r.follow_up_report,
+    r.signoff?.admin_name,
+    r.signoff?.tech_name
+].some(v =>
+    String(v || '').toLowerCase().includes(q)
+);
     });
     }
     function renderReports(){
@@ -404,9 +417,7 @@ return String(value ?? '').replace(/[&<>'"]/g, c => ({
                       <th>Problem Description</th>
                     </tr>
                   </thead>
-                  <tbody>${defectRows||'<tr>
-                      <td colspan="4">NO DEFECTS RECORDED</td>
-                    </tr>'}</tbody>
+                 <tbody>${defectRows || '<tr><td colspan="4">NO DEFECTS RECORDED</td></tr>'}</tbody>
                 </table>
               </div>
             </section>
