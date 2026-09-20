@@ -2160,29 +2160,18 @@ function showOverallReportPreview(report) {
 
     } else {
 
-      report.games.forEach(game => {
+    report.games.forEach(game => {
 
-        const row =
-          document.createElement("div");
+  const row =
+    document.createElement("div");
 
-        row.className = "overall-preview-game";
+  row.className = "overall-preview-game";
 
-        const name =
-          document.createElement("span");
+  row.textContent = game.name;
 
-        name.textContent = game.name;
+  gamesContainer.appendChild(row);
 
-        const status =
-          document.createElement("strong");
-
-        status.textContent = game.status;
-
-        row.appendChild(name);
-        row.appendChild(status);
-
-        gamesContainer.appendChild(row);
-
-      });
+});
 
     }
 
