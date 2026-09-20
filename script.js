@@ -943,8 +943,23 @@ function buildShiftGameList() {
 }
 
 /* =========================================================
-   CLEAR ALL SHIFT GAMES
+   SHIFT REPORT — SELECT ALL / CLEAR ALL
+   ONLY FOR SHIFT REPORT INPUT FORM
    ========================================================= */
+
+/* 02 — UPDATED GAMES FOR THIS SHIFT */
+
+document
+  .getElementById("selectAllShiftGames")
+  ?.addEventListener("click", () => {
+
+    document
+      .querySelectorAll('#shiftGameList input[type="checkbox"]')
+      .forEach(checkbox => {
+        checkbox.checked = true;
+      });
+
+  });
 
 document
   .getElementById("clearShiftGames")
@@ -958,9 +973,22 @@ document
 
   });
 
-/* =========================================================
-   CLEAR ALL SHIFT PC SELECTIONS
-   ========================================================= */
+
+/* 06 — PC NUMBER WITH NO DEFECTS */
+
+document
+  .getElementById("selectAllShiftNoDefectPcs")
+  ?.addEventListener("click", () => {
+
+    document
+      .querySelectorAll(
+        '#shiftNoDefectPcList input[type="checkbox"]'
+      )
+      .forEach(checkbox => {
+        checkbox.checked = true;
+      });
+
+  });
 
 document
   .getElementById("clearShiftNoDefectPcs")
@@ -972,6 +1000,23 @@ document
       )
       .forEach(checkbox => {
         checkbox.checked = false;
+      });
+
+  });
+
+
+/* 09 — CLEANED PC */
+
+document
+  .getElementById("selectAllShiftCleanedPcs")
+  ?.addEventListener("click", () => {
+
+    document
+      .querySelectorAll(
+        '#shiftCleanedPcList input[type="checkbox"]'
+      )
+      .forEach(checkbox => {
+        checkbox.checked = true;
       });
 
   });
@@ -989,7 +1034,6 @@ document
       });
 
   });
-
 
 /* =========================================================
    BUILD PC LISTS
