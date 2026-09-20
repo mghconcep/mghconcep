@@ -3506,6 +3506,40 @@ body.shift-modal-open {
         margin-left: auto;
     }
 }
+.shift-select-games-btn,
+.shift-pc-action-btn {
+    flex-shrink: 0;
+    padding: 7px 10px;
+    border: 1px solid #344b6c;
+    border-radius: 7px;
+    background: #101d31;
+    color: #8294af;
+    font: 700 8px Inter, Arial, sans-serif;
+    cursor: pointer;
+    transition: .15s ease;
+}
+
+.shift-select-games-btn:hover,
+.shift-pc-action-btn:hover {
+    border-color: #657da7;
+    background: #172640;
+    color: #dce6fa;
+}
+
+.shift-pc-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+@media (max-width: 600px) {
+    .shift-pc-actions {
+        margin-left: auto;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+}
 
 /* =====================================================
    SHIFT REPORT PREVIEW
