@@ -1952,15 +1952,9 @@ overallPreviewBackdrop?.addEventListener(
 printOverallReport?.addEventListener(
   "click",
   () => {
-   printOverallReport?.addEventListener(
-    "click",
-    () => {
-        window.print();
-    }
-);
+    window.print();
   }
 );
-
 
 document.addEventListener(
   "keydown",
