@@ -186,6 +186,11 @@ if (reportForm) {
 // Games Update controls
 const gameSearch = document.getElementById("gameSearch");
 const gameOptions = [...document.querySelectorAll(".game-option")];
+// All games start with NO STATUS.
+// A game only gets a status after the user explicitly assigns one.
+gameOptions.forEach(option => {
+  delete option.dataset.status;
+});
 const selectedCount = document.getElementById("selectedCount");
 const noGames = document.getElementById("noGames");
 const selectAllGames = document.getElementById("selectAllGames");
