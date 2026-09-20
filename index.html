@@ -1408,6 +1408,203 @@
 
     </div>
 
+    <!-- OVERALL REPORT PREVIEW -->
+<div class="shift-preview-modal" id="overallPreviewModal" aria-hidden="true">
+
+    <div class="shift-preview-backdrop" id="overallPreviewBackdrop"></div>
+
+    <div class="shift-preview-card" role="dialog" aria-modal="true">
+
+        <div class="shift-preview-header">
+            <div>
+                <p class="shift-preview-eyebrow">MARV'S GAMING HUB</p>
+                <h2>Overall Report Preview</h2>
+            </div>
+
+            <button
+                type="button"
+                class="shift-preview-close"
+                id="closeOverallPreview"
+                aria-label="Close preview">
+                ×
+            </button>
+        </div>
+
+
+        <div class="shift-preview-sheet" id="overallReportSheet">
+
+            <!-- 01 GAMES -->
+            <section class="shift-preview-section">
+
+                <div class="shift-preview-section-title">
+                    <span>01</span>
+                    <h3>GAMES UPDATE</h3>
+                </div>
+
+                <div id="overallPreviewGames">
+                    —
+                </div>
+
+            </section>
+
+
+            <!-- 02 DEFECTIVE PERIPHERALS -->
+            <section class="shift-preview-section">
+
+                <div class="shift-preview-section-title">
+                    <span>02</span>
+                    <h3>DEFECTIVE PERIPHERALS</h3>
+                </div>
+
+                <div id="overallPreviewDefects">
+                    —
+                </div>
+
+            </section>
+
+
+            <!-- 03 PC STATUS -->
+            <section class="shift-preview-section">
+
+                <div class="shift-preview-section-title">
+                    <span>03</span>
+                    <h3>PC STATUS</h3>
+                </div>
+
+                <div class="shift-preview-grid">
+
+                    <div>
+                        <span>PC NUMBER WITH NO DEFECTS</span>
+                        <strong id="overallPreviewNoDefectPcs">—</strong>
+                    </div>
+
+                    <div>
+                        <span>CLEANED PC</span>
+                        <strong id="overallPreviewCleanedPcs">—</strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- 04 INVENTORY -->
+            <section class="shift-preview-section">
+
+                <div class="shift-preview-section-title">
+                    <span>04</span>
+                    <h3>OVERALL PERIPHERALS COUNT</h3>
+                </div>
+
+                <div id="overallPreviewInventory">
+                    —
+                </div>
+
+            </section>
+
+
+            <!-- 05 SPARE ITEMS -->
+            <section class="shift-preview-section">
+
+                <div class="shift-preview-section-title">
+                    <span>05</span>
+                    <h3>SPARE ITEMS & FOLLOW UP</h3>
+                </div>
+
+                <div class="shift-preview-spares">
+
+                    <div>
+                        <span>Keyboard</span>
+                        <strong id="overallPreviewSpareKeyboard">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Mouse</span>
+                        <strong id="overallPreviewSpareMouse">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Headset</span>
+                        <strong id="overallPreviewSpareHeadset">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Power Cord</span>
+                        <strong id="overallPreviewSparePowerCord">—</strong>
+                    </div>
+
+                </div>
+
+                <div class="overall-preview-text-row">
+                    <span>FOLLOW UP REPORT</span>
+                    <strong id="overallPreviewFollowUp">—</strong>
+                </div>
+
+                <div class="overall-preview-text-row">
+                    <span>CHANGES</span>
+                    <strong id="overallPreviewChanges">—</strong>
+                </div>
+
+            </section>
+
+
+            <!-- 06 SIGN OFF -->
+            <section class="shift-preview-section">
+
+                <div class="shift-preview-section-title">
+                    <span>06</span>
+                    <h3>REPORT SIGN-OFF</h3>
+                </div>
+
+                <div class="shift-preview-grid">
+
+                    <div>
+                        <span>ADMIN</span>
+                        <strong id="overallPreviewAdminName">—</strong>
+                        <img
+                            id="overallPreviewAdminSignature"
+                            class="overall-preview-signature"
+                            alt="Admin Signature">
+                    </div>
+
+                    <div>
+                        <span>TECHNICIAN</span>
+                        <strong id="overallPreviewTechName">—</strong>
+                        <img
+                            id="overallPreviewTechSignature"
+                            class="overall-preview-signature"
+                            alt="Technician Signature">
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <div class="shift-preview-actions">
+
+            <button
+                type="button"
+                class="secondary-btn"
+                id="closeOverallPreviewBottom">
+                Close
+            </button>
+
+            <button
+                type="button"
+                class="primary-btn"
+                id="printOverallReport">
+                Print Report
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
 </body>
