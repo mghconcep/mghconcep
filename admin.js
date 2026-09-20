@@ -67,18 +67,16 @@ return String(value ?? '').replace(/[&<>'"]/g, c => ({
     $('loading').textContent = 'Loading...';
 
     try {
-        const { data, error } = await supabaseClient
-            .from('gaming_reports')
-            .select(`
-                id,
-                report_date,
-                shift,
-                submitted_at,
-                follow_up_report
-            `)
-            .order('report_date', { ascending: false })
-            .order('submitted_at', { ascending: false });
-
+       const { data, error } = await supabaseClient
+    .from('gaming_reports')
+    .select(`
+        id,
+        report_date,
+        created_at,
+        follow_up_report
+    `)
+    .order('report_date', { ascending: false })
+    .order('created_at', { ascending: false });
         if (error) throw error;
 
         reports = data || [];
