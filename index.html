@@ -371,156 +371,155 @@
                     <p class="no-games" id="noGames">No games found.</p>
                 </div>
 
-                <div class="form-card defective-card">
-                    <div class="defective-head">
-                        <div>
-                            <p class="form-title">Defective Peripherals</p>
-                            <p class="defective-subtitle">Add one or more defects to any PC. The same PC can have
-                                multiple defects.</p>
-                        </div>
-                        <button type="button" class="clear-defects-btn" id="clearDefects">Clear all</button>
-                    </div>
+               <div class="form-card defective-card">
+    <div class="defective-head">
+        <div>
+            <p class="form-title">Defective Peripherals</p>
+            <p class="defective-subtitle">Add one defect at a time to any PC. The same PC can have multiple defects.</p>
+        </div>
+        <button type="button" class="clear-defects-btn" id="clearDefects">Clear all</button>
+    </div>
 
-                    <div class="add-defect-panel">
-                        <div class="defect-input-grid">
+    <div class="add-defect-panel">
+        <div class="defect-input-grid">
 
-                            <label class="pc-select-field">
-                                PC Number
-                                <select id="defectPcSelect" aria-label="Select PC number">
-                                    <option value="" selected disabled>Select PC</option>
-                                    <option value="PC01">PC01 — VIP</option>
-                                    <option value="PC02">PC02 — VIP</option>
-                                    <option value="PC03">PC03 — VIP</option>
-                                    <option value="PC04">PC04 — VIP</option>
-                                    <option value="PC05">PC05 — VIP</option>
-                                    <option value="PC06">PC06 — VIP</option>
-                                    <option value="PC07">PC07 — VIP</option>
-                                    <option value="PC08">PC08 — VIP</option>
-                                    <option value="PC09">PC09 — VIP</option>
-                                    <option value="PC10">PC10 — VIP</option>
-                                    <option value="PC11">PC11 — Standard</option>
-                                    <option value="PC12">PC12 — Standard</option>
-                                    <option value="PC13">PC13 — Standard</option>
-                                    <option value="PC14">PC14 — Standard</option>
-                                    <option value="PC15">PC15 — Standard</option>
-                                    <option value="PC16">PC16 — Standard</option>
-                                    <option value="PC17">PC17 — Standard</option>
-                                    <option value="PC18">PC18 — Standard</option>
-                                    <option value="PC19">PC19 — Standard</option>
-                                    <option value="PC20">PC20 — Standard</option>
-                                    <option value="PC21">PC21 — Standard</option>
-                                    <option value="PC22">PC22 — Standard</option>
-                                    <option value="PC23">PC23 — Standard</option>
-                                    <option value="PC24">PC24 — Standard</option>
-                                    <option value="PC25">PC25 — Standard</option>
-                                    <option value="PC26">PC26 — Standard</option>
-                                    <option value="PC27">PC27 — Standard</option>
-                                    <option value="PC28">PC28 — Standard</option>
-                                    <option value="PC29">PC29 — Standard</option>
-                                    <option value="PC30">PC30 — Standard</option>
-                                    <option value="PC31">PC31 — Standard</option>
-                                    <option value="PC32">PC32 — Standard</option>
-                                    <option value="PC33">PC33 — Standard</option>
-                                    <option value="PC34">PC34 — Standard</option>
-                                    <option value="PC35">PC35 — Standard</option>
-                                    <option value="PC36">PC36 — Standard</option>
-                                    <option value="PC37">PC37 — Standard</option>
-                                    <option value="PC38">PC38 — Standard</option>
-                                    <option value="PC39">PC39 — Standard</option>
-                                    <option value="PC40">PC40 — Standard</option>
-                                </select>
-                            </label>
+            <label class="pc-select-field">
+                PC Number
+                <select id="defectPcSelect" aria-label="Select PC number">
+                    <option value="" selected disabled>Select PC</option>
+                    <option value="PC01">PC01 — VIP</option>
+                    <option value="PC02">PC02 — VIP</option>
+                    <option value="PC03">PC03 — VIP</option>
+                    <option value="PC04">PC04 — VIP</option>
+                    <option value="PC05">PC05 — VIP</option>
+                    <option value="PC06">PC06 — VIP</option>
+                    <option value="PC07">PC07 — VIP</option>
+                    <option value="PC08">PC08 — VIP</option>
+                    <option value="PC09">PC09 — VIP</option>
+                    <option value="PC10">PC10 — VIP</option>
 
-                            <div class="defect-type-field">
-                                <span>Defect Type</span>
+                    <option value="PC11">PC11 — Standard</option>
+                    <option value="PC12">PC12 — Standard</option>
+                    <option value="PC13">PC13 — Standard</option>
+                    <option value="PC14">PC14 — Standard</option>
+                    <option value="PC15">PC15 — Standard</option>
+                    <option value="PC16">PC16 — Standard</option>
+                    <option value="PC17">PC17 — Standard</option>
+                    <option value="PC18">PC18 — Standard</option>
+                    <option value="PC19">PC19 — Standard</option>
+                    <option value="PC20">PC20 — Standard</option>
+                    <option value="PC21">PC21 — Standard</option>
+                    <option value="PC22">PC22 — Standard</option>
+                    <option value="PC23">PC23 — Standard</option>
+                    <option value="PC24">PC24 — Standard</option>
+                    <option value="PC25">PC25 — Standard</option>
+                    <option value="PC26">PC26 — Standard</option>
+                    <option value="PC27">PC27 — Standard</option>
+                    <option value="PC28">PC28 — Standard</option>
+                    <option value="PC29">PC29 — Standard</option>
+                    <option value="PC30">PC30 — Standard</option>
+                    <option value="PC31">PC31 — Standard</option>
+                    <option value="PC32">PC32 — Standard</option>
+                    <option value="PC33">PC33 — Standard</option>
+                    <option value="PC34">PC34 — Standard</option>
+                    <option value="PC35">PC35 — Standard</option>
+                    <option value="PC36">PC36 — Standard</option>
+                    <option value="PC37">PC37 — Standard</option>
+                    <option value="PC38">PC38 — Standard</option>
+                    <option value="PC39">PC39 — Standard</option>
+                    <option value="PC40">PC40 — Standard</option>
+                </select>
+            </label>
 
-                                <div class="defect-type-buttons" role="group" aria-label="Defect type">
+            <label class="pc-select-field">
+                Defect Type
+                <select id="defectTypeSelect" aria-label="Select defect type">
+                    <option value="" selected disabled>Select defect</option>
+                    <option value="keyboard">Keyboard</option>
+                    <option value="headset">Headset</option>
+                    <option value="mouse">Mouse</option>
+                    <option value="monitor">Monitor</option>
+                    <option value="power-cord">Power Cord</option>
+                </select>
+            </label>
 
-                                    <label>
-                                        <input type="checkbox" class="defect-type-check" value="keyboard">
-                                        <span>Keyboard</span>
-                                    </label>
+        </div>
 
-                                    <label>
-                                        <input type="checkbox" class="defect-type-check" value="headset">
-                                        <span>Headset</span>
-                                    </label>
+        <label class="defect-description">
+            Problem Description
+            <input type="text" id="defectDescription"
+                placeholder="e.g. Right side no sound (Fantech)">
+        </label>
 
-                                    <label>
-                                        <input type="checkbox" class="defect-type-check" value="mouse">
-                                        <span>Mouse</span>
-                                    </label>
+        <div class="defect-add-row">
+            <span class="defect-selection" id="defectSelection">
+                Select PC, defect type, and enter a description
+            </span>
 
-                                    <label>
-                                        <input type="checkbox" class="defect-type-check" value="monitor">
-                                        <span>Monitor</span>
-                                    </label>
+            <button type="button" class="add-defect-btn" id="addDefect">
+                + Add Defect
+            </button>
+        </div>
+    </div>
 
-                                    <label>
-                                        <input type="checkbox" class="defect-type-check" value="power-cord">
-                                        <span>Power Cord</span>
-                                    </label>
+    <!-- Added defects stay INSIDE the same box -->
+    <div class="added-defects-section">
+        <div class="added-defects-heading">
+            <span>Added Defects</span>
+            <span id="addedDefectsCount">0</span>
+        </div>
 
-                                </div>
-                            </div>
+        <div id="defectRecordsList" class="defect-records-list">
+            <div class="no-defects-message">
+                No defects added yet.
+            </div>
+        </div>
+    </div>
 
-                        </div>
+    <div class="defect-totals">
 
-                        <label class="defect-description">
-                            Problem Description
-                            <input type="text" id="defectDescription" placeholder="e.g. Right side no sound (Fantech)">
-                        </label>
+        <div class="defect-total-card">
+            <span>Defective Keyboard</span>
+            <div class="defect-count-lines">
+                <strong id="totalDefectKeyboardStandard">Standard - 0</strong>
+                <strong id="totalDefectKeyboardVip">VIP - 0</strong>
+            </div>
+        </div>
 
-                        <div class="defect-add-row">
-                            <span class="defect-selection" id="defectSelection">Select at least one defect type</span>
-                            <button type="button" class="add-defect-btn" id="addDefect">+ Add Defect</button>
-                        </div>
-                    </div>
+        <div class="defect-total-card">
+            <span>Defective Headset</span>
+            <div class="defect-count-lines">
+                <strong id="totalDefectHeadsetStandard">Standard - 0</strong>
+                <strong id="totalDefectHeadsetVip">VIP - 0</strong>
+            </div>
+        </div>
 
-                    <div class="defect-totals">
+        <div class="defect-total-card">
+            <span>Defective Mouse</span>
+            <div class="defect-count-lines">
+                <strong id="totalDefectMouseStandard">Standard - 0</strong>
+                <strong id="totalDefectMouseVip">VIP - 0</strong>
+            </div>
+        </div>
 
-                        <div class="defect-total-card">
-                            <span>Defective Keyboard</span>
-                            <div class="defect-count-lines">
-                                <strong id="totalDefectKeyboardStandard">Standard - 0</strong>
-                                <strong id="totalDefectKeyboardVip">VIP - 0</strong>
-                            </div>
-                        </div>
+        <div class="defect-total-card">
+            <span>Defective Monitor</span>
+            <div class="defect-count-lines">
+                <strong id="totalDefectMonitorStandard">Standard - 0</strong>
+                <strong id="totalDefectMonitorVip">VIP - 0</strong>
+            </div>
+        </div>
 
-                        <div class="defect-total-card">
-                            <span>Defective Headset</span>
-                            <div class="defect-count-lines">
-                                <strong id="totalDefectHeadsetStandard">Standard - 0</strong>
-                                <strong id="totalDefectHeadsetVip">VIP - 0</strong>
-                            </div>
-                        </div>
+        <div class="defect-total-card">
+            <span>Defective Power Cord</span>
+            <div class="defect-count-lines">
+                <strong id="totalDefectPowerCordStandard">Standard - 0</strong>
+                <strong id="totalDefectPowerCordVip">VIP - 0</strong>
+            </div>
+        </div>
 
-                        <div class="defect-total-card">
-                            <span>Defective Mouse</span>
-                            <div class="defect-count-lines">
-                                <strong id="totalDefectMouseStandard">Standard - 0</strong>
-                                <strong id="totalDefectMouseVip">VIP - 0</strong>
-                            </div>
-                        </div>
-
-                        <div class="defect-total-card">
-                            <span>Defective Monitor</span>
-                            <div class="defect-count-lines">
-                                <strong id="totalDefectMonitorStandard">Standard - 0</strong>
-                                <strong id="totalDefectMonitorVip">VIP - 0</strong>
-                            </div>
-                        </div>
-
-                        <div class="defect-total-card">
-                            <span>Defective Power Cord</span>
-                            <div class="defect-count-lines">
-                                <strong id="totalDefectPowerCordStandard">Standard - 0</strong>
-                                <strong id="totalDefectPowerCordVip">VIP - 0</strong>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+    </div>
+</div>
                 <div class="form-card pc-status-card">
                     <div class="pc-status-head">
                         <div>
