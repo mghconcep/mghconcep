@@ -17,14 +17,16 @@ function setSaveMessage(message, type = "") {
 }
 
 function getSelectedGameRows() {
-  return gameOptions.map(option => ({
-    game_name: option.dataset.game,
-    status: ({
-      updated: "Updated",
-      check: "Need to Check",
-      update: "Needs Update"
-    })[option.dataset.status] || "Updated"
-  }));
+  return gameOptions
+    .filter(option => option.dataset.status)
+    .map(option => ({
+      game_name: option.dataset.game,
+      status: ({
+        updated: "Updated",
+        check: "Need to Check",
+        update: "Needs Update"
+      })[option.dataset.status]
+    }));
 }
 
 function getPcStatusRows() {
