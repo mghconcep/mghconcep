@@ -92,14 +92,15 @@ async function saveReportToSupabase() {
   const { data: sessionData } = await supabaseClient.auth.getSession();
   const userId = sessionData?.session?.user?.id || null;
   const followUp = document.getElementById('followUpReport')?.value.trim() || null;
-
+  const changes = document.getElementById('changes')?.value.trim() || null;
   const { data: report, error: reportError } = await supabaseClient
     .from('gaming_reports')
     .insert({
-      report_date: new Date().toISOString().slice(0, 10),
-      follow_up_report: followUp,
-      created_by: userId
-    })
+  report_date: new Date().toISOString().slice(0, 10),
+  follow_up_report: followUp,
+  changes: changes,
+  created_by: userId
+})
     .select('id')
     .single();
 
