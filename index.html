@@ -637,18 +637,13 @@
 
                 <div class="form-card">
                     <p class="form-title">Spare Items & Follow Up</p>
-                    <div class="input-grid">
-                        <label>Spare VIP Keyboard<input id="spareVipKeyboard" type="text" value="" inputmode="numeric"
-                                placeholder=""></label>
-                        <label>Spare Standard Keyboard<input id="spareStandardKeyboard" type="text" value=""
-                                inputmode="numeric" placeholder=""></label>
-                        <label>Spare VIP Mouse<input id="spareVipMouse" type="text" value="" inputmode="numeric"
-                                placeholder=""></label>
-                        <label>Spare Standard Mouse<input id="spareStandardMouse" type="text" value=""
-                                inputmode="numeric" placeholder=""></label>
-                        <label>Spare Cord<input id="spareCord" type="text" value="" inputmode="numeric"
-                                placeholder=""></label>
-                        <label>Follow Up Report<input id="followUpReport" type="text" value="" placeholder=""></label>
+                    <div class="input-grid"> <label> Spare Keyboard <input id="spareKeyboard" type="text" value=""
+                                inputmode="numeric" placeholder=""> </label> <label> Spare Mouse <input id="spareMouse"
+                                type="text" value="" inputmode="numeric" placeholder=""> </label> <label> Spare Headset
+                            <input id="spareHeadset" type="text" value="" inputmode="numeric" placeholder=""> </label>
+                        <label> Spare Power Cord <input id="sparePowerCord" type="text" value="" inputmode="numeric"
+                                placeholder=""> </label> <label> Follow Up Report <input id="followUpReport" type="text"
+                                value="" placeholder=""> </label>
                     </div>
                 </div>
 
@@ -910,13 +905,13 @@
 
                             <div class="shift-pc-actions">
                                 <button type="button" class="shift-pc-action-btn" id="selectAllShiftNoDefectPcs">
-                                        Select All
+                                    Select All
                                 </button>
 
                                 <button type="button" class="shift-pc-action-btn" id="clearShiftNoDefectPcs">
-                                        Clear All
+                                    Clear All
                                 </button>
-</div>
+                            </div>
                         </div>
 
                         <div class="shift-pc-grid" id="shiftNoDefectPcList"></div>
@@ -928,7 +923,6 @@
              SPARES
              ============================================= -->
                     <section class="shift-form-section">
-
                         <div class="shift-section-heading">
                             <span>07</span>
                             <div>
@@ -938,34 +932,26 @@
                         </div>
 
                         <div class="shift-spare-grid">
-
                             <label class="shift-field">
-                                <span>Spare VIP Keyboard</span>
-                                <input type="number" id="shiftSpareVipKeyboard" min="0" value="0">
+                                <span>Keyboard</span>
+                                <input type="number" id="shiftSpareKeyboard" min="0" value="0">
                             </label>
 
                             <label class="shift-field">
-                                <span>Spare Standard Keyboard</span>
-                                <input type="number" id="shiftSpareStandardKeyboard" min="0" value="0">
+                                <span>Mouse</span>
+                                <input type="number" id="shiftSpareMouse" min="0" value="0">
                             </label>
 
                             <label class="shift-field">
-                                <span>Spare VIP Mouse</span>
-                                <input type="number" id="shiftSpareVipMouse" min="0" value="0">
+                                <span>Headset</span>
+                                <input type="number" id="shiftSpareHeadset" min="0" value="0">
                             </label>
 
                             <label class="shift-field">
-                                <span>Spare Standard Mouse</span>
-                                <input type="number" id="shiftSpareStandardMouse" min="0" value="0">
+                                <span>Power Cord</span>
+                                <input type="number" id="shiftSparePowerCord" min="0" value="0">
                             </label>
-
-                            <label class="shift-field">
-                                <span>Spare Cord</span>
-                                <input type="number" id="shiftSpareCord" min="0" value="0">
-                            </label>
-
                         </div>
-
                     </section>
 
 
@@ -997,18 +983,18 @@
                             <span>09</span>
                             <div>
                                 <h3>CLEANED PC</h3>
-                                    <p>Select the PCs cleaned during this shift.</p>
+                                <p>Select the PCs cleaned during this shift.</p>
                             </div>
 
                             <div class="shift-pc-actions">
-                                    <button type="button" class="shift-pc-action-btn" id="selectAllShiftCleanedPcs">
-                                                Select All
-                                    </button>
+                                <button type="button" class="shift-pc-action-btn" id="selectAllShiftCleanedPcs">
+                                    Select All
+                                </button>
 
-    <button type="button" class="shift-pc-action-btn" id="clearShiftCleanedPcs">
-        Clear All
-    </button>
-</div>
+                                <button type="button" class="shift-pc-action-btn" id="clearShiftCleanedPcs">
+                                    Clear All
+                                </button>
+                            </div>
                         </div>
 
                         <div class="shift-pc-grid" id="shiftCleanedPcList"></div>
@@ -1276,44 +1262,32 @@
                 <!-- SPARE ITEMS -->
 
                 <section class="shift-preview-section">
-
                     <div class="shift-preview-section-title">
-
                         <span>07</span>
-
                         <h3>SPARE ITEMS</h3>
-
                     </div>
 
                     <div class="shift-preview-spares">
-
                         <div>
-                            <span>Spare VIP Keyboard</span>
-                            <strong id="previewSpareVipKeyboard">0</strong>
+                            <span>Keyboard</span>
+                            <strong id="previewSpareKeyboard">0</strong>
                         </div>
 
                         <div>
-                            <span>Spare Standard Keyboard</span>
-                            <strong id="previewSpareStandardKeyboard">0</strong>
+                            <span>Mouse</span>
+                            <strong id="previewSpareMouse">0</strong>
                         </div>
 
                         <div>
-                            <span>Spare VIP Mouse</span>
-                            <strong id="previewSpareVipMouse">0</strong>
+                            <span>Headset</span>
+                            <strong id="previewSpareHeadset">0</strong>
                         </div>
 
                         <div>
-                            <span>Spare Standard Mouse</span>
-                            <strong id="previewSpareStandardMouse">0</strong>
+                            <span>Power Cord</span>
+                            <strong id="previewSparePowerCord">0</strong>
                         </div>
-
-                        <div>
-                            <span>Spare Cord</span>
-                            <strong id="previewSpareCord">0</strong>
-                        </div>
-
                     </div>
-
                 </section>
 
 
