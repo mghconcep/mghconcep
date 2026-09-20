@@ -372,8 +372,6 @@ const defectPcSelect = document.getElementById("defectPcSelect");
 const defectTypeSelect = document.getElementById("defectTypeSelect");
 const defectDescription = document.getElementById("defectDescription");
 const defectSelection = document.getElementById("defectSelection");
-const defectRecordsList = document.getElementById("defectRecordsList");
-const addedDefectsCount = document.getElementById("addedDefectsCount");
 
 const totalDefectKeyboardStandard =
     document.getElementById("totalDefectKeyboardStandard");
@@ -408,7 +406,7 @@ const pcs = Array.from({ length: 40 }, (_, index) => ({
     tier: index < 10 ? "VIP" : "Standard"
 }));
 
-// One record per PC + defect type.
+// Stores defects internally. Nothing is displayed here.
 const defectRecords = new Map();
 
 const typeLabels = {
@@ -529,91 +527,6 @@ function resetDefectInputs() {
     updateDefectSelectionLabel();
 }
 
-function renderDefectRecords() {
-    if (!defectRecordsList) return;
-
-    defectRecordsList.innerHTML = "";
-
-    const records = Array.from(defectRecords.values());
-
-    if (addedDefectsCount) {
-        addedDefectsCount.textContent = String(records.length);
-    }
-
-    if (!records.length) {
-        defectRecordsList.innerHTML = `
-            <div class="no-defects-message">
-                No defects added yet.
-            </div>
-        `;
-        return;
-    }
-
-    const grouped = {};
-
-    records.forEach(record => {
-        if (!grouped[record.pc]) {
-            grouped[record.pc] = {
-                tier: record.tier,
-                defects: []
-            };
-        }
-
-        grouped[record.pc].defects.push(record);
-    });
-
-    Object.entries(grouped).forEach(([pc, data]) => {
-        const pcCard = document.createElement("div");
-        pcCard.className = "defect-record-pc";
-
-        const pcHeader = document.createElement("div");
-        pcHeader.className = "defect-record-pc-header";
-
-        const pcName = document.createElement("strong");
-        pcName.textContent = pc;
-
-        const tier = document.createElement("span");
-        tier.textContent = data.tier;
-
-        pcHeader.appendChild(pcName);
-        pcHeader.appendChild(tier);
-
-        const items = document.createElement("div");
-        items.className = "defect-record-items";
-
-        data.defects.forEach(record => {
-            const item = document.createElement("div");
-            item.className = "defect-record-item";
-
-            const type = document.createElement("strong");
-            type.className = "defect-record-type";
-            type.textContent = typeLabels[record.type] || record.type;
-
-            const note = document.createElement("span");
-            note.className = "defect-record-note";
-            note.textContent = record.note || "No description";
-
-            const removeButton = document.createElement("button");
-            removeButton.type = "button";
-            removeButton.className = "remove-defect-btn";
-            removeButton.dataset.defectKey =
-                `${record.pc}|${record.type}`;
-            removeButton.textContent = "Remove";
-
-            item.appendChild(type);
-            item.appendChild(note);
-            item.appendChild(removeButton);
-
-            items.appendChild(item);
-        });
-
-        pcCard.appendChild(pcHeader);
-        pcCard.appendChild(items);
-
-        defectRecordsList.appendChild(pcCard);
-    });
-}
-
 if (defectPcSelect) {
     defectPcSelect.addEventListener("change", () => {
         updateDefectSelectionLabel();
@@ -688,33 +601,12 @@ document.addEventListener("click", event => {
     });
 
     updateDefectSummary();
-    renderDefectRecords();
 
     updateDefectSelectionLabel(
         `✓ ${typeLabels[selectedType]} added to ${pc.pc}.`
     );
 
     resetDefectInputs();
-});
-
-// Remove individual defect.
-document.addEventListener("click", event => {
-    const button = event.target.closest(".remove-defect-btn");
-
-    if (!button) return;
-
-    event.preventDefault();
-    event.stopPropagation();
-
-    const key = button.dataset.defectKey;
-
-    if (!key) return;
-
-    defectRecords.delete(key);
-
-    updateDefectSummary();
-    renderDefectRecords();
-    updateDefectSelectionLabel("Defect removed.");
 });
 
 // Clear all defects.
@@ -729,7 +621,6 @@ document.addEventListener("click", event => {
     defectRecords.clear();
 
     updateDefectSummary();
-    renderDefectRecords();
     resetDefectInputs();
 
     updateDefectSelectionLabel(
@@ -738,7 +629,6 @@ document.addEventListener("click", event => {
 });
 
 updateDefectSummary();
-renderDefectRecords();
 
 // Signature pads: draw directly with mouse, touch, or pen.
 function setupSignaturePad(canvasId, placeholderId) {
