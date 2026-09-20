@@ -3859,7 +3859,7 @@ body.shift-modal-open {
 
 
 /* =====================================================
-   PRINT
+   PRINT — SHIFT REPORT + OVERALL REPORT
    ===================================================== */
 
 @media print {
@@ -3874,8 +3874,9 @@ body.shift-modal-open {
         display: none !important;
     }
 
-    /* Show ONLY the shift preview */
-    body>#shiftPreviewModal {
+    /* Show ONLY the active report preview */
+    body>#shiftPreviewModal,
+    body>#overallPreviewModal {
         display: block !important;
         position: static !important;
         width: 100% !important;
@@ -3888,12 +3889,14 @@ body.shift-modal-open {
     }
 
     /* Remove modal background */
-    #shiftPreviewModal .shift-preview-backdrop {
+    #shiftPreviewModal .shift-preview-backdrop,
+    #overallPreviewModal .shift-preview-backdrop {
         display: none !important;
     }
 
     /* Remove modal/card styling */
-    #shiftPreviewModal .shift-preview-card {
+    #shiftPreviewModal .shift-preview-card,
+    #overallPreviewModal .shift-preview-card {
         display: block !important;
         position: static !important;
         width: 100% !important;
@@ -3909,14 +3912,17 @@ body.shift-modal-open {
         background: #fff !important;
     }
 
-    /* Hide close button and print button */
+    /* Hide close + print buttons */
     #shiftPreviewModal .shift-preview-actions,
-    #shiftPreviewModal .shift-preview-bottom-actions {
+    #shiftPreviewModal .shift-preview-bottom-actions,
+    #overallPreviewModal .shift-preview-actions,
+    #overallPreviewModal .shift-preview-bottom-actions {
         display: none !important;
     }
 
-    /* Printable report */
-    #shiftReportSheet {
+    /* Printable report sheet */
+    #shiftReportSheet,
+    #overallReportSheet {
         display: block !important;
         position: static !important;
         width: 100% !important;
@@ -3931,7 +3937,7 @@ body.shift-modal-open {
         border-radius: 0 !important;
     }
 
-    /* Prevent awkward section splitting */
+    /* Keep sections together */
     .shift-preview-section {
         break-inside: avoid !important;
         page-break-inside: avoid !important;
