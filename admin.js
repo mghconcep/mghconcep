@@ -73,7 +73,8 @@ return String(value ?? '').replace(/[&<>'"]/g, c => ({
         id,
         report_date,
         created_at,
-        follow_up_report
+        follow_up_report,
+        changes
     `)
     .order('report_date', { ascending: false })
     .order('created_at', { ascending: false });
@@ -106,6 +107,7 @@ return String(value ?? '').replace(/[&<>'"]/g, c => ({
 return [
     r.report_date,
     r.follow_up_report,
+    r.changes,
     r.signoff?.admin_name,
     r.signoff?.tech_name
 ].some(v =>
@@ -330,18 +332,17 @@ return [
                 <i>✓</i></span>`).join(''):'<span class="muted small">None marked</span>'}</div>
           </div>`;
 
-          const types=['Keyboard','Mouse','Headset'];
+          const types=['Keyboard','Mouse','Headset','Monitor','Power Cord'];
           const inventoryBlocks=types.map(type=>{
           const rows=d.inventory.filter(x=>x.peripheral_type===type);
-          const std=rows.filter(x=>x.category==='Standard');
-          const vipRows=rows.filter(x=>x.category==='VIP');
-          const group=(title,list)=>`<div class="inventory-group">
-            <div class="inventory-title">${title}</div>${list.length?list.map(x=>`<div class="inventory-row">
-              <span>${esc(x.brand)}</span><strong>${esc(x.quantity)}</strong>
-            </div>`).join(''):'<div class="inventory-row muted"><span>No entries</span><strong>—</strong></div>'}
+          const stdTotal=rows.filter(x=>x.category==='Standard').reduce((sum,x)=>sum+(Number(x.quantity)||0),0);
+          const vipTotal=rows.filter(x=>x.category==='VIP').reduce((sum,x)=>sum+(Number(x.quantity)||0),0);
+          const group=(title,total)=>`<div class="inventory-group">
+            <div class="inventory-title">${title}</div>
+            <div class="inventory-row"><span>Quantity</span><strong>${total}</strong></div>
           </div>`;
           return `<div class="inventory-card">
-            <h4>${type}</h4>${group('Standard',std)}${group('VIP',vipRows)}
+            <h4>${type}</h4>${group('Standard',stdTotal)}${group('VIP',vipTotal)}
           </div>`;
           }).join('');
 
@@ -444,22 +445,25 @@ return [
               <div class="inventory-grid">${inventoryBlocks}</div>
             </section>
 
-            <section class="report-section">
+            <section class="report-section overall-spare-followup-admin">
               <div class="report-section-title"><span>05</span>
-                <h3>SPARE ITEMS</h3>
+                <h3>SPARE ITEMS &amp; FOLLOW UP</h3>
               </div>
               <div class="spare-grid">${spareRows}</div>
-            </section>
 
-            <section class="report-section">
-              <div class="report-section-title"><span>06</span>
-                <h3>FOLLOW UP REPORT</h3>
+              <div class="overall-admin-subsection">
+                <div class="overall-admin-subtitle">FOLLOW UP REPORT</div>
+                <div class="followup-box">${esc(r.follow_up_report||'No follow-up report entered.')}</div>
               </div>
-              <div class="followup-box">${esc(r.follow_up_report||'No follow-up report entered.')}</div>
+
+              <div class="overall-admin-subsection">
+                <div class="overall-admin-subtitle">CHANGES</div>
+                <div class="followup-box">${esc(r.changes||'No changes reported.')}</div>
+              </div>
             </section>
 
             <section class="report-section signoff-section">
-              <div class="report-section-title"><span>07</span>
+              <div class="report-section-title"><span>06</span>
                 <h3>REPORT SIGN-OFF</h3>
               </div>
               <div class="signoff-grid">

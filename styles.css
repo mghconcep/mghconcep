@@ -3859,6 +3859,150 @@ body.shift-modal-open {
 
 
 /* =====================================================
+   OVERALL REPORT — PERIPHERAL INVENTORY PREVIEW
+   ===================================================== */
+
+#overallPreviewInventory {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.overall-inventory-card {
+    padding: 12px;
+    border: 1px solid rgba(105, 139, 220, .28);
+    border-radius: 10px;
+    background: rgba(9, 17, 34, .72);
+}
+
+.overall-inventory-card > strong {
+    display: block;
+    margin-bottom: 9px;
+    color: #eef4ff;
+    font-size: 11px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+.overall-inventory-counts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+}
+
+.overall-inventory-counts > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 7px 8px;
+    border-radius: 7px;
+    background: rgba(255, 255, 255, .04);
+}
+
+.overall-inventory-counts span {
+    color: #9aa9c2;
+    font-size: 9px;
+}
+
+.overall-inventory-counts b {
+    color: #fff;
+    font-size: 11px;
+}
+
+@media (max-width: 700px) {
+    #overallPreviewInventory {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media print {
+    #overallPreviewInventory {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+    }
+
+    .overall-inventory-card {
+        padding: 8px !important;
+        border: 1px solid #cbd5e1 !important;
+        background: #fff !important;
+        color: #111827 !important;
+        break-inside: avoid;
+    }
+
+    .overall-inventory-card > strong,
+    .overall-inventory-counts b {
+        color: #111827 !important;
+    }
+
+    .overall-inventory-counts > div {
+        background: #f3f4f6 !important;
+    }
+
+    .overall-inventory-counts span {
+        color: #4b5563 !important;
+    }
+}
+
+
+/* =====================================================
+   OVERALL REPORT — SPARE ITEMS + FOLLOW UP + CHANGES
+   ===================================================== */
+
+.overall-spare-followup-section .overall-spare-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.overall-spare-followup-section .overall-spare-grid > div {
+    min-width: 0;
+}
+
+.overall-followup-block {
+    margin-top: 14px;
+}
+
+.overall-preview-subtitle {
+    margin-bottom: 7px;
+    font-size: 10px;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: .08em;
+    color: #163b72;
+}
+
+.overall-followup-block .shift-preview-text {
+    min-height: 44px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+@media (max-width: 700px) {
+    .overall-spare-followup-section .overall-spare-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media print {
+    .overall-spare-followup-section .overall-spare-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+    }
+
+    .overall-followup-block {
+        margin-top: 10px !important;
+    }
+
+    .overall-preview-subtitle {
+        color: #111827 !important;
+        margin-bottom: 5px !important;
+    }
+
+    .overall-followup-block .shift-preview-text {
+        min-height: 34px !important;
+    }
+}
+
+/* =====================================================
    PRINT — SHIFT REPORT + OVERALL REPORT
    ===================================================== */
 

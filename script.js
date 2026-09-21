@@ -41,23 +41,27 @@ function getPcStatusRows() {
 }
 
 const INVENTORY_MAP = {
-  'keyboard-standard-red-dragon': ['Keyboard', 'Standard', 'Red Dragon'],
-  'keyboard-standard-inplay': ['Keyboard', 'Standard', 'Inplay'],
-  'keyboard-vip-red-dragon': ['Keyboard', 'VIP', 'Red Dragon'],
-  'mouse-standard-fantech': ['Mouse', 'Standard', 'Fantech'],
-  'mouse-standard-red-dragon': ['Mouse', 'Standard', 'Red Dragon'],
-  'mouse-vip-red-dragon': ['Mouse', 'VIP', 'Red Dragon'],
-  'headset-standard-fantech': ['Headset', 'Standard', 'Fantech'],
-  'headset-vip-fantech': ['Headset', 'VIP', 'Fantech'],
-  'headset-vip-badwolf': ['Headset', 'VIP', 'Badwolf'],
-  'headset-vip-red-dragon': ['Headset', 'VIP', 'Red Dragon'],
-  'headset-vip-keytech': ['Headset', 'VIP', 'Keytech']
+  'keyboard-standard': ['Keyboard', 'Standard'],
+  'keyboard-vip': ['Keyboard', 'VIP'],
+  'mouse-standard': ['Mouse', 'Standard'],
+  'mouse-vip': ['Mouse', 'VIP'],
+  'headset-standard': ['Headset', 'Standard'],
+  'headset-vip': ['Headset', 'VIP'],
+  'monitor-standard': ['Monitor', 'Standard'],
+  'monitor-vip': ['Monitor', 'VIP'],
+  'power-cord-standard': ['Power Cord', 'Standard'],
+  'power-cord-vip': ['Power Cord', 'VIP']
 };
 
 function getInventoryRows() {
-  return Object.entries(INVENTORY_MAP).map(([key, [peripheral_type, category, brand]]) => {
+  return Object.entries(INVENTORY_MAP).map(([key, [peripheral_type, category]]) => {
     const input = document.querySelector(`[data-inventory="${key}"]`);
-    return { peripheral_type, category, brand, quantity: Math.max(0, Math.floor(Number(input?.value) || 0)) };
+    return {
+      peripheral_type,
+      category,
+      brand: null,
+      quantity: Math.max(0, Math.floor(Number(input?.value) || 0))
+    };
   });
 }
 
@@ -730,12 +734,16 @@ setInterval(updateLiveDateTime, 1000);
 
 // Editable peripheral inventory counts
 const inventoryGroups = {
-  keyboardStandardTotal: ['keyboard-standard-red-dragon', 'keyboard-standard-inplay'],
-  keyboardVipTotal: ['keyboard-vip-red-dragon'],
-  mouseStandardTotal: ['mouse-standard-fantech', 'mouse-standard-red-dragon'],
-  mouseVipTotal: ['mouse-vip-red-dragon'],
-  headsetStandardTotal: ['headset-standard-fantech'],
-  headsetVipTotal: ['headset-vip-fantech', 'headset-vip-badwolf', 'headset-vip-red-dragon', 'headset-vip-keytech']
+  keyboardStandardTotal: ['keyboard-standard'],
+  keyboardVipTotal: ['keyboard-vip'],
+  mouseStandardTotal: ['mouse-standard'],
+  mouseVipTotal: ['mouse-vip'],
+  headsetStandardTotal: ['headset-standard'],
+  headsetVipTotal: ['headset-vip'],
+  monitorStandardTotal: ['monitor-standard'],
+  monitorVipTotal: ['monitor-vip'],
+  powerCordStandardTotal: ['power-cord-standard'],
+  powerCordVipTotal: ['power-cord-vip']
 };
 
 function updateInventoryTotals() {
@@ -2050,10 +2058,29 @@ function collectOverallReportPreviewData() {
      04 — INVENTORY
      ===================================================== */
 
-  const inventory = getInventoryRows().map(item => ({
-    name: `${item.peripheral_type} — ${item.category} — ${item.brand}`,
-    quantity: item.quantity
-  }));
+  const inventoryRows = getInventoryRows();
+
+  const inventory = [
+    "Keyboard",
+    "Mouse",
+    "Headset",
+    "Monitor",
+    "Power Cord"
+  ].map(peripheralType => {
+    const rows = inventoryRows.filter(
+      item => item.peripheral_type === peripheralType
+    );
+
+    const standard = rows.find(item => item.category === "Standard")?.quantity ?? 0;
+    const vip = rows.find(item => item.category === "VIP")?.quantity ?? 0;
+
+    return {
+      peripheral_type: peripheralType,
+      standard,
+      vip,
+      total: standard + vip
+    };
+  });
 
 
   /* =====================================================
@@ -2283,12 +2310,35 @@ if (inventoryContainer) {
 
     report.inventory.forEach(item => {
 
-      const row = document.createElement("div");
+      const card = document.createElement("div");
+      card.className = "overall-inventory-card";
 
-      row.textContent =
-        `${item.name} — ${item.quantity ?? "0"}`;
+      const title = document.createElement("strong");
+      title.textContent = item.peripheral_type;
+      card.appendChild(title);
 
-      inventoryContainer.appendChild(row);
+      const counts = document.createElement("div");
+      counts.className = "overall-inventory-counts";
+
+      [
+        ["Standard", item.standard],
+        ["VIP", item.vip],
+        ["Total", item.total]
+      ].forEach(([label, value]) => {
+        const count = document.createElement("div");
+        const labelEl = document.createElement("span");
+        const valueEl = document.createElement("b");
+
+        labelEl.textContent = label;
+        valueEl.textContent = String(value ?? 0);
+
+        count.appendChild(labelEl);
+        count.appendChild(valueEl);
+        counts.appendChild(count);
+      });
+
+      card.appendChild(counts);
+      inventoryContainer.appendChild(card);
 
     });
 

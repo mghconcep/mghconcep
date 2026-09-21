@@ -1007,6 +1007,44 @@ td {
     min-height: 60px
 }
 
+
+/* =========================================================
+   OVERALL REPORT — SPARE ITEMS + FOLLOW UP + CHANGES
+   ========================================================= */
+
+.overall-admin-subsection {
+    margin-top: 14px;
+}
+
+.overall-admin-subtitle {
+    margin-bottom: 7px;
+    font-size: 9px;
+    line-height: 1.2;
+    font-weight: 900;
+    letter-spacing: .1em;
+    color: #5b6780;
+}
+
+.overall-admin-subsection .followup-box {
+    min-height: 50px;
+}
+
+@media print {
+    #reportModal .overall-admin-subsection {
+        margin-top: 8px !important;
+    }
+
+    #reportModal .overall-admin-subtitle {
+        margin-bottom: 4px !important;
+        font-size: 6px !important;
+        color: #111827 !important;
+    }
+
+    #reportModal .overall-admin-subsection .followup-box {
+        min-height: 30px !important;
+    }
+}
+
 .signoff-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;

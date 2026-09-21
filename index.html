@@ -546,8 +546,7 @@
                     <div class="inventory-heading">
                         <div>
                             <p class="form-title">Overall Peripherals Count</p>
-                            <p class="inventory-subtitle">Edit the quantity directly. Brand totals update automatically.
-                            </p>
+                            <p class="inventory-subtitle">Enter the current quantity for each peripheral type. Brand is not fixed.</p>
                         </div>
                     </div>
 
@@ -557,19 +556,12 @@
                                 <div><strong>Keyboard</strong><small>40 total units</small></div>
                             </div>
                             <div class="inventory-tier clean-tier">
-                                <div class="tier-head"><span class="tier-label">Standard</span><span
-                                        class="tier-total">Total <strong id="keyboardStandardTotal">30</strong></span>
-                                </div>
-                                <label class="count-row">Red Dragon <input class="inventory-count" type="number" min="0"
-                                        max="99" value="30" data-inventory="keyboard-standard-red-dragon"></label>
-                                <label class="count-row">Inplay <input class="inventory-count" type="number" min="0"
-                                        max="99" value="0" data-inventory="keyboard-standard-inplay"></label>
+                                <div class="tier-head"><span class="tier-label">Standard</span><span class="tier-total">Total <strong id="keyboardStandardTotal">30</strong></span></div>
+                                <label class="count-row">Quantity <input class="inventory-count" type="number" min="0" max="99" value="30" data-inventory="keyboard-standard"></label>
                             </div>
                             <div class="inventory-tier clean-tier">
-                                <div class="tier-head"><span class="tier-label">VIP</span><span class="tier-total">Total
-                                        <strong id="keyboardVipTotal">10</strong></span></div>
-                                <label class="count-row">Red Dragon <input class="inventory-count" type="number" min="0"
-                                        max="99" value="10" data-inventory="keyboard-vip-red-dragon"></label>
+                                <div class="tier-head"><span class="tier-label">VIP</span><span class="tier-total">Total <strong id="keyboardVipTotal">10</strong></span></div>
+                                <label class="count-row">Quantity <input class="inventory-count" type="number" min="0" max="99" value="10" data-inventory="keyboard-vip"></label>
                             </div>
                         </section>
 
@@ -578,19 +570,12 @@
                                 <div><strong>Mouse</strong><small>40 total units</small></div>
                             </div>
                             <div class="inventory-tier clean-tier">
-                                <div class="tier-head"><span class="tier-label">Standard</span><span
-                                        class="tier-total">Total <strong id="mouseStandardTotal">30</strong></span>
-                                </div>
-                                <label class="count-row">Fantech <input class="inventory-count" type="number" min="0"
-                                        max="99" value="6" data-inventory="mouse-standard-fantech"></label>
-                                <label class="count-row">Red Dragon <input class="inventory-count" type="number" min="0"
-                                        max="99" value="24" data-inventory="mouse-standard-red-dragon"></label>
+                                <div class="tier-head"><span class="tier-label">Standard</span><span class="tier-total">Total <strong id="mouseStandardTotal">30</strong></span></div>
+                                <label class="count-row">Quantity <input class="inventory-count" type="number" min="0" max="99" value="30" data-inventory="mouse-standard"></label>
                             </div>
                             <div class="inventory-tier clean-tier">
-                                <div class="tier-head"><span class="tier-label">VIP</span><span class="tier-total">Total
-                                        <strong id="mouseVipTotal">10</strong></span></div>
-                                <label class="count-row">Red Dragon <input class="inventory-count" type="number" min="0"
-                                        max="99" value="10" data-inventory="mouse-vip-red-dragon"></label>
+                                <div class="tier-head"><span class="tier-label">VIP</span><span class="tier-total">Total <strong id="mouseVipTotal">10</strong></span></div>
+                                <label class="count-row">Quantity <input class="inventory-count" type="number" min="0" max="99" value="10" data-inventory="mouse-vip"></label>
                             </div>
                         </section>
 
@@ -599,23 +584,40 @@
                                 <div><strong>Headset</strong><small>40 total units</small></div>
                             </div>
                             <div class="inventory-tier clean-tier">
-                                <div class="tier-head"><span class="tier-label">Standard</span><span
-                                        class="tier-total">Total <strong id="headsetStandardTotal">30</strong></span>
-                                </div>
-                                <label class="count-row">Fantech <input class="inventory-count" type="number" min="0"
-                                        max="99" value="30" data-inventory="headset-standard-fantech"></label>
+                                <div class="tier-head"><span class="tier-label">Standard</span><span class="tier-total">Total <strong id="headsetStandardTotal">30</strong></span></div>
+                                <label class="count-row">Quantity <input class="inventory-count" type="number" min="0" max="99" value="30" data-inventory="headset-standard"></label>
                             </div>
                             <div class="inventory-tier clean-tier">
-                                <div class="tier-head"><span class="tier-label">VIP</span><span class="tier-total">Total
-                                        <strong id="headsetVipTotal">10</strong></span></div>
-                                <label class="count-row">Fantech <input class="inventory-count" type="number" min="0"
-                                        max="99" value="6" data-inventory="headset-vip-fantech"></label>
-                                <label class="count-row">Badwolf <input class="inventory-count" type="number" min="0"
-                                        max="99" value="2" data-inventory="headset-vip-badwolf"></label>
-                                <label class="count-row">Red Dragon <input class="inventory-count" type="number" min="0"
-                                        max="99" value="1" data-inventory="headset-vip-red-dragon"></label>
-                                <label class="count-row">Keytech <input class="inventory-count" type="number" min="0"
-                                        max="99" value="1" data-inventory="headset-vip-keytech"></label>
+                                <div class="tier-head"><span class="tier-label">VIP</span><span class="tier-total">Total <strong id="headsetVipTotal">10</strong></span></div>
+                                <label class="count-row">Quantity <input class="inventory-count" type="number" min="0" max="99" value="10" data-inventory="headset-vip"></label>
+                            </div>
+                        </section>
+
+                        <section class="inventory-item clean-inventory-item">
+                            <div class="inventory-item-head"><span class="inventory-icon">🖥</span>
+                                <div><strong>Monitor</strong><small>40 total units</small></div>
+                            </div>
+                            <div class="inventory-tier clean-tier">
+                                <div class="tier-head"><span class="tier-label">Standard</span><span class="tier-total">Total <strong id="monitorStandardTotal">30</strong></span></div>
+                                <label class="count-row">Quantity <input class="inventory-count" type="number" min="0" max="99" value="30" data-inventory="monitor-standard"></label>
+                            </div>
+                            <div class="inventory-tier clean-tier">
+                                <div class="tier-head"><span class="tier-label">VIP</span><span class="tier-total">Total <strong id="monitorVipTotal">10</strong></span></div>
+                                <label class="count-row">Quantity <input class="inventory-count" type="number" min="0" max="99" value="10" data-inventory="monitor-vip"></label>
+                            </div>
+                        </section>
+
+                        <section class="inventory-item clean-inventory-item">
+                            <div class="inventory-item-head"><span class="inventory-icon">🔌</span>
+                                <div><strong>Power Cord</strong><small>40 total units</small></div>
+                            </div>
+                            <div class="inventory-tier clean-tier">
+                                <div class="tier-head"><span class="tier-label">Standard</span><span class="tier-total">Total <strong id="powerCordStandardTotal">30</strong></span></div>
+                                <label class="count-row">Quantity <input class="inventory-count" type="number" min="0" max="99" value="30" data-inventory="power-cord-standard"></label>
+                            </div>
+                            <div class="inventory-tier clean-tier">
+                                <div class="tier-head"><span class="tier-label">VIP</span><span class="tier-total">Total <strong id="powerCordVipTotal">10</strong></span></div>
+                                <label class="count-row">Quantity <input class="inventory-count" type="number" min="0" max="99" value="10" data-inventory="power-cord-vip"></label>
                             </div>
                         </section>
                     </div>
@@ -1440,27 +1442,11 @@
 
             </div>
 
-            <!-- 01 CHANGES -->
+            <!-- 01 GAMES UPDATE -->
             <section class="shift-preview-section">
 
                 <div class="shift-preview-section-title">
                     <span>01</span>
-                    <h3>CHANGES</h3>
-                </div>
-
-                <div
-                    class="shift-preview-text"
-                    id="overallPreviewChanges">
-                    —
-                </div>
-
-            </section>
-
-            <!-- 02 GAMES UPDATE -->
-            <section class="shift-preview-section">
-
-                <div class="shift-preview-section-title">
-                    <span>02</span>
                     <h3>GAMES UPDATED</h3>
                 </div>
 
@@ -1472,11 +1458,11 @@
 
             </section>
 
-            <!-- 03 DEFECTIVE PERIPHERALS -->
+            <!-- 02 DEFECTIVE PERIPHERALS -->
             <section class="shift-preview-section">
 
                 <div class="shift-preview-section-title">
-                    <span>03</span>
+                    <span>02</span>
                     <h3>DEFECTIVE PERIPHERALS</h3>
                 </div>
 
@@ -1488,11 +1474,11 @@
 
             </section>
 
-            <!-- 04 PC NUMBER WITH NO DEFECTS -->
+            <!-- 03 PC NUMBER WITH NO DEFECTS -->
             <section class="shift-preview-section">
 
                 <div class="shift-preview-section-title">
-                    <span>04</span>
+                    <span>03</span>
                     <h3>PC NUMBER WITH NO DEFECTS</h3>
                 </div>
 
@@ -1504,11 +1490,11 @@
 
             </section>
 
-            <!-- 05 OVERALL PERIPHERALS COUNT -->
+            <!-- 04 OVERALL PERIPHERALS COUNT -->
             <section class="shift-preview-section">
 
                 <div class="shift-preview-section-title">
-                    <span>05</span>
+                    <span>04</span>
                     <h3>OVERALL PERIPHERALS COUNT</h3>
                 </div>
 
@@ -1520,58 +1506,55 @@
 
             </section>
 
-            <!-- 06 SPARE ITEMS & FOLLOW UP -->
-            <section class="shift-preview-section">
+            <!-- 05 SPARE ITEMS & FOLLOW UP -->
+            <section class="shift-preview-section overall-spare-followup-section">
 
                 <div class="shift-preview-section-title">
-                    <span>06</span>
+                    <span>05</span>
                     <h3>SPARE ITEMS & FOLLOW UP</h3>
                 </div>
 
-                <div class="shift-preview-spares">
+                <div class="shift-preview-spares overall-spare-grid">
 
                     <div>
-                        <span>Keyboard</span>
+                        <span>Spare Keyboard</span>
                         <strong id="overallPreviewSpareKeyboard">—</strong>
                     </div>
 
                     <div>
-                        <span>Mouse</span>
+                        <span>Spare Mouse</span>
                         <strong id="overallPreviewSpareMouse">—</strong>
                     </div>
 
                     <div>
-                        <span>Headset</span>
+                        <span>Spare Headset</span>
                         <strong id="overallPreviewSpareHeadset">—</strong>
                     </div>
 
                     <div>
-                        <span>Power Cord</span>
+                        <span>Spare Power Cord</span>
                         <strong id="overallPreviewSparePowerCord">—</strong>
                     </div>
 
                 </div>
 
-                <div class="shift-preview-text" style="margin-top: 14px;">
+                <div class="overall-followup-block">
+                    <div class="overall-preview-subtitle">FOLLOW UP REPORT</div>
+                    <div class="shift-preview-text" id="overallPreviewFollowUp">—</div>
+                </div>
 
-                    <strong
-                        style="display:block; margin-bottom:6px; font-size:10px; letter-spacing:.06em;">
-                        FOLLOW UP REPORT
-                    </strong>
-
-                    <span id="overallPreviewFollowUp">
-                        —
-                    </span>
-
+                <div class="overall-followup-block overall-changes-block">
+                    <div class="overall-preview-subtitle">CHANGES</div>
+                    <div class="shift-preview-text" id="overallPreviewChanges">—</div>
                 </div>
 
             </section>
 
-            <!-- 07 REPORT SIGN-OFF -->
+            <!-- 06 REPORT SIGN-OFF -->
             <section class="shift-preview-section">
 
                 <div class="shift-preview-section-title">
-                    <span>07</span>
+                    <span>06</span>
                     <h3>REPORT SIGN-OFF</h3>
                 </div>
 
