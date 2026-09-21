@@ -4500,3 +4500,96 @@ body.shift-modal-open {
         grid-row: 1 / span 2;
     }
 }
+
+/* =====================================================
+   FINAL POLISH — OVERALL REPORT INVENTORY + FOLLOW-UP
+   ===================================================== */
+
+/* Keep the overall report visually consistent with the rest of
+   the white report sheet. */
+#overallPreviewInventory .overall-inventory-card {
+    background: #f8fafc !important;
+    border: 1px solid #dbe2ea !important;
+    color: #111827 !important;
+}
+
+#overallPreviewInventory .overall-inventory-card > strong {
+    color: #111827 !important;
+}
+
+#overallPreviewInventory .overall-inventory-counts > div {
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+#overallPreviewInventory .overall-inventory-counts span {
+    color: #64748b !important;
+}
+
+#overallPreviewInventory .overall-inventory-counts b {
+    color: #111827 !important;
+}
+
+/* Put Follow Up Report and Changes inside clear report boxes. */
+.overall-followup-block {
+    margin-top: 14px !important;
+    padding: 13px 14px !important;
+    border: 1px solid #dbe2ea !important;
+    border-radius: 10px !important;
+    background: #f8fafc !important;
+}
+
+.overall-followup-block .overall-preview-subtitle {
+    margin-bottom: 8px !important;
+    color: #163b72 !important;
+}
+
+.overall-followup-block .shift-preview-text {
+    min-height: 24px !important;
+    margin: 0 !important;
+    color: #374151 !important;
+}
+
+@media print {
+    #overallPreviewInventory .overall-inventory-card {
+        background: #f8fafc !important;
+        border: 1px solid #cbd5e1 !important;
+        color: #111827 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    #overallPreviewInventory .overall-inventory-card > strong,
+    #overallPreviewInventory .overall-inventory-counts b {
+        color: #111827 !important;
+    }
+
+    #overallPreviewInventory .overall-inventory-counts > div {
+        background: #ffffff !important;
+        border: 1px solid #dbe2ea !important;
+    }
+
+    #overallPreviewInventory .overall-inventory-counts span {
+        color: #4b5563 !important;
+    }
+
+    .overall-followup-block {
+        margin-top: 10px !important;
+        padding: 10px 12px !important;
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 8px !important;
+        background: #f8fafc !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+    }
+
+    .overall-followup-block .overall-preview-subtitle {
+        color: #111827 !important;
+    }
+
+    .overall-followup-block .shift-preview-text {
+        color: #374151 !important;
+    }
+}
