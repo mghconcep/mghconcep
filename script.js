@@ -59,7 +59,7 @@ function getInventoryRows() {
     return {
       peripheral_type,
       category,
-      brand: '',
+      brand: "",
       quantity: Math.max(0, Math.floor(Number(input?.value) || 0))
     };
   });

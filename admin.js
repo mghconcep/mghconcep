@@ -337,12 +337,12 @@ return [
           const rows=d.inventory.filter(x=>x.peripheral_type===type);
           const stdTotal=rows.filter(x=>x.category==='Standard').reduce((sum,x)=>sum+(Number(x.quantity)||0),0);
           const vipTotal=rows.filter(x=>x.category==='VIP').reduce((sum,x)=>sum+(Number(x.quantity)||0),0);
-          const group=(title,total)=>`<div class="inventory-group">
-            <div class="inventory-title">${title}</div>
-            <div class="inventory-row"><span>Quantity</span><strong>${total}</strong></div>
-          </div>`;
+          const total=stdTotal+vipTotal;
           return `<div class="inventory-card">
-            <h4>${type}</h4>${group('Standard',stdTotal)}${group('VIP',vipTotal)}
+            <h4>${type}</h4>
+            <div class="inventory-row"><span>Standard</span><strong>${stdTotal}</strong></div>
+            <div class="inventory-row"><span>VIP</span><strong>${vipTotal}</strong></div>
+            <div class="inventory-row inventory-total-row"><span>Total</span><strong>${total}</strong></div>
           </div>`;
           }).join('');
 
