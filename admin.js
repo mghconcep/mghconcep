@@ -80,7 +80,33 @@ return String(value ?? '').replace(/[&<>'"]/g, c => ({
     .order('created_at', { ascending: false });
         if (error) throw error;
 
-        reports = data || [];
+        const baseReports = data || [];
+
+        // Overall reports keep ADMIN/TECH names in report_signoffs.
+        // Load those sign-offs here as well so Report History shows the
+        // same names that are stored and displayed inside View Report.
+        const reportIds = baseReports.map(report => report.id);
+
+        let signoffRows = [];
+        if (reportIds.length) {
+            const { data: signoffs, error: signoffError } = await supabaseClient
+                .from('report_signoffs')
+                .select('report_id, admin_name, tech_name')
+                .in('report_id', reportIds);
+
+            if (signoffError) throw signoffError;
+            signoffRows = signoffs || [];
+        }
+
+        const signoffByReportId = new Map(
+            signoffRows.map(signoff => [signoff.report_id, signoff])
+        );
+
+        reports = baseReports.map(report => ({
+            ...report,
+            signoff: signoffByReportId.get(report.id) || null
+        }));
+
         renderReports();
 
     } catch (err) {
