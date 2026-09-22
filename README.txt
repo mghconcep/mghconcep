@@ -20,8 +20,3 @@ IMPORTANT:
 - The browser uses only the publishable key.
 
 If the report list is empty or a 401/403 error appears, check the Supabase Data API exposure, grants and RLS policies for the Gaming Hub tables.
-
-
-FINAL POLISH
-------------
-This package includes a UI-only visual polish pass for the staff and admin interfaces. Supabase/authentication/report data logic was not intentionally changed in this pass.
