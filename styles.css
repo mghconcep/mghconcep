@@ -4593,3 +4593,67 @@ body.shift-modal-open {
         color: #374151 !important;
     }
 }
+
+.shift-brand-count-wrapper {
+    display: grid;
+    gap: 22px;
+}
+
+.shift-brand-group {
+    padding: 18px;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 14px;
+    background: rgba(255,255,255,.025);
+}
+
+.shift-brand-group h4 {
+    margin: 0 0 12px;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.shift-brand-rows {
+    display: grid;
+    gap: 10px;
+}
+
+.shift-brand-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 110px 42px;
+    gap: 10px;
+    align-items: center;
+}
+
+.shift-brand-row input {
+    width: 100%;
+    min-width: 0;
+}
+
+.shift-brand-row .brand-quantity {
+    text-align: center;
+}
+
+.shift-remove-brand-btn {
+    width: 42px;
+    height: 42px;
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.shift-add-brand-btn {
+    margin-top: 12px;
+    padding: 9px 14px;
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+@media (max-width: 600px) {
+    .shift-brand-row {
+        grid-template-columns: minmax(0, 1fr) 85px 38px;
+        gap: 7px;
+    }
+}
