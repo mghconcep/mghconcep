@@ -1659,53 +1659,46 @@ function setShiftPeripheralPreview(peripheralCounts) {
 ];
     let hasData = false;
 
-    groups.forEach(([key, label]) => {
+  groups.forEach(([key, label]) => {
 
-        const items =
-            Array.isArray(peripheralCounts[key])
-                ? peripheralCounts[key]
-                : [];
+    const items =
+        Array.isArray(peripheralCounts[key])
+            ? peripheralCounts[key]
+            : [];
 
-        const group = document.createElement("div");
-        group.className = "preview-brand-group";
+    // Hide empty categories
+    if (!items.length) {
+        return;
+    }
 
-        const title = document.createElement("strong");
-        title.textContent = label;
+    hasData = true;
 
-        group.appendChild(title);
+    const group = document.createElement("div");
+    group.className = "preview-brand-group";
 
-        if (!items.length) {
+    const title = document.createElement("strong");
+    title.textContent = label;
 
-            const empty = document.createElement("div");
-            empty.textContent = "—";
-            empty.className = "preview-brand-empty";
+    group.appendChild(title);
 
-            group.appendChild(empty);
 
-        } else {
+    items.forEach(item => {
 
-            hasData = true;
+        const row = document.createElement("div");
 
-            items.forEach(item => {
+        row.className = "preview-brand-row";
 
-                const row =
-                    document.createElement("div");
+        row.textContent =
+            `${item.brand} - ${item.quantity}`;
 
-                row.className = "preview-brand-row";
-
-                row.textContent =
-                    `${item.brand} - ${item.quantity}`;
-
-                group.appendChild(row);
-
-            });
-
-        }
-
-        container.appendChild(group);
+        group.appendChild(row);
 
     });
 
+
+    container.appendChild(group);
+
+});
     if (!hasData) {
         container.textContent = "—";
     }
