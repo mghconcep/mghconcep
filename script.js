@@ -1134,6 +1134,218 @@ function createShiftPcOption(pcNumber, groupName, index) {
 
 }
 
+/* =========================================================
+   SHIFT REPORT — PERIPHERALS COUNT BY BRAND
+   ========================================================= */
+
+const SHIFT_BRAND_GROUPS = [
+    {
+        key: "standard_keyboard",
+        container: "shiftStandardKeyboardRows"
+    },
+    {
+        key: "standard_mouse",
+        container: "shiftStandardMouseRows"
+    },
+    {
+        key: "standard_headset",
+        container: "shiftStandardHeadsetRows"
+    },
+    {
+        key: "vip_headset",
+        container: "shiftVipHeadsetRows"
+    },
+    {
+        key: "standard_monitor",
+        container: "shiftStandardMonitorRows"
+    },
+    {
+        key: "monitor",
+        container: "shiftMonitorRows"
+    }
+];
+
+
+function createShiftBrandRow(containerId, brand = "", quantity = "") {
+
+    const container = document.getElementById(containerId);
+
+    if (!container) return;
+
+    const row = document.createElement("div");
+
+    row.className = "shift-brand-row";
+
+    row.innerHTML = `
+        <input
+            type="text"
+            class="shift-brand-name"
+            placeholder="Brand"
+            value="${escapeShiftHtml(brand)}"
+        >
+
+        <input
+            type="number"
+            class="brand-quantity"
+            min="0"
+            max="999"
+            placeholder="Qty"
+            value="${quantity !== "" ? quantity : ""}"
+        >
+
+        <button
+            type="button"
+            class="shift-remove-brand-btn"
+            aria-label="Remove brand"
+        >
+            ×
+        </button>
+    `;
+
+    container.appendChild(row);
+}
+
+
+function initializeShiftBrandRows() {
+
+    SHIFT_BRAND_GROUPS.forEach(group => {
+
+        const container =
+            document.getElementById(group.container);
+
+        if (!container) return;
+
+        container.innerHTML = "";
+
+        createShiftBrandRow(group.container);
+
+    });
+
+}
+
+
+document.addEventListener("click", event => {
+
+    const addButton =
+        event.target.closest(".shift-add-brand-btn");
+
+    if (addButton) {
+
+        const target =
+            addButton.dataset.brandTarget;
+
+        if (target) {
+            createShiftBrandRow(target);
+        }
+
+        return;
+    }
+
+
+    const removeButton =
+        event.target.closest(".shift-remove-brand-btn");
+
+    if (removeButton) {
+
+        const row =
+            removeButton.closest(".shift-brand-row");
+
+        const container =
+            row?.parentElement;
+
+        if (!row || !container) return;
+
+        /*
+         * Always keep one empty row available.
+         */
+        if (container.children.length > 1) {
+            row.remove();
+        } else {
+            const brand =
+                row.querySelector(".shift-brand-name");
+
+            const quantity =
+                row.querySelector(".brand-quantity");
+
+            if (brand) brand.value = "";
+            if (quantity) quantity.value = "";
+        }
+
+    }
+
+});
+
+
+function collectShiftPeripheralCounts() {
+
+    const result = {};
+
+    SHIFT_BRAND_GROUPS.forEach(group => {
+
+        const container =
+            document.getElementById(group.container);
+
+        if (!container) {
+            result[group.key] = [];
+            return;
+        }
+
+        const rows = [];
+
+        container
+            .querySelectorAll(".shift-brand-row")
+            .forEach(row => {
+
+                const brand =
+                    row.querySelector(".shift-brand-name")
+                        ?.value
+                        ?.trim();
+
+                const quantity =
+                    Number(
+                        row.querySelector(".brand-quantity")
+                            ?.value || 0
+                    );
+
+                if (!brand) return;
+
+                rows.push({
+                    brand,
+                    quantity: Number.isFinite(quantity)
+                        ? Math.max(0, Math.floor(quantity))
+                        : 0
+                });
+
+            });
+
+        result[group.key] = rows;
+
+    });
+
+    return result;
+}
+
+
+function resetShiftPeripheralCounts() {
+
+    SHIFT_BRAND_GROUPS.forEach(group => {
+
+        const container =
+            document.getElementById(group.container);
+
+        if (!container) return;
+
+        container.innerHTML = "";
+
+        createShiftBrandRow(group.container);
+
+    });
+
+}
+
+
+initializeShiftBrandRows();
+
 
 /* =========================================================
    SIGNATURE PAD
@@ -1735,6 +1947,8 @@ document
                 ? noDefectPcs.join(", ")
                 : null,
 
+            peripheral_counts: peripheralCounts,
+
             spare_keyboard: spareKeyboard,
             spare_mouse: spareMouse,
             spare_headset: spareHeadset,
@@ -1770,6 +1984,9 @@ document
       }
 
       const shiftReportId = shiftReport.id;
+
+      const peripheralCounts =
+    collectShiftPeripheralCounts();
 
       /* =====================================================
          SAVE UPDATED GAMES
