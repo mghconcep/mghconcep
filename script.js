@@ -1139,30 +1139,15 @@ function createShiftPcOption(pcNumber, groupName, index) {
    ========================================================= */
 
 const SHIFT_BRAND_GROUPS = [
-    {
-        key: "standard_keyboard",
-        container: "shiftStandardKeyboardRows"
-    },
-    {
-        key: "standard_mouse",
-        container: "shiftStandardMouseRows"
-    },
-    {
-        key: "standard_headset",
-        container: "shiftStandardHeadsetRows"
-    },
-    {
-        key: "vip_headset",
-        container: "shiftVipHeadsetRows"
-    },
-    {
-        key: "standard_monitor",
-        container: "shiftStandardMonitorRows"
-    },
-    {
-        key: "monitor",
-        container: "shiftMonitorRows"
-    }
+    { key:"standard_headset", container:"shiftStandardHeadsetRows" },
+    { key:"standard_keyboard", container:"shiftStandardKeyboardRows" },
+    { key:"standard_mouse", container:"shiftStandardMouseRows" },
+    { key:"standard_monitor", container:"shiftStandardMonitorRows" },
+
+    { key:"vip_headset", container:"shiftVipHeadsetRows" },
+    { key:"vip_keyboard", container:"shiftVipKeyboardRows" },
+    { key:"vip_mouse", container:"shiftVipMouseRows" },
+    { key:"vip_monitor", container:"shiftVipMonitorRows" }
 ];
 
 
