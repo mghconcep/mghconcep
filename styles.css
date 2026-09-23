@@ -4602,7 +4602,8 @@ body.shift-modal-open {
 .shift-brand-count-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 14px;
+    width: 100%;
 }
 
 .shift-brand-group {
@@ -4611,7 +4612,7 @@ body.shift-modal-open {
 
 .shift-brand-group > label {
     display: block;
-    margin: 0 0 7px;
+    margin-bottom: 5px;
 
     color: #8293ad;
     font-size: 9px;
@@ -4623,7 +4624,7 @@ body.shift-modal-open {
 .shift-brand-rows {
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 6px;
 }
 
 .shift-brand-row {
@@ -4682,7 +4683,7 @@ body.shift-modal-open {
 }
 
 .shift-add-brand-btn {
-    margin-top: 7px;
+    margin-top: 5px;
 
     border: 1px solid #30435f;
     background: #111f33;
