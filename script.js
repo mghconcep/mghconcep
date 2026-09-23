@@ -1707,6 +1707,10 @@ function showShiftReportPreview(report, games) {
 
   setShiftPreviewGames(games);
 
+  setShiftPeripheralPreview(
+    report.peripheral_counts
+);
+
 
   setShiftPreviewList(
     "previewNoDefectPcs",
@@ -2025,6 +2029,83 @@ document
         "Shift Report saved successfully.";
 
       saveButton.textContent = "Saved ✓";
+
+      function setShiftPeripheralPreview(peripheralCounts) {
+
+    const container =
+        document.getElementById("previewPeripheralCounts");
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    if (!peripheralCounts) {
+        container.textContent = "—";
+        return;
+    }
+
+    const groups = [
+        ["standard_keyboard", "Standard Keyboard:"],
+        ["standard_mouse", "Standard Mouse:"],
+        ["standard_headset", "Standard Headset:"],
+        ["vip_headset", "VIP Headset:"],
+        ["standard_monitor", "Standard Monitor:"],
+        ["monitor", "Monitor:"]
+    ];
+
+    let hasData = false;
+
+    groups.forEach(([key, label]) => {
+
+        const items =
+            Array.isArray(peripheralCounts[key])
+                ? peripheralCounts[key]
+                : [];
+
+        const group = document.createElement("div");
+        group.className = "preview-brand-group";
+
+        const title = document.createElement("strong");
+        title.textContent = label;
+
+        group.appendChild(title);
+
+        if (!items.length) {
+
+            const empty = document.createElement("div");
+            empty.textContent = "—";
+            empty.className = "preview-brand-empty";
+
+            group.appendChild(empty);
+
+        } else {
+
+            hasData = true;
+
+            items.forEach(item => {
+
+                const row =
+                    document.createElement("div");
+
+                row.className = "preview-brand-row";
+
+                row.textContent =
+                    `${item.brand} - ${item.quantity}`;
+
+                group.appendChild(row);
+
+            });
+
+        }
+
+        container.appendChild(group);
+
+    });
+
+    if (!hasData) {
+        container.textContent = "—";
+    }
+}
 
       /* =====================================================
    SHOW SAVED SHIFT REPORT
