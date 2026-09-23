@@ -4715,30 +4715,34 @@ body.shift-modal-open {
 }
 
 /* =========================================
-   TIGHTEN PERIPHERALS COUNT (BY BRAND)
+   COMPACT PERIPHERALS COUNT (BY BRAND)
    ========================================= */
 
 .shift-brand-count-wrapper {
     display: flex !important;
     flex-direction: column !important;
-    gap: 10px !important;
+    gap: 3px !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 .shift-brand-group {
     margin: 0 !important;
-    padding: 10px 12px !important;
-    gap: 6px !important;
+    padding: 5px 8px !important;
+    gap: 2px !important;
 }
 
 .shift-brand-group h4 {
-    margin: 0 0 6px 0 !important;
-    line-height: 1.2 !important;
+    margin: 0 0 3px 0 !important;
+    padding: 0 !important;
+    line-height: 1.1 !important;
+    font-size: 13px !important;
 }
 
 .shift-brand-rows {
     display: flex !important;
     flex-direction: column !important;
-    gap: 5px !important;
+    gap: 2px !important;
     margin: 0 !important;
     padding: 0 !important;
 }
@@ -4746,17 +4750,39 @@ body.shift-modal-open {
 /* Dynamically generated brand rows */
 .shift-brand-rows > * {
     margin: 0 !important;
-    padding: 5px 0 !important;
+    padding: 2px 0 !important;
     min-height: 0 !important;
 }
 
-/* Add Brand button */
-.shift-add-brand-btn {
-    margin-top: 6px !important;
-    margin-bottom: 0 !important;
+/* Make the actual boxes smaller */
+.shift-brand-rows input,
+.shift-brand-rows select {
+    height: 30px !important;
+    min-height: 30px !important;
+    padding: 4px 8px !important;
+    margin: 0 !important;
 }
 
-/* Remove extra spacing between groups */
+/* Small X button */
+.shift-brand-rows button {
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    min-height: 30px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* + Add Brand button */
+.shift-add-brand-btn {
+    margin: 3px 0 0 0 !important;
+    padding: 4px 8px !important;
+    min-height: 28px !important;
+    height: 28px !important;
+    line-height: 1 !important;
+}
+
+/* Remove spacing between groups */
 .shift-brand-group + .shift-brand-group {
     margin-top: 0 !important;
 }
