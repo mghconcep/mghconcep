@@ -2126,6 +2126,8 @@ document
         .getElementById("shiftReportForm")
         ?.reset();
 
+      resetShiftPeripheralCounts();
+
       document
         .querySelectorAll(
           '#shiftGameList input[type="checkbox"], ' +
