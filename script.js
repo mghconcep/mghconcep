@@ -1922,6 +1922,8 @@ document
           document.getElementById("shiftSparePowerCord")?.value || 0
         );
 
+      const peripheralCounts = collectShiftPeripheralCounts();
+
       /* =====================================================
          INSERT MAIN SHIFT REPORT
          ===================================================== */
