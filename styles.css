@@ -4713,3 +4713,50 @@ body.shift-modal-open {
         font-size: 11px;
     }
 }
+
+/* =========================================
+   TIGHTEN PERIPHERALS COUNT (BY BRAND)
+   ========================================= */
+
+.shift-brand-count-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+}
+
+.shift-brand-group {
+    margin: 0 !important;
+    padding: 10px 12px !important;
+    gap: 6px !important;
+}
+
+.shift-brand-group h4 {
+    margin: 0 0 6px 0 !important;
+    line-height: 1.2 !important;
+}
+
+.shift-brand-rows {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Dynamically generated brand rows */
+.shift-brand-rows > * {
+    margin: 0 !important;
+    padding: 5px 0 !important;
+    min-height: 0 !important;
+}
+
+/* Add Brand button */
+.shift-add-brand-btn {
+    margin-top: 6px !important;
+    margin-bottom: 0 !important;
+}
+
+/* Remove extra spacing between groups */
+.shift-brand-group + .shift-brand-group {
+    margin-top: 0 !important;
+}
