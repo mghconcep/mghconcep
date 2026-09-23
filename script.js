@@ -1647,6 +1647,84 @@ function setShiftPreviewGames(games) {
 }
 
 
+function setShiftPeripheralPreview(peripheralCounts) {
+
+    const container =
+        document.getElementById("previewPeripheralCounts");
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    if (!peripheralCounts) {
+        container.textContent = "—";
+        return;
+    }
+
+    const groups = [
+        ["standard_keyboard", "Standard Keyboard:"],
+        ["standard_mouse", "Standard Mouse:"],
+        ["standard_headset", "Standard Headset:"],
+        ["vip_headset", "VIP Headset:"],
+        ["standard_monitor", "Standard Monitor:"],
+        ["monitor", "Monitor:"]
+    ];
+
+    let hasData = false;
+
+    groups.forEach(([key, label]) => {
+
+        const items =
+            Array.isArray(peripheralCounts[key])
+                ? peripheralCounts[key]
+                : [];
+
+        const group = document.createElement("div");
+        group.className = "preview-brand-group";
+
+        const title = document.createElement("strong");
+        title.textContent = label;
+
+        group.appendChild(title);
+
+        if (!items.length) {
+
+            const empty = document.createElement("div");
+            empty.textContent = "—";
+            empty.className = "preview-brand-empty";
+
+            group.appendChild(empty);
+
+        } else {
+
+            hasData = true;
+
+            items.forEach(item => {
+
+                const row =
+                    document.createElement("div");
+
+                row.className = "preview-brand-row";
+
+                row.textContent =
+                    `${item.brand} - ${item.quantity}`;
+
+                group.appendChild(row);
+
+            });
+
+        }
+
+        container.appendChild(group);
+
+    });
+
+    if (!hasData) {
+        container.textContent = "—";
+    }
+}
+
+
 function showShiftReportPreview(report, games) {
 
   if (!report) return;
@@ -1917,82 +1995,82 @@ document
           document.getElementById("shiftSpareHeadset")?.value || 0
         );
 
-      const sparePowerCord =
-        Number(
-          document.getElementById("shiftSparePowerCord")?.value || 0
-        );
+     const sparePowerCord =
+  Number(
+    document.getElementById("shiftSparePowerCord")?.value || 0
+  );
 
-      const peripheralCounts = collectShiftPeripheralCounts();
+const peripheralCounts = collectShiftPeripheralCounts();
 
-      /* =====================================================
-         INSERT MAIN SHIFT REPORT
-         ===================================================== */
+/* =====================================================
+   INSERT MAIN SHIFT REPORT
+   ===================================================== */
 
-      const { data: shiftReport, error: shiftError } =
-        await supabaseClient
-          .from("shift_reports")
-          .insert({
-            report_date: reportDate,
-            shift_type: shiftType,
-            shift_time: shiftTime,
+const { data: shiftReport, error: shiftError } =
+  await supabaseClient
+    .from("shift_reports")
+    .insert({
+      report_date: reportDate,
+      shift_type: shiftType,
+      shift_time: shiftTime,
 
-            changes:
-              document.getElementById("shiftChanges")?.value?.trim() || null,
+      changes:
+        document.getElementById("shiftChanges")?.value?.trim() || null,
 
-            defective_keyboard:
-              document.getElementById("shiftDefectiveKeyboard")?.value?.trim() || null,
+      defective_keyboard:
+        document.getElementById("shiftDefectiveKeyboard")?.value?.trim() || null,
 
-            defective_mouse:
-              document.getElementById("shiftDefectiveMouse")?.value?.trim() || null,
+      defective_mouse:
+        document.getElementById("shiftDefectiveMouse")?.value?.trim() || null,
 
-            defective_headset:
-              document.getElementById("shiftDefectiveHeadset")?.value?.trim() || null,
+      defective_headset:
+        document.getElementById("shiftDefectiveHeadset")?.value?.trim() || null,
 
-            pc_no_defects:
-              noDefectPcs.length
-                ? noDefectPcs.join(", ")
-                : null,
+      pc_no_defects:
+        noDefectPcs.length
+          ? noDefectPcs.join(", ")
+          : null,
 
-            peripheral_counts: peripheralCounts,
+      peripheral_counts: peripheralCounts,
 
-            spare_keyboard: spareKeyboard,
-            spare_mouse: spareMouse,
-            spare_headset: spareHeadset,
-            spare_power_cord: sparePowerCord,
+      spare_keyboard: spareKeyboard,
+      spare_mouse: spareMouse,
+      spare_headset: spareHeadset,
+      spare_power_cord: sparePowerCord,
 
-            follow_up_report:
-              document.getElementById("shiftFollowUp")?.value?.trim() || null,
+      follow_up_report:
+        document.getElementById("shiftFollowUp")?.value?.trim() || null,
 
-            cleaned_pc:
-              cleanedPcs.length
-                ? cleanedPcs.join(", ")
-                : null,
+      cleaned_pc:
+        cleanedPcs.length
+          ? cleanedPcs.join(", ")
+          : null,
 
-            admin_name:
-              document.getElementById("shiftAdminName")?.value?.trim() || null,
+      admin_name:
+        document.getElementById("shiftAdminName")?.value?.trim() || null,
 
-            tech_name:
-              document.getElementById("shiftTechName")?.value?.trim() || null,
+      tech_name:
+        document.getElementById("shiftTechName")?.value?.trim() || null,
 
-            admin_signature:
-              document.getElementById("shiftAdminSignature")?.toDataURL("image/png") || null,
+      admin_signature:
+        document.getElementById("shiftAdminSignature")
+          ?.toDataURL("image/png") || null,
 
-            tech_signature:
-              document.getElementById("shiftTechSignature")?.toDataURL("image/png") || null,
+      tech_signature:
+        document.getElementById("shiftTechSignature")
+          ?.toDataURL("image/png") || null,
 
-            created_at: new Date().toISOString()
-          })
-          .select()
-          .single();
+      created_at: new Date().toISOString()
+    })
+    .select()
+    .single();
 
-      if (shiftError) {
-        throw shiftError;
-      }
+if (shiftError) {
+  throw shiftError;
+}
 
-      const shiftReportId = shiftReport.id;
+const shiftReportId = shiftReport.id;
 
-      const peripheralCounts =
-    collectShiftPeripheralCounts();
 
       /* =====================================================
          SAVE UPDATED GAMES
@@ -2032,82 +2110,6 @@ document
 
       saveButton.textContent = "Saved ✓";
 
-      function setShiftPeripheralPreview(peripheralCounts) {
-
-    const container =
-        document.getElementById("previewPeripheralCounts");
-
-    if (!container) return;
-
-    container.innerHTML = "";
-
-    if (!peripheralCounts) {
-        container.textContent = "—";
-        return;
-    }
-
-    const groups = [
-        ["standard_keyboard", "Standard Keyboard:"],
-        ["standard_mouse", "Standard Mouse:"],
-        ["standard_headset", "Standard Headset:"],
-        ["vip_headset", "VIP Headset:"],
-        ["standard_monitor", "Standard Monitor:"],
-        ["monitor", "Monitor:"]
-    ];
-
-    let hasData = false;
-
-    groups.forEach(([key, label]) => {
-
-        const items =
-            Array.isArray(peripheralCounts[key])
-                ? peripheralCounts[key]
-                : [];
-
-        const group = document.createElement("div");
-        group.className = "preview-brand-group";
-
-        const title = document.createElement("strong");
-        title.textContent = label;
-
-        group.appendChild(title);
-
-        if (!items.length) {
-
-            const empty = document.createElement("div");
-            empty.textContent = "—";
-            empty.className = "preview-brand-empty";
-
-            group.appendChild(empty);
-
-        } else {
-
-            hasData = true;
-
-            items.forEach(item => {
-
-                const row =
-                    document.createElement("div");
-
-                row.className = "preview-brand-row";
-
-                row.textContent =
-                    `${item.brand} - ${item.quantity}`;
-
-                group.appendChild(row);
-
-            });
-
-        }
-
-        container.appendChild(group);
-
-    });
-
-    if (!hasData) {
-        container.textContent = "—";
-    }
-}
 
       /* =====================================================
    SHOW SAVED SHIFT REPORT
