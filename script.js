@@ -1646,15 +1646,17 @@ function setShiftPeripheralPreview(peripheralCounts) {
         return;
     }
 
-    const groups = [
-        ["standard_keyboard", "Standard Keyboard:"],
-        ["standard_mouse", "Standard Mouse:"],
-        ["standard_headset", "Standard Headset:"],
-        ["vip_headset", "VIP Headset:"],
-        ["standard_monitor", "Standard Monitor:"],
-        ["monitor", "Monitor:"]
-    ];
+   const groups = [
+    ["standard_headset", "Standard Headset:"],
+    ["standard_keyboard", "Standard Keyboard:"],
+    ["standard_mouse", "Standard Mouse:"],
+    ["standard_monitor", "Standard Monitor:"],
 
+    ["vip_headset", "VIP Headset:"],
+    ["vip_keyboard", "VIP Keyboard:"],
+    ["vip_mouse", "VIP Mouse:"],
+    ["vip_monitor", "VIP Monitor:"]
+];
     let hasData = false;
 
     groups.forEach(([key, label]) => {
